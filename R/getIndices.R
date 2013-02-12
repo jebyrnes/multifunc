@@ -1,0 +1,102 @@
+#' @title getIndices
+#'
+#' @description
+#' \code{getIndices} Generates a variety of indices describing multifunctionality based on
+#' the number of functions greater than a threshold for many different threshold and coefficients describing
+#' the relationship between diversity and number of functoins greater than a threshold.
+#' 
+#' @details See Byrnes et al. In Review.
+#'
+#' @author Jarrett Byrnes.
+#' @param slopedata A data frame with slopes of the relationship between diversity and number of functions > threshold
+#' from \code{getCoefTab}.
+#' @param threshdata A data frame with the number of functions greater than a threshold for each plot at each threshold from \{getFuncsMaxed}.
+#' @param eqn The formula used for fitting the models in slopedata.
+#' @param fun The function used to refit the threshold data at key points to get intercepts, etc., that are needed for the table.
+#' @param divvar The name of the variable that has the measure of diversity or other driver in the threshdata data frame.
+#' @param groupVar The name of a variable by which data is grouped in the threshdata data frame. Typically "thresholds" from \code{getFuncsMaxed}.
+#' 
+#' 
+#' @export
+#' @return A data frame of indices
+#'
+#' @examples
+#' data(all_biodepth)
+#' allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+#'
+#' germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+#'
+#' vars<-whichVars(germany, allVars)
+#' 
+#' germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+#' 
+#' germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, data=germanyThresh, coefVar="Diversity", family=quasipoisson(link="identity"))
+#' 
+#' getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
+
+
+
+getIndices <- function(slopedata, threshdata, eqn, fun=glm, divvar = "Diversity",groupVar="thresholds"){
+  Smax <- max(threshdata[[divvar]], na.rm=T)
+  Smin <- min(threshdata[[divvar]], na.rm=T)
+  tdata <-  get_t_indices(slopedata)
+  
+  predFun <- function(thresh, S){
+    if(is.na(thresh)) return(NA)
+    subdata <- threshdata[which(threshdata[[groupVar]]==thresh),]
+    fit <- getFit(eqn, fun, subdata)
+    predict(fit, newdata=subdata[which(threshdata[[divvar]]==S),], type="response")[1]
+  }
+  
+  Mmin <- predFun(tdata$Tmin, Smin)
+  Mmax <- predFun(tdata$Tmax, Smax)
+  Mmde <- predFun(tdata$Tmde, Smax)
+  Rmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]/(threshdata$nFunc[1]/Smax)
+  
+  return(data.frame(Tmin = tdata$Tmin, Mmin=Mmin, Tmax = tdata$Tmax, Mmax=Mmax, Tmde = tdata$Tmde, Mmde = Mmde, Rmde.linear = Rmde.linear))
+}
+
+
+getFit <- function(eqn, fun=glm, adf, ...){
+  aFit<-try(fun(eqn, data=adf, ...))
+  
+  #if there was a problem, catch it and just return NAs for this coefficient
+  if("try-error" %in% class(aFit)) return(NA)
+  
+  if("glm" %in% class(aFit)) {    if(!aFit$converged) return(NA)  }
+  
+  return(aFit)
+}
+
+
+getIndices_nothresh <- function(eqn, fun=glm, threshdata, divvar = "Diversity", groupVar="thresholds", coefVar, ...){
+  slopedata = getCoefTab(eqn, fun=glm, threshdata, groupVar="thresholds", coefVar, ...)
+  getIndices(slopedata, threshdata, eqn, fun, divvar, groupVar)
+}
+
+
+
+get_t_indices <- function(adf){
+  minSlope <- adf$Estimate-2*adf[["Std. Error"]]
+  maxSlope <- adf$Estimate+2*adf[["Std. Error"]]
+  sloperng <- rbind(minSlope, maxSlope)
+  
+  #which thresholds have non-zero slopes
+  not0 <- sort( c( which(colSums(sloperng>0)==2), which(colSums(sloperng>0)==0))) 
+  
+  
+  if(not0[1]-1 ==0){
+    Tmin <- NA
+  }else{ Tmin <- adf$thresholds[not0[1]-1]
+  }
+  
+  if(range(not0)[2]+1 > length(adf$thresholds)){
+    Tmax <- NA
+  }else{
+    Tmax <- adf$thresholds[range(not0)[2]+1]
+  }
+  
+  Tmde <-  adf$thresholds[which( adf$Estimate == max( abs(adf$Estimate), na.rm=T))][1] #the [1] is in case there are multiple identical peaks
+  return(data.frame(Tmin = Tmin, Tmax = Tmax, Tmde = Tmde))
+  
+}

@@ -1,0 +1,26 @@
+\name{relevantSp}
+\alias{relevantSp}
+\title{relevantSp}
+\usage{
+  relevantSp(data, colnums = 26:128)
+}
+\arguments{
+  \item{data}{A data frame with presence/abscence of
+  different species.}
+
+  \item{colnums}{Column numbers that will be assessed.}
+}
+\value{
+  A vector of columns names.
+}
+\description{
+  \code{relevantSp} Which species are being used in this
+  analysis.
+}
+\details{
+  Which columns have values that are greater than zero.
+}
+\author{
+  Jarrett Byrnes.
+}
+

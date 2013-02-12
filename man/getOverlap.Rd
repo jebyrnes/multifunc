@@ -1,0 +1,63 @@
+\name{getOverlap}
+\alias{getOverlap}
+\title{getOverlap}
+\usage{
+  getOverlap(overData, m = 2, type = "positive",
+    index = "sorensen", denom = "set")
+}
+\arguments{
+  \item{overData}{Matrix of functions and which species
+  affect them from \code{getRedundancy}.}
+
+  \item{m}{Number of functions. Defaults to 2.}
+
+  \item{type}{Are the kinds of effects we're looking at
+  "positive", "negative" or "all".}
+
+  \item{index}{Type of overlap index to be used. Defaults
+  to "sorenson" byt currently incorporates "mountford" and
+  "jaccard" as well.}
+
+  \item{denom}{Should the denominator be "all" species or
+  just the "set" of species with the types of interactions
+  being considered? Defaults to "set".}
+}
+\value{
+  Returns a vector of overlap indices.
+}
+\description{
+  \code{getOverlap} goes through all m-wise combinations of
+  species and returns the amount of overlap between species
+  in functions they perform for each combination
+}
+\details{
+  getOverlap takes a matrix of 1s and -1s, and depending on
+  whether we're interested in positive, negative, or both
+  types of interactions looks for the m-wise overlap
+  between species and returns the overlap index for each
+  combination
+}
+\examples{
+data(all_biodepth)
+allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+
+germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+
+vars<-whichVars(germany, allVars)
+
+#re-normalize N.Soil so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
+germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=T)
+
+res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
+names(res.list)<-vars
+
+redund<-getRedundancy(vars, species, germany)
+
+getOverlap(redund, m=2)
+getOverlap(redund, m=2, index="jaccard")
+getOverlap(redund, m=2, index="mountford")
+}
+\author{
+  Jarrett Byrnes.
+}
+

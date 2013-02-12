@@ -1,0 +1,68 @@
+\name{getFuncsMaxed}
+\alias{getFuncsMaxed}
+\title{getFuncsMaxed}
+\usage{
+  getFuncsMaxed(adf, vars = NA, threshmin = 0.05,
+    threshmax = 0.99, threshstep = 0.01, proportion = F,
+    prepend = "Diversity", maxN = 1)
+}
+\arguments{
+  \item{adf}{A data frame with functions.}
+
+  \item{vars}{The column names of the functions to be
+  assessed.}
+
+  \item{threshmin}{The lowest threshold value to assess.}
+
+  \item{threshmax}{The highest threshold value to assess}
+
+  \item{threshstep}{The incremental steps between lowest
+  and highest thresholds to be assessed.  See \code{seq}.}
+
+  \item{proportion}{Whether the output will be returned as
+  a porportion of all functions.  Defaults to
+  \code{FALSE}.}
+
+  \item{prepend}{Additional columns that will be imported
+  from the data for the returned data frame.}
+
+  \item{maxN}{As a 'maximum' value can be subject to
+  outliers, etc., what number of the highest data points
+  for a function will be used to calculate the value
+  against which thresholds will be judged.  E.g., if maxN=1
+  then all thresholds are porportions of the largest value
+  measured for a function.  If maxN=8, then it's the
+  porportion of the mean of the highest 8 measurements.}
+}
+\value{
+  Returns a data frame of number or fraction of functions
+  greater than or equal to the selected thresholds in each
+  plot over all thresholds within the relevant range.
+}
+\description{
+  \code{getFuncsMaxed} the number of functions greater than
+  or equal to a wide variety of thresholds in each
+  experimental unit
+}
+\details{
+  Create a data frame that has the value of number or
+  proportion of functions greater than a threshold for
+  several different thresholds at the plot.
+}
+\examples{
+data(all_biodepth)
+allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+
+germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+
+vars<-whichVars(germany, allVars)
+
+#re-normalize N.Soil so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
+germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=T)
+
+germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+}
+\author{
+  Jarrett Byrnes.
+}
+

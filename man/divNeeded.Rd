@@ -1,0 +1,50 @@
+\name{divNeeded}
+\alias{divNeeded}
+\title{divNeeded}
+\usage{
+  divNeeded(overData, type = "positive")
+}
+\arguments{
+  \item{overData}{Matrix of functions and which species
+  affect them from \code{getRedundancy}.}
+
+  \item{type}{Are the kinds of effects we're looking at
+  "positive", "negative" or "all".}
+}
+\value{
+  Returns a data frame of all combinations and how many
+  species are needed to influence all of them.
+}
+\description{
+  \code{divNeeded} Determines, for every combination of
+  functions, how many species influence those functions.
+}
+\details{
+  Iterates over all possible combinations of functions.
+  Checks the matrix of which species have positive,
+  negative, or both influences on those functions.  Tally's
+  total number of species that have an effect on those
+  functions
+}
+\examples{
+data(all_biodepth)
+allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+
+germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+
+vars<-whichVars(germany, allVars)
+
+#re-normalize N.Soil so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
+germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=T)
+
+res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
+names(res.list)<-vars
+
+redund<-getRedundancy(vars, species, germany)
+
+posCurve<-divNeeded(redund, type="positive")
+}
+\author{
+  Jarrett Byrnes.
+}
+

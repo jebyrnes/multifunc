@@ -1,0 +1,54 @@
+\name{stdEffects}
+\alias{stdEffects}
+\title{stdEffects}
+\usage{
+  stdEffects(cmat, adf, vars, species)
+}
+\arguments{
+  \item{cmat}{Matrix of coefficients of species effects on
+  functions from \code{getRedundancy} with output="coef".}
+
+  \item{adf}{Data frame with plot level data for species
+  and functions.}
+
+  \item{vars}{Names of columns with data for functions in
+  adf.}
+
+  \item{species}{Names of columns with data for species in
+  adf.}
+}
+\value{
+  Returns a matrix of standardized coefficients.
+}
+\description{
+  \code{stdEffects} obtains the standardized effect of each
+  species on each function
+}
+\details{
+  stdEffects takes a matrix of coefficients for
+  relationships between species and functions, the data
+  frame used to generate those coefficients and the names
+  of species and function, and then it calculates
+  standardized coefficients using std coef = b *sx/sy
+}
+\examples{
+data(all_biodepth)
+allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+
+germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+
+vars<-whichVars(germany, allVars)
+
+#re-normalize N.Soil so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
+germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=T)
+
+res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
+names(res.list)<-vars
+
+coefs<-getRedundancy(vars, species, germany, output="coef")
+stdCoefs<-stdEffects(coefs, germany, vars, species)
+}
+\author{
+  Jarrett Byrnes.
+}
+

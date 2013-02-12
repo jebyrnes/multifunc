@@ -1,0 +1,68 @@
+\name{getRedundancy}
+\alias{getRedundancy}
+\title{getRedundancy}
+\usage{
+  getRedundancy(vars, species, data, negVars = NA,
+    method = "lm", combine = "+", output = "effect", ...)
+}
+\arguments{
+  \item{vars}{Vector of column names of functions}
+
+  \item{species}{Vector of column names of species}
+
+  \item{data}{data frame with species presence/abscence of
+  values of functions}
+
+  \item{negVars}{Vector of names of species for which a
+  negative coefficient is actually a positive effect.}
+
+  \item{method}{Fitting function for statistical models.
+  Defaults to \code{lm}.}
+
+  \item{combine}{How are species combined in the model?
+  Defaults to "+" for additive combinations.}
+
+  \item{output}{Will the output be sign of effect or
+  "coefficient".  Defaults to "effect"}
+
+  \item{...}{Other arguments to be supplied to fitting
+  function.}
+}
+\value{
+  Returns a matrix of functions and the effect of species
+  on each. 1s, -1s, and 0s for "effect" or coefficients.
+}
+\description{
+  \code{getRedundancy} examines which species have an
+  effect on which function
+}
+\details{
+  getRedundancy takes a matrix of 1s,0s, and -1s, and
+  depending on whether we're interested in positive,
+  negative, or both types of interactions looks for the
+  m-wise overlap between species and returns the overlap
+  index for each combination. For species whose effect is
+  not different from 0 at the alpha=0.05 level, a 0 is
+  returned.
+}
+\examples{
+data(all_biodepth)
+allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+
+germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+
+vars<-whichVars(germany, allVars)
+
+#re-normalize N.Soil so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
+germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=T)
+
+res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
+names(res.list)<-vars
+
+getRedundancy(vars, species, germany)
+getRedundancy(vars, species, germany, output="coef")
+}
+\author{
+  Jarrett Byrnes.
+}
+

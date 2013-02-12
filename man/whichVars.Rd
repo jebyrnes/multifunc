@@ -1,0 +1,38 @@
+\name{whichVars}
+\alias{whichVars}
+\title{whichVars}
+\usage{
+  whichVars(a.df, vars = NA, thresh = 2/3)
+}
+\arguments{
+  \item{a.df}{A data frame}
+
+  \item{vars}{The names of the columns that contain data of
+  interest}
+
+  \item{thresh}{The fraction of NA values in a column that
+  is acceptable}
+}
+\value{
+  A vector of column names
+}
+\description{
+  \code{whichVars} takes a data frame and the names of a
+  set of columns and returns the names of those columns
+  that do not have an excessive fraction of NA values
+}
+\details{
+  This is a helper function for data processing.
+}
+\examples{
+data(all_biodepth)
+allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+
+germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+
+vars<-whichVars(germany, allVars)
+}
+\author{
+  Jarrett Byrnes.
+}
+

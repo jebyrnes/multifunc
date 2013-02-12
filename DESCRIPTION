@@ -1,0 +1,39 @@
+Package: multifunc
+Type: Package
+Title: Analysis of Ecological Drivers on Ecosystem Multifunctionality
+Description: Methods for the analysis of how ecological drivers affect the
+    multifunctionality of an ecosystem.
+Version: 0.5
+Date: 2013-01-25
+Author: Jarrett Byrnes
+Maintainer: Jarrett Byrnes <jarrett.byrnes@umb.edu>
+Depends:
+    plyr,
+    R(>= 2.14.0),
+    car,
+    MASS,
+    reshape2
+Suggests:
+    ggplot2,
+    gridExtra
+License: CC0
+LazyData: true
+Collate:
+    'getIndices.R'
+    'whichVars.R'
+    'divNeeded.R'
+    'getOverlap.R'
+    'getOverlapSummary.R'
+    'filterOverData.R'
+    'getCoefTab.R'
+    'getRedundancy.R'
+    'stdEffects.R'
+    'qw.R'
+    'getFuncMaxed.R'
+    'getFuncsMaxed.R'
+    'StandardizeUnitScale.R'
+    'getStdAndMeanFunctions.R'
+    'relevantSp.R'
+    'standardizeZScore.R'
+    'all_biodepth.R'
+    'sAICfun.R'
