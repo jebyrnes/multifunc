@@ -35,7 +35,6 @@
 #' getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
 
 
-
 getIndices <- function(slopedata, threshdata, eqn, fun=glm, divvar = "Diversity",groupVar="thresholds"){
   Smax <- max(threshdata[[divvar]], na.rm=T)
   Smin <- min(threshdata[[divvar]], na.rm=T)

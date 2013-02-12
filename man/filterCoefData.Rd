@@ -5,8 +5,8 @@
   filterCoefData(coefData, type = "positive")
 }
 \arguments{
-  \item{overData}{Matrix of functions and which species
-  affect them from \code{getRedundancy}.}
+  \item{coefData}{Matrix of functions and coefficients for
+  which species affect them from \code{getRedundancy}.}
 
   \item{type}{Are the kinds of effects we're looking at
   "positive", "negative" or "all".}

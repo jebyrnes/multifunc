@@ -1,7 +1,7 @@
-#' @title getFuncsMaxed
+#' @title getFuncMaxed
 #'
 #' @description
-#' \code{getFuncsMaxed} the number of functions greater than or equal to a wide variety of thresholds in each experimental unit
+#' \code{getFuncMaxed} the number of functions greater than or equal to a single threshold in one experimental unit
 #' 
 #' @details Create a data frame that has the value of number or proportion of functions 
 #' greater than a single threshold.   
@@ -9,9 +9,7 @@
 #' @author Jarrett Byrnes.
 #' @param adf A data frame with functions.
 #' @param vars The column names of the functions to be assessed.
-#' @param threshmin The lowest threshold value to assess.
-#' @param threshmax The highest threshold value to assess
-#' @param threshstep The incremental steps between lowest and highest thresholds to be assessed.  See \code{seq}.
+#' @param thresh The threshold value to assess.
 #' @param proportion Whether the output will be returned as a porportion of all functions.  Defaults to \code{FALSE}.
 #' @param prepend Additional columns that will be imported from the data for the returned data frame.
 #' @param maxN As a 'maximum' value can be subject to outliers, etc., what number of the highest data points

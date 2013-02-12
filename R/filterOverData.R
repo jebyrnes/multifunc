@@ -53,18 +53,3 @@ filterOverData<-function(overData, type="positive"){
   
   overData
 }
-
-
-filterCoefData<-function(coefData, type="positive"){
-  #format the data properly given the type of analysis being done
-  neg<-which(coefData<0, arr.ind=T)
-  pos<-which(coefData>0, arr.ind=T)
-  
-  if(type=="positive") apply(neg, 1, function(x) coefData[x[1], x[2]]<<-0) #ugh, using apply and <<- because nothing else worked
-  if(type=="negative") {
-    apply(pos, 1, function(x) coefData[x[1], x[2]]<<-0)
-  }
-  #  if(type=="all") apply(neg, 1, function(x) coefData[x[1], x[2]]<<-1)
-  
-  coefData
-}

@@ -1,6 +1,6 @@
 \name{getFuncMaxed}
 \alias{getFuncMaxed}
-\title{getFuncsMaxed}
+\title{getFuncMaxed}
 \usage{
   getFuncMaxed(adf, vars = NA, thresh = 0.7,
     proportion = F, prepend = "Diversity", maxN = 1)
@@ -11,12 +11,7 @@
   \item{vars}{The column names of the functions to be
   assessed.}
 
-  \item{threshmin}{The lowest threshold value to assess.}
-
-  \item{threshmax}{The highest threshold value to assess}
-
-  \item{threshstep}{The incremental steps between lowest
-  and highest thresholds to be assessed.  See \code{seq}.}
+  \item{thresh}{The threshold value to assess.}
 
   \item{proportion}{Whether the output will be returned as
   a porportion of all functions.  Defaults to
@@ -39,9 +34,8 @@
   plot.
 }
 \description{
-  \code{getFuncsMaxed} the number of functions greater than
-  or equal to a wide variety of thresholds in each
-  experimental unit
+  \code{getFuncMaxed} the number of functions greater than
+  or equal to a single threshold in one experimental unit
 }
 \details{
   Create a data frame that has the value of number or

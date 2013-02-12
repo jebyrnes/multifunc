@@ -10,7 +10,7 @@
 #' only the sign of contributions desired.  Typically used by other functions in the package.
 #'
 #' @author Jarrett Byrnes.
-#' @param overData Matrix of functions and which species affect them from \code{getRedundancy}.
+#' @param coefData Matrix of functions and coefficients for which species affect them from \code{getRedundancy}.
 #' @param type Are the kinds of effects we're looking at "positive", "negative" or "all".
 #' 
 #' @export
