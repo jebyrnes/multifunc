@@ -1,8 +1,8 @@
-\name{filterOverData}
-\alias{filterOverData}
-\title{filterOverData}
+\name{filterCoefData}
+\alias{filterCoefData}
+\title{filterCoefData}
 \usage{
-  filterOverData(overData, type = "positive")
+  filterCoefData(coefData, type = "positive")
 }
 \arguments{
   \item{overData}{Matrix of functions and which species
@@ -15,14 +15,13 @@
   Returns a filtered matrix.
 }
 \description{
-  \code{filterOverData} filters qualitative effects of
-  species to function by sign.
+  \code{filterCoefData} filters contributions of species to
+  function by sign.
 }
 \details{
-  Takes a matrix of functions and effects of species - 1's
-  and -1's, s - and filters out only the sign of
-  contributions desired.  Typically used by other functions
-  in the package.
+  Takes a matrix of functions and coefficients for species
+  and filters out only the sign of contributions desired.
+  Typically used by other functions in the package.
 }
 \examples{
 data(all_biodepth)
@@ -38,9 +37,9 @@ germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=T)
 res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
 names(res.list)<-vars
 
-redund<-getRedundancy(vars, species, germany)
+stdCoefs<-stdEffects(coefs, germany, vars, species)
 
-filterOverData(redund, type="positive")
+filterCoefData(stdCoefs)
 }
 \author{
   Jarrett Byrnes.

@@ -1,11 +1,12 @@
-#' @title filterOverData
+#' @title filterCoefData
+#' @title filterCoefData
 #'
 #' @description
-#' \code{filterOverData} filters qualitative effects of species
+#' \code{filterCoefData} filters contributions of species
 #' to function by sign.
 #' 
-#' @details Takes a matrix of functions and effects
-#' of species -  1's and -1's, s - and filters out
+#' @details Takes a matrix of functions and coefficients
+#' for species and filters out
 #' only the sign of contributions desired.  Typically used by other functions in the package.
 #'
 #' @author Jarrett Byrnes.
@@ -29,31 +30,16 @@
 #' res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
 #' names(res.list)<-vars
 #' 
-#' redund<-getRedundancy(vars, species, germany)
+#' stdCoefs<-stdEffects(coefs, germany, vars, species)
 #' 
-#' filterOverData(redund, type="positive")
+#' filterCoefData(stdCoefs)
 
 
 #########
-#filterOverData takes a matrix of 1s, 0s, and -1s
+#filterCoefData takes a matrix of coefficients
 #and filters it so that only the positive, negative, or both contributions
-#are 1 for later overlap function usage
+#are present
 #########
-filterOverData<-function(overData, type="positive"){
-  #format the data properly given the type of analysis being done
-  neg<-which(overData<0, arr.ind=T)
-  pos<-which(overData>0, arr.ind=T)
-  
-  if(type=="positive") apply(neg, 1, function(x) overData[x[1], x[2]]<<-0) #ugh, using apply and <<- because nothing else worked
-  if(type=="negative") {
-    apply(pos, 1, function(x) overData[x[1], x[2]]<<-0)
-    apply(neg, 1, function(x) overData[x[1], x[2]]<<-1)
-  }
-  if(type=="all") apply(neg, 1, function(x) overData[x[1], x[2]]<<-1)
-  
-  overData
-}
-
 
 filterCoefData<-function(coefData, type="positive"){
   #format the data properly given the type of analysis being done
