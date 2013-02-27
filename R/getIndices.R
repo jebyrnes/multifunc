@@ -8,9 +8,9 @@
 #' @details See Byrnes et al. In Review.
 #'
 #' @author Jarrett Byrnes.
-#' @param slopedata A data frame with slopes of the relationship between diversity and number of functions > threshold
+#' @param slopedata A data frame with slopes of the relationship between diversity and number of functions greather than or equal to a threshold
 #' from \code{getCoefTab}.
-#' @param threshdata A data frame with the number of functions greater than a threshold for each plot at each threshold from \{getFuncsMaxed}.
+#' @param threshdata A data frame with the number of functions greater than a threshold for each plot at each threshold from \code{getFuncsMaxed}.
 #' @param eqn The formula used for fitting the models in slopedata.
 #' @param fun The function used to refit the threshold data at key points to get intercepts, etc., that are needed for the table.
 #' @param divvar The name of the variable that has the measure of diversity or other driver in the threshdata data frame.

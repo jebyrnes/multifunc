@@ -7,12 +7,13 @@
 }
 \arguments{
   \item{slopedata}{A data frame with slopes of the
-  relationship between diversity and number of functions >
-  threshold from \code{getCoefTab}.}
+  relationship between diversity and number of functions
+  greather than or equal to a threshold from
+  \code{getCoefTab}.}
 
   \item{threshdata}{A data frame with the number of
   functions greater than a threshold for each plot at each
-  threshold from \{getFuncsMaxed}.}
+  threshold from \code{getFuncsMaxed}.}
 
   \item{eqn}{The formula used for fitting the models in
   slopedata.}

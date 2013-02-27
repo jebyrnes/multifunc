@@ -35,6 +35,5 @@ Collate:
     'getStdAndMeanFunctions.R'
     'relevantSp.R'
     'standardizeZScore.R'
-    'all_biodepth.R'
     'sAICfun.R'
     'filterCoefData.R'
