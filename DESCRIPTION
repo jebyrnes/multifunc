@@ -37,3 +37,4 @@ Collate:
     'standardizeZScore.R'
     'sAICfun.R'
     'filterCoefData.R'
+    'all_biodepth.R'
