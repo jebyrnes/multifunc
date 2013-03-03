@@ -21,7 +21,7 @@
   Siamantziouras, A. C. Terry, A. Y. Troumbis, F. I.
   Woodward, S. Yachi, and J. H. Lawton. 2005. Ecosystem
   effects of biodiversity manipulations in European
-  grasslands. Ecological Monographs 75:37–63.
+  grasslands. Ecological Monographs 75:37-63.
 }
 \keyword{data}
 \keyword{datasets}
