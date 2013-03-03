@@ -15,6 +15,7 @@
 #' @param fun The function used to refit the threshold data at key points to get intercepts, etc., that are needed for the table.
 #' @param divvar The name of the variable that has the measure of diversity or other driver in the threshdata data frame.
 #' @param groupVar The name of a variable by which data is grouped in the threshdata data frame. Typically "thresholds" from \code{getFuncsMaxed}.
+#' @param showNfunc Show the functions at Tmin, Tmax, and Tmde. Defaults to TRUE.
 #' 
 #' 
 #' @export
@@ -35,7 +36,9 @@
 #' getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
 
 
-getIndices <- function(slopedata, threshdata, eqn, fun=glm, divvar = "Diversity",groupVar="thresholds"){
+getIndices <- function(slopedata, threshdata, eqn, fun=glm, 
+                       divvar = "Diversity",groupVar="thresholds",
+                       showNfunc=T){
   Smax <- max(threshdata[[divvar]], na.rm=T)
   Smin <- min(threshdata[[divvar]], na.rm=T)
   tdata <-  get_t_indices(slopedata)
@@ -47,12 +50,21 @@ getIndices <- function(slopedata, threshdata, eqn, fun=glm, divvar = "Diversity"
     predict(fit, newdata=subdata[which(threshdata[[divvar]]==S),], type="response")[1]
   }
   
-  Mmin <- predFun(tdata$Tmin, Smin)
+  Mmin <- predFun(tdata$Tmin, Smax)
   Mmax <- predFun(tdata$Tmax, Smax)
   Mmde <- predFun(tdata$Tmde, Smax)
-  Rmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]/(threshdata$nFunc[1]/Smax)
+  Rmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]
+  Pmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]/(threshdata$nFunc[1]/Smax)
   
-  return(data.frame(Tmin = tdata$Tmin, Mmin=Mmin, Tmax = tdata$Tmax, Mmax=Mmax, Tmde = tdata$Tmde, Mmde = Mmde, Rmde.linear = Rmde.linear))
+  return(data.frame(Tmin = tdata$Tmin,  
+                    Tmax = tdata$Tmax,  
+                    Tmde = tdata$Tmde, 
+                    Rmde.linear = Rmde.linear, 
+                    Pmde.linear = Pmde.linear,
+                    Mmin=Mmin,
+                    Mmax=Mmax,
+                    Mmde = Mmde 
+                    ))
 }
 
 

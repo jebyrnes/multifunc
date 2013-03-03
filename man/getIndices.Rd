@@ -3,7 +3,8 @@
 \title{getIndices}
 \usage{
   getIndices(slopedata, threshdata, eqn, fun = glm,
-    divvar = "Diversity", groupVar = "thresholds")
+    divvar = "Diversity", groupVar = "thresholds",
+    showNfunc = T)
 }
 \arguments{
   \item{slopedata}{A data frame with slopes of the
@@ -29,6 +30,9 @@
   \item{groupVar}{The name of a variable by which data is
   grouped in the threshdata data frame. Typically
   "thresholds" from \code{getFuncsMaxed}.}
+
+  \item{showNfunc}{Show the functions at Tmin, Tmax, and
+  Tmde. Defaults to TRUE.}
 }
 \value{
   A data frame of indices
