@@ -55,6 +55,7 @@ getIndices <- function(slopedata, threshdata, eqn, fun=glm,
   Mmde <- predFun(tdata$Tmde, Smax)
   Rmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]
   Pmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]/(threshdata$nFunc[1]/Smax)
+  nFunc <- threshdata$nFunc[1]
   
   return(data.frame(Tmin = tdata$Tmin,  
                     Tmax = tdata$Tmax,  
@@ -63,7 +64,8 @@ getIndices <- function(slopedata, threshdata, eqn, fun=glm,
                     Pmde.linear = Pmde.linear,
                     Mmin=Mmin,
                     Mmax=Mmax,
-                    Mmde = Mmde 
+                    Mmde = Mmde,
+                    nFunc = nFunc 
                     ))
 }
 

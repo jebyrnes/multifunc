@@ -26,7 +26,7 @@
 #' vars<-whichVars(germany, allVars)
 #'
 #' #re-normalize N.Soil so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
-#' germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=T)
+#' germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
 #' 
 #' germany<-cbind(germany, getStdAndMeanFunctions(germany, vars))
 #' 
