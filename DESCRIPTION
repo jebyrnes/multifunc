@@ -38,3 +38,4 @@ Collate:
     'sAICfun.R'
     'filterCoefData.R'
     'all_biodepth.R'
+    'duffy_2003.R'

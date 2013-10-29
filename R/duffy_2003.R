@@ -4,6 +4,6 @@
 #' @name duffy_2003
 #' @docType data
 #' @author Jarrett Byrnes
-#' @references Duffy, J. E., J. P. Richardson, and E. A. Canuel. 2003. Grazer diversity effects on ecosystem functioning in seagrass beds. Ecology letters 6:637–645.
+#' @references Duffy, J. E., J. P. Richardson, and E. A. Canuel. 2003. Grazer diversity effects on ecosystem functioning in seagrass beds. Ecology letters 6:637-645.
 #' @keywords data
 NULL
