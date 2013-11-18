@@ -97,7 +97,7 @@ get_t_indices <- function(adf){
   #which thresholds have non-zero slopes
   not0 <- sort( c( which(colSums(sloperng>0)==2), which(colSums(sloperng>0)==0))) 
   
-  if(length(not0)==0){
+  if(length(not0)!=0){
   	if(not0[1]-1 ==0){
   	  Tmin <- NA
   	}else{ Tmin <- adf$thresholds[not0[1]-1]
