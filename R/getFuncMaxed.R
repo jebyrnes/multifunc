@@ -42,6 +42,9 @@
 #observed for each column.  vars=the names of the vars being specified
 #thresh is the threshold, between 0 and 1, of porportion of the max that needs
 #to be passed to be counted.
+
+#changelog
+# 2014-03-24 Fixed -1 error in getMaxValue
 getFuncMaxed<-function(adf, vars=NA, thresh=0.7, proportion=F, prepend="Diversity", maxN=1){
     if(is.na(vars)[1]) stop("You need to specify some response variable names")
 
@@ -52,7 +55,7 @@ getFuncMaxed<-function(adf, vars=NA, thresh=0.7, proportion=F, prepend="Diversit
     #funcMaxed<-rowSums(colwise(function(x) x >= (thresh*max(x, na.rm=T)))(adf[,which(names(adf)%in%vars)]))
     getMaxValue<-function(x){
       l<-length(x)    
-      mean( sort(x, na.last=F)[l:(l-maxN-1)], na.rm=T)
+      mean( sort(x, na.last=F)[l:(l-maxN+1)], na.rm=T)
     }
     
     
