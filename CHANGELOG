@@ -1,3 +1,5 @@
+0.6.2 - Changed to semantic versioning. Added catch for users trying to get indices from multiple threshold approach when none of the coefficients of interest are different from 0.
+
 0.6-1 - Fixed error in getMaxFuncs that was leading to one additional sample being pulled to calculate max values
 
-0.6 - Fixed error in getMaxFuncs that was leading to bad row indices and no max being calculated
+0.6.0 - Fixed error in getMaxFuncs that was leading to bad row indices and no max being calculated

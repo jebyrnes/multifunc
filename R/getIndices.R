@@ -57,6 +57,12 @@ getIndices <- function(slopedata, threshdata, eqn, fun=glm,
   Pmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]/(threshdata$nFunc[1]/Smax)
   nFunc <- threshdata$nFunc[1]
   
+  if(is.na(tdata$Tmde)) {
+    warning("None of these coefficients are different from 0, hence indices have little meaning")
+    Rmde.linear <- NA
+    Pmde.linear <- NA
+  }
+  
   return(data.frame(Tmin = tdata$Tmin,  
                     Tmax = tdata$Tmax,  
                     Tmde = tdata$Tmde, 
