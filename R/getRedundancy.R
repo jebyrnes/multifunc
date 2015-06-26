@@ -55,7 +55,7 @@ getRedundancy<-function(vars, species, data, negVars=NA,  method="lm", combine="
   res.list<-lapply(vars, function(x){
     positive.desired<-T
     if(x %in% negVars) positive.desired<-F
-    sAICfun(response=x, species=species, data=data, positive.desired, method=method[idx], combine=combine, ...)
+    sAICfun(response=x, species=species, data=data, positive.desired, method=method, combine=combine, ...) #used to be method[idx]
   })
   
   #what if they want the coefficients
