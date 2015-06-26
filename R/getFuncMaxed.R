@@ -45,6 +45,7 @@
 
 #changelog
 # 2014-03-24 Fixed -1 error in getMaxValue
+# 2015-06-24 Fixed column name from prepend error https://github.com/jebyrnes/multifunc/issues/1
 getFuncMaxed<-function(adf, vars=NA, thresh=0.7, proportion=F, prepend="Diversity", maxN=1){
     if(is.na(vars)[1]) stop("You need to specify some response variable names")
 
@@ -66,7 +67,7 @@ getFuncMaxed<-function(adf, vars=NA, thresh=0.7, proportion=F, prepend="Diversit
  
     #bind together the prepend columns and the functions at or above a threshold
     ret<-data.frame(cbind(adf[,which(names(adf) %in% prepend)], funcMaxed))
-    names(ret)<-c(prepend, "funcMaxed")
+    names(ret) <- c(names(adf)[which(names(adf) %in% prepend)], "funcMaxed")
  
   #how many functions were considered
   ret$nFunc<-length(vars)
