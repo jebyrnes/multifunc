@@ -1,6 +1,6 @@
 Package: multifunc
-Version: 0.6.3
-Date: 2014-04-14
+Version: 0.7.0
+Date: 2015-06-26
 Title: Analysis of Ecological Drivers on Ecosystem Multifunctionality
 Description: Methods for the analysis of how ecological drivers affect the
     multifunctionality of an ecosystem.
@@ -8,7 +8,6 @@ Author: Jarrett Byrnes
 Maintainer: Jarrett Byrnes <jarrett.byrnes@umb.edu>
 Depends:
     plyr,
-    R(>= 2.14.0),
     car,
     MASS,
     reshape2
@@ -38,3 +37,4 @@ Collate:
     'filterCoefData.R'
     'all_biodepth.R'
     'duffy_2003.R'
+    'multifunc.R'

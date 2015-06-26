@@ -396,7 +396,9 @@ varIdx<-which(names(sub_biodepth) %in% allVars)
 
 
 
-#re-normalize so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
+#re-normalize so that everything is on the same 
+#sign-scale (e.g. the maximum level of a function is 
+#the "best" function)
 sub_biodepth<-ddply(sub_biodepth, .(location), function(adf){
   adf$light3<- -1*adf$light3+max(adf$light3, na.rm=T)
   adf$N.Soil<- -1*adf$N.Soil +max(adf$N.Soil, na.rm=T)

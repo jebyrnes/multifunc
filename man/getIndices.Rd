@@ -42,9 +42,11 @@ germany<-subset(all_biodepth, all_biodepth$location=="Germany")
 
 vars<-whichVars(germany, allVars)
 
-germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05,
+   threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
 
-germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, data=germanyThresh, coefVar="Diversity", family=quasipoisson(link="identity"))
+germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, data=germanyThresh,
+   coefVar="Diversity", family=quasipoisson(link="identity"))
 
 getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
 }

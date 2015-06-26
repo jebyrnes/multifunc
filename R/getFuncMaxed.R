@@ -17,7 +17,7 @@
 #' then all thresholds are porportions of the largest value measured for a function.  If maxN=8, then it's the
 #' porportion of the mean of the highest 8 measurements.
 #' 
-#' 
+#' @import plyr car MASS reshape2
 #' @export
 #' @return Returns a data frame of number or fraction of functions greater than or equal to the selected thresholds in each plot.
 #'
@@ -29,7 +29,9 @@
 #'
 #' vars<-whichVars(germany, allVars)
 #'
-#' #re-normalize N.Soil so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
+#' #re-normalize N.Soil so that everything is on the same 
+#' #sign-scale (e.g. the maximum level of a function is 
+#' #the "best" function)
 #' germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
 #' 
 #' germanyThresh<-getFuncMaxed(germany, vars, thresh=0.5, prepend=c("plot","Diversity"), maxN=7)

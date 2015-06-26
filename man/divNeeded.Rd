@@ -33,7 +33,9 @@ germany<-subset(all_biodepth, all_biodepth$location=="Germany")
 vars<-whichVars(germany, allVars)
 species<-relevantSp(germany,26:ncol(germany))
 
-#re-normalize N.Soil so that everything is on the same sign-scale (e.g. the maximum level of a function is the "best" function)
+#re-normalize N.Soil so that everything is on the
+#same sign-scale (e.g. the maximum level of a
+#function is the "best" function)
 germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
 
 res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
