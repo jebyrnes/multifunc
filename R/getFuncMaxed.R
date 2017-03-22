@@ -17,7 +17,7 @@
 #' then all thresholds are porportions of the largest value measured for a function.  If maxN=8, then it's the
 #' porportion of the mean of the highest 8 measurements.
 #' 
-#' @import plyr car MASS reshape2
+#' @import plyr car MASS reshape2 stats utils
 #' @export
 #' @return Returns a data frame of number or fraction of functions greater than or equal to the selected thresholds in each plot.
 #'

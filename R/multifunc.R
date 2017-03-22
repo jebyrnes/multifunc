@@ -5,5 +5,5 @@
 #' 
 #' @description Methods for the analysis of how ecological drivers affect the multifunctionality of an ecosystem.
 #' @author Jarrett Byrnes
-#' @import  plyr car MASS reshape2
+#' @import  plyr car MASS reshape2 stats util
 #' NULL
