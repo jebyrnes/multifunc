@@ -1,6 +1,6 @@
 Package: multifunc
 Version: 0.7.1
-Date: 2015-06-26
+Date: 2017-03-17
 Title: Analysis of Ecological Drivers on Ecosystem Multifunctionality
 Description: Methods for the analysis of how ecological drivers affect the
     multifunctionality of an ecosystem.
@@ -10,7 +10,9 @@ Imports:
     plyr,
     car,
     MASS,
-    reshape2
+    reshape2,
+    stats,
+    utils
 Suggests:
     ggplot2,
     gridExtra
