@@ -59,7 +59,7 @@ getOverlap<-function(overData, m=2, type="positive", index="sorensen", denom="se
   
   overlap<-NA
   
-  #jaccard of sørensen overlap?  default is sørensen as it is what was used in Hector and Bagchi
+  #jaccard of sorensen overlap?  default is sorensen as it is what was used in Hector and Bagchi
   if(index=="jaccard" || index=="Jaccard"){
     overlap<-combn(1:nrow(overData), m, function(x) length(which(colSums(overData[x,])==m))/length(which(colSums(denomMat[x,])>0)))
   }
@@ -74,7 +74,7 @@ getOverlap<-function(overData, m=2, type="positive", index="sorensen", denom="se
     })
   }
   
-  #non-ascii characters below, but foreign users may use the ø
+  #non-ascii characters below, but foreign users may use the \u00f8
   if(index=="sorensen" || index=="Sorensen" || index=="s\u00F8rensen" || index=="S\u00F8rensen"){
     overlap<-combn(1:nrow(overData), m, function(x) length(which(colSums(overData[x,])==m))/(sum(rowSums(denomMat[x,]))/m))
   }
