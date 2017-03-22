@@ -75,7 +75,7 @@ getOverlap<-function(overData, m=2, type="positive", index="sorensen", denom="se
   }
   
   #non-ascii characters below, but foreign users may use the ø
-  if(index=="sorensen" || index=="Sorensen" || index=="sørensen" || index=="Sørensen"){
+  if(index=="sorensen" || index=="Sorensen" || index=="s\u00F8rensen" || index=="S\u00F8rensen"){
     overlap<-combn(1:nrow(overData), m, function(x) length(which(colSums(overData[x,])==m))/(sum(rowSums(denomMat[x,]))/m))
   }
   
