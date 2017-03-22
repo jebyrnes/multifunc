@@ -1,3 +1,5 @@
+0.7.2 - Fixed ASCII bug
+
 0.7.1 - Changed from Depends (from older version of R) to Imports
 
 0.6.2 - Changed to semantic versioning. Added catch for users trying to get indices from multiple threshold approach when none of the coefficients of interest are different from 0.
