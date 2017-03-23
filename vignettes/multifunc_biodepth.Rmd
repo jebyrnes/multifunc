@@ -1,10 +1,10 @@
 ---
-title: "Using multifunc"
+title: "Assessing Multifunctionality with the multifunc package"
 author: "Jarrett Byrnes"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Using multifunc}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
