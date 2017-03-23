@@ -15,7 +15,9 @@ Imports:
     utils
 Suggests:
     ggplot2,
-    gridExtra
+    gridExtra,
+    knitr,
+    rmarkdown
 License: CC0
 LazyData: true
 Collate:
@@ -41,3 +43,4 @@ Collate:
     'duffy_2003.R'
     'multifunc.R'
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr

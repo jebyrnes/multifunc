@@ -1,15 +1,25 @@
-<!--
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{Basics of rmangal}
--->
+---
+title: "Using multifunc"
+author: "Jarrett Byrnes"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-Using the *multifunc* package for analysis of Biodiversity Ecosystem Multifunctionality Relationships in the BIODEPTH Experiment
-========================================================
+
+# Using the *multifunc* package for analysis of Biodiversity Ecosystem Multifunctionality Relationships in the BIODEPTH Experiment  
+\
+## Intro
 
 This is a step-by-step walk-through of the analysis of the German BIODEPTH site in the paper to illustrate the different analyses we conducted to evaluate the relationship between biodiversity and ecosystem multifunctionality.
 
 We begin by loading the *multifunc* package.  If it is not currently installed, it can be found on github, and installed using the *devtools* library.
+
 ```{r set-options, echo=FALSE, cache=FALSE, include=FALSE}
+library(knitr)
 opts_chunk$set(tidy=FALSE)
 opts_chunk$set(prompt=FALSE)
 opts_chunk$set(warning=FALSE)
@@ -26,6 +36,13 @@ library(multifunc)
 #for plotting
 library(ggplot2)
 library(gridExtra)
+
+#for data
+library(reshape2)
+library(plyr)
+
+#for analysus
+library(car)
 ```
 
 Next, we load in the BIODEPTH data.  We use some of the helper functions in the package to identify the column numbers of the relevant functions for later use.
@@ -52,7 +69,7 @@ species<-relevantSp(germany,26:ncol(germany))
 spIDX <- which(names(germany) %in% species) #in case we need these
 ```
 
-**Single Function Approach**
+## Single Function Approach
 
 First, we will demonstrate the qualitative single function approach.  As we're using *ggplot2* for plotting, we'll use *reshape* to melt the data into something suitable to make a nice faceted plot of each relationship.
 
@@ -112,7 +129,7 @@ monoGermanyMelt <- ddply(monoGermanyMelt, .(variable, mono), summarize, value=me
 ddply(monoGermanyMelt, .(variable), summarize, maxMono=mono[which(value==max(value, na.rm=T))])
 ```
 
-**Overlap Approach**
+## Overlap Approach
 
 One of the functions we are looking at, soil N, first needs to be reflected before we can apply the overlap approach. 
 ```{r}
@@ -208,7 +225,7 @@ ggplot(aes(x=stdPosMean,y= stdNegMean), data=posNeg) +
   geom_abline(slope=-1, intercept=0, size=1, colour="black", lty=3)
 ```
 
-**Averaging Approach**
+## Averaging Approach
 
 Now we'll try the averaging approach.  The first step is to create a set of columns where we have standardized all of the functions of interest, and then create an average of those standardized functions.
 
@@ -258,7 +275,7 @@ Anova(aveFit)
 summary(aveFit)
 ```
 
-**Threshold Approach**
+## Threshold Approach
 
 First, we need to create a new data set that looks at the number of functions greater than or equal to a threshold across a wide range of thresholds.
 
@@ -308,7 +325,7 @@ ggplot(data=germanyThresh, aes(x=Diversity, y=funcMaxed, group=percent)) +
     scale_color_gradient(name="Percent of \nMaximum", low="blue", high="red")
 ```
 
-**Multiple Threshold Approach**
+## Multiple Threshold Approach
 
 To systematically explore the variation in the relationship based on threshold choice, let's look at the slope of the relationship and its confidence interval over all thresholds. We will then plot this relationship.
 
@@ -327,7 +344,7 @@ germanSlopes <- ggplot(germanyLinearSlopes, aes(x=thresholds)) +
   geom_point(aes(x=thresholds*100, y=Estimate)) +
   ylab("Change in Number of Functions per Addition of 1 Species\n") +
   xlab("\nThreshold (%)") +
-  stat_abline(intercept=0, slope=0, lwd=1, linetype=2) +
+  geom_abline(intercept=0, slope=0, lwd=1, linetype=2) +
   theme_bw(base_size=14)
 
 germanSlopes
@@ -372,7 +389,7 @@ germanSlopes + annotate(geom="text", y=c(-0.01, -0.01, -0.01, germanIDX$Rmde.lin
   
 ```
 
-**Comparison of Sites**
+## Comparison of Sites
 
 Furthermore, we can extend this to the more of the BIODEPTH dataset to compare the strength of multifunctionality across sites.  We begin by loading in the data and calculating slopes at different thresholds.  We'll subset down to Sheffield, Portugal, and Sweden for simplicity, but this could be done for all sites quite easily.
 
@@ -387,7 +404,7 @@ Furthermore, we can extend this to the more of the BIODEPTH dataset to compare t
 ####
 
 #Read in data  to run sample analyses on the biodepth data
-all_biodepth<-read.table("./FunctContrastData.txt",header=T)
+data(all_biodepth)
 sub_biodepth<-subset(all_biodepth, all_biodepth$location %in% c("Sheffield", "Portugal", "Sweden"))
 sub_biodepth$location<-factor(sub_biodepth$location, levels=c("Portugal", "Sweden", "Sheffield"))
 
@@ -462,7 +479,7 @@ slopePlot<-ggplot(bdLinearSlopes, aes(x=thresholds, y=Estimate)) +
   ylab("Change in Number of Functions \nper Addition of 1 Species\n") +
   xlab("Threshold (%)") +
   facet_wrap(~location)+#, scale="free") +
-  stat_abline(intercept=0, slope=0, lwd=0.6, linetype=2) +
+  geom_abline(intercept=0, slope=0, lwd=0.6, linetype=2) +
   theme_bw(base_size=15)+ 
   geom_text(data=data.frame(location = levels(bdThreshes$location), 
                             lab = paste(letters[4:6], ")", sep=""), 

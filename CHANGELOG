@@ -1,4 +1,4 @@
-0.7.2 - Fixed ASCII bug
+0.7.2 - Fixed ASCII bug, added vignette
 
 0.7.1 - Changed from Depends (from older version of R) to Imports
 
