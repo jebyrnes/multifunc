@@ -1,5 +1,5 @@
 ## Analysis of the effects of drivers on multifunctionality within a system 
-![](https://travis-ci.org/jebyrnes/multifunc.svg?branch=master)  
+![https://travis-ci.org/jebyrnes/multifunc](https://travis-ci.org/jebyrnes/multifunc.svg?branch=master)  
   
 R package for Byrnes, J. E. K., Gamfeldt, L., Isbell, F., Lefcheck, J. S., Griffin, J. N., Hector, A., Cardinale, B. J., Hooper, D. U., Dee, L. E., Emmett Duffy, J. (2014), Investigating the relationship between biodiversity and ecosystem multifunctionality: challenges and solutions. Methods in Ecology and Evolution, 5: 111–124. doi: [10.1111/2041-210X.12143](http://dx.doi.org/10.1111/2041-210X.12143)
 
