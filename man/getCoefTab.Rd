@@ -4,7 +4,8 @@
 \alias{getCoefTab}
 \title{getCoefTab}
 \usage{
-getCoefTab(eqn, fun = glm, data, groupVar = "thresholds", coefVar, ...)
+getCoefTab(eqn, fun = glm, data, groupVar = "thresholds", coefVar = NULL,
+  ...)
 }
 \arguments{
 \item{eqn}{The model to be fit at each threshold.}

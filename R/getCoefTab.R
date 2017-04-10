@@ -51,10 +51,10 @@
 #####
 
 
-getCoefTab<-function(eqn, fun=glm, data, groupVar="thresholds", coefVar, ...){
-  ddply(data, .variables=groupVar, function(adf) {
+getCoefTab<-function(eqn, fun=glm, data, groupVar="thresholds", coefVar=NULL, ...){
+  ret <- plyr::ddply(data, .variables=groupVar, function(adf) {
     
-    if(length(unique(adf[[ as.character(eqn[[2]]) ]]))==1) return(c(0,0,NA,1)) #in case all functions perform exactly the same, the slope is a flat line
+   # if(length(unique(adf[[ as.character(eqn[[2]]) ]]))==1) return(c(0,0,NA,1)) #in case all functions perform exactly the same, the slope is a flat line
     
     options(warn=2)
     
@@ -71,9 +71,14 @@ getCoefTab<-function(eqn, fun=glm, data, groupVar="thresholds", coefVar, ...){
     
     coefInfo<-summary(aFit)$coef
     
-    idx<-which(rownames(coefInfo) == coefVar)
+    coefInfo <- cbind(coef_name = rownames(coefInfo), as.data.frame(coefInfo))
     
-    return(coefInfo[idx,])  
+#    idx<-which(rownames(coefInfo) %in% coefVar)
+     return(coefInfo)
+#    return(coefInfo[idx,])  
   })  
   
+  if(!is.null(coefVar)) ret <- subset(ret, ret$coef_name==coefVar)
+  
+  return(ret)
 }

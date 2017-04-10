@@ -1,3 +1,10 @@
+multifunc 0.7.3 (Release date: 2017-04-07)
+====================
+Changes:
+* Fixed `getCoefTab` to work better with categorical predictors  
+* `getCoefTab` will now return all coefficients unless asked to filter to one
+
+
 multifunc 0.7.2 (Release date: 2017-03-17)
 ====================
 Changes:
@@ -5,11 +12,13 @@ Changes:
 * Fixed ASCII bug
 * Fixed and added vignette
 
+
 0.7.1 (Release date: 2017-03-15)
 ====================
 Changes:
 
 Changed from Depends (from older version of R) to Imports
+
 
 0.6.2
 ====================
