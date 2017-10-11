@@ -1,3 +1,10 @@
+multifunc 0.8.0 (Release date: 2017-09-25)
+====================
+Changes:
+* Adding `getMF` and associated functions to incorporate 
+* See also `funcEven` and `funcDiv`
+
+
 multifunc 0.7.3 (Release date: 2017-04-07)
 ====================
 Changes:
