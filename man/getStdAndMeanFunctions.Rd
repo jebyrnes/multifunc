@@ -11,8 +11,9 @@ getStdAndMeanFunctions(data, vars, standardizeFunction = standardizeUnitScale)
 
 \item{vars}{The column names of the functions to be assessed.}
 
-\item{standardizeFunction}{A function to standardize each individual function to the
-same scale, such as \code{standardizeUnitScale} or \code{standardizeZScore}}
+\item{standardizeFunction}{A function to standardize each individual 
+function to the same scale, such as \code{standardizeUnitScale} or 
+\code{standardizeZScore}}
 }
 \value{
 Returns a data frame with

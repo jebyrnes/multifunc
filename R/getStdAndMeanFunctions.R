@@ -10,8 +10,9 @@
 #' @author Jarrett Byrnes.
 #' @param data A data frame with functions.
 #' @param vars The column names of the functions to be assessed.
-#' @param standardizeFunction A function to standardize each individual function to the
-#' same scale, such as \code{standardizeUnitScale} or \code{standardizeZScore}
+#' @param standardizeFunction A function to standardize each individual 
+#' function to the same scale, such as \code{standardizeUnitScale} or 
+#' \code{standardizeZScore}
 #' 
 #' @export
 #' @return Returns a data frame with

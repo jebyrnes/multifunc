@@ -45,7 +45,10 @@
 ####
 
 getFuncsMaxed<-function(adf, vars=NA, threshmin=0.05, threshmax=0.99, threshstep=0.01, proportion=F, prepend="Diversity", maxN=1) {
-        ret<-ddply(data.frame(thresholds=seq(threshmin,threshmax,threshstep)), .variables=.(thresholds),
+  
+  ret_dummy <- data.frame(thresholds=seq(threshmin,threshmax,threshstep))
+  
+  ret<-ddply(ret_dummy, .variables="thresholds",
                   function(x) {getFuncMaxed(adf,
                                             vars=vars,
                                             thresh=x[1,1], #the threshold
