@@ -4,14 +4,15 @@
 \alias{funcDiv}
 \title{funcDiv}
 \usage{
-funcDiv(data, vars, type = "Simpson")
+funcDiv(data, vars, q = 1)
 }
 \arguments{
 \item{data}{A vector of measurements of a function.}
 
 \item{vars}{Name of function variables}
 
-\item{type}{Diversity index to be used. Options are "Simpson" and "Shannon"}
+\item{q}{Order of the diversity measure. Defaults to the 
+Shannon case where q = 1. For Simpson, q=2.}
 }
 \value{
 Returns a vector.
@@ -23,8 +24,15 @@ Returns a vector.
 Takes a data frame, variable names, and type of index and returns
  the effective number of functions - i.e., the equivalent number of 
  functions if all were performing at the same level. See Jost 2006 and 2010.
+ Internally, uses \link{\code{vegetarian::d}}
 }
 \author{
 Jarrett Byrnes.
+}
+\references{
+Jost, L. 2006. Entropy and diversity. Oikos 113(2): 363-375.
+
+Hill, M. 1973. Diversity and evenness: A unifying notation and its 
+consequences. Ecology 54: 427-432.
 }
 

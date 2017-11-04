@@ -4,17 +4,18 @@
 #' 
 #' @details Takes a data frame, variable names, and type of index and gets 
 #' the evenness factor for the collection of values supplied as defined in 
-#' Jost 2010
+#' Jost  2010
 #' @author Jarrett Byrnes.
 #' @param data A vector of measurements of a function.
 #' @param vars Name of function variables
-#' @param type Diversity index to be used. Options are "Simpson" and "Shannon"
-#' 
+#' @param q 	Order of the diversity measure. Defaults to the 
+#' Shannon case where q = 1. For Simpson, q=2.
+#'  
 #' @export
 #' @return Returns a vector.
-#'
+#' @references Jost, L. 2006. Entropy and diversity. Oikos 113(2): 363-375.
 
-funcEven <- function(data, vars, type="Simpson"){
+funcEven <- function(data, vars, q=1){
   #get a df of just the vars
   df <- data[,which(names(data) %in% vars)]
   #get the evenness
@@ -31,12 +32,13 @@ funcEven <- function(data, vars, type="Simpson"){
 #' Jost 2010
 #' @author Jarrett Byrnes.
 #' @param df A data frame of functions
-#' @param type Diversity index to be used. Options are "Simpson" and "Shannon"
-#' 
+#' @param q 	Order of the diversity measure. Defaults to the 
+#' Shannon case where q = 1. For Simpson, q=2.
+#'  
 #' @export
 #' @return Returns a vector.
 #'
-even_fact <- function(df, type="Simpson"){
-  eff_div(df,type)/ncol(df)
+even_fact <- function(df, q=1){
+  eff_div(df,q=q)/ncol(df)
 }
 

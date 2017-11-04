@@ -5,22 +5,29 @@
 #' @details Takes a data frame, variable names, and type of index and returns
 #'  the effective number of functions - i.e., the equivalent number of 
 #'  functions if all were performing at the same level. See Jost 2006 and 2010.
+#'  Internally, uses \link{\code{vegetarian::d}}
 #' 
 #' @author Jarrett Byrnes.
 #' @param data A vector of measurements of a function.
 #' @param vars Name of function variables
-#' @param type Diversity index to be used. Options are "Simpson" and "Shannon"
+#' @param q 	Order of the diversity measure. Defaults to the 
+#' Shannon case where q = 1. For Simpson, q=2.
 #' 
 #' @export
 #' @return Returns a vector.
-#'
+#' @references Jost, L. 2006. Entropy and diversity. Oikos 113(2): 363-375.
+#' 
+#' Hill, M. 1973. Diversity and evenness: A unifying notation and its 
+#' consequences. Ecology 54: 427-432.
+#' 
 
-funcDiv <- function(data, vars, type="Simpson"){
+
+funcDiv <- function(data, vars, q=1){
   #get the variable data frame
   df <- data[,which(names(data) %in% vars)]
   
   #proportion of community
-  eff_div(df, type)
+  eff_div(df, q=q)
 }
 
 #' @title eff_div
@@ -30,29 +37,23 @@ funcDiv <- function(data, vars, type="Simpson"){
 #' @details Takes a data frame, variable names, and type of index and returns
 #'  the effective number of functions - i.e., the equivalent number of 
 #'  functions if all were performing at the same level. See Jost 2006 and 2010.
+#'  Internally, uses \link{\code{vegetarian::d}}
 #' 
 #' @author Jarrett Byrnes.
 #' @param df A data frame of functions
-#' @param type Diversity index to be used. Options are "Simpson" and "Shannon"
+#' @param q 	Order of the diversity measure. Defaults to the 
+#' Shannon case where q = 1. For Simpson, q=2.
 #' 
 #' @export
 #' @return Returns a vector.
 #'
-eff_div <- function(df, type="Simpson"){
-  #proportion of community
-  p_df <- df/rowSums(df)
-  ln_p_df <- log(p_df)
-  ln_p_df[ln_p_df==-Inf] <- 0
-  ln_p_df[ln_p_df==NaN] <- 0
-  
-  #effective number via Simpson's diversity'
-  div <- 1/rowSums(p_df^2)
-  if(type=="Shannon") div <-exp(-1*rowSums(p_df*ln_p_df))
-  
-  #NaN = 0
-  div[is.nan(div)] <- 0
-  
-  div
+eff_div <- function(df, q=1){
+  #loop over the whole data frame, row by row
+  sapply(1:nrow(df), function(x){
+    dat <- duffy %>%
+      select(eval(duffyAllVars.std)) 
+    vegetarian::d(dat[x,], q=q)
+  })
 }
 
 

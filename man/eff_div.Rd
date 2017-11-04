@@ -4,12 +4,13 @@
 \alias{eff_div}
 \title{eff_div}
 \usage{
-eff_div(df, type = "Simpson")
+eff_div(df, q = 1)
 }
 \arguments{
 \item{df}{A data frame of functions}
 
-\item{type}{Diversity index to be used. Options are "Simpson" and "Shannon"}
+\item{q}{Order of the diversity measure. Defaults to the 
+Shannon case where q = 1. For Simpson, q=2.}
 }
 \value{
 Returns a vector.
@@ -21,6 +22,7 @@ Returns a vector.
 Takes a data frame, variable names, and type of index and returns
  the effective number of functions - i.e., the equivalent number of 
  functions if all were performing at the same level. See Jost 2006 and 2010.
+ Internally, uses \link{\code{vegetarian::d}}
 }
 \author{
 Jarrett Byrnes.

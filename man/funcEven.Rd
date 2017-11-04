@@ -4,14 +4,15 @@
 \alias{funcEven}
 \title{funcEven}
 \usage{
-funcEven(data, vars, type = "Simpson")
+funcEven(data, vars, q = 1)
 }
 \arguments{
 \item{data}{A vector of measurements of a function.}
 
 \item{vars}{Name of function variables}
 
-\item{type}{Diversity index to be used. Options are "Simpson" and "Shannon"}
+\item{q}{Order of the diversity measure. Defaults to the 
+Shannon case where q = 1. For Simpson, q=2.}
 }
 \value{
 Returns a vector.
@@ -22,9 +23,12 @@ Returns a vector.
 \details{
 Takes a data frame, variable names, and type of index and gets 
 the evenness factor for the collection of values supplied as defined in 
-Jost 2010
+Jost  2010
 }
 \author{
 Jarrett Byrnes.
+}
+\references{
+Jost, L. 2006. Entropy and diversity. Oikos 113(2): 363-375.
 }
 

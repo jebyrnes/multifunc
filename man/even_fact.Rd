@@ -4,12 +4,13 @@
 \alias{even_fact}
 \title{even_fact}
 \usage{
-even_fact(df, type = "Simpson")
+even_fact(df, q = 1)
 }
 \arguments{
 \item{df}{A data frame of functions}
 
-\item{type}{Diversity index to be used. Options are "Simpson" and "Shannon"}
+\item{q}{Order of the diversity measure. Defaults to the 
+Shannon case where q = 1. For Simpson, q=2.}
 }
 \value{
 Returns a vector.
