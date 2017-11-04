@@ -5,8 +5,7 @@
 \title{getMF
 \code{getMF} get multifunctionality index defined by function and evenness}
 \usage{
-getMF(data, vars, standardizeFunction = standardizeUnitScale,
-  type = "Simpson")
+getMF(data, vars, standardizeFunction = standardizeUnitScale, q = 1)
 }
 \arguments{
 \item{data}{A vector of measurements of a function.}
@@ -17,7 +16,8 @@ getMF(data, vars, standardizeFunction = standardizeUnitScale,
 function to the same scale, such as \code{standardizeUnitScale} or 
 \code{standardizeZScore}}
 
-\item{type}{Diversity index to be used. Options are "Simpson" and "Shannon"}
+\item{q}{Order of the diversity measure. Defaults to the 
+Shannon case where q = 1. For Simpson, q=2.}
 }
 \value{
 Returns a vector.

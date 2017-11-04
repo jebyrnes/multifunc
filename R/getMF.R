@@ -8,13 +8,13 @@
 #' @param standardizeFunction A function to standardize each individual 
 #' function to the same scale, such as \code{standardizeUnitScale} or 
 #' \code{standardizeZScore}
-#' @param type Diversity index to be used. Options are "Simpson" and "Shannon"
-#' 
+#' @param q 	Order of the diversity measure. Defaults to the 
+#' Shannon case where q = 1. For Simpson, q=2. 
 #' @export
 #' @return Returns a vector.
 #'
 #'
-getMF <- function(data, vars, standardizeFunction=standardizeUnitScale, type="Simpson"){
+getMF <- function(data, vars, standardizeFunction=standardizeUnitScale, q=1){
   
   #get standardized functions
   std_funcs <- getStdAndMeanFunctions(data, vars, standardizeFunction)
@@ -24,7 +24,7 @@ getMF <- function(data, vars, standardizeFunction=standardizeUnitScale, type="Si
   mf_a <- std_funcs$meanFunction
   
   #get evenness
-  func_even <- even_fact(funcs, type)
+  func_even <- even_fact(funcs, q = q)
   
   #mf = average * evenness
   mf_a*func_even
