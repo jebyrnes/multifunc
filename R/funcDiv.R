@@ -50,9 +50,7 @@ funcDiv <- function(data, vars, q=1){
 eff_div <- function(df, q=1){
   #loop over the whole data frame, row by row
   sapply(1:nrow(df), function(x){
-    dat <- duffy %>%
-      select(eval(duffyAllVars.std)) 
-    vegetarian::d(dat[x,], q=q)
+    vegetarian::d(df[x,], q=q)
   })
 }
 

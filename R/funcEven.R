@@ -19,7 +19,7 @@ funcEven <- function(data, vars, q=1){
   #get a df of just the vars
   df <- data[,which(names(data) %in% vars)]
   #get the evenness
-  even_fact(df, type)
+  even_fact(df, q = q)
   
 }
 
