@@ -12,7 +12,8 @@ Imports:
     MASS,
     reshape2,
     stats,
-    utils
+    utils,
+    vegetarian
 Suggests:
     ggplot2,
     gridExtra,
