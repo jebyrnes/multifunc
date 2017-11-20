@@ -5,7 +5,7 @@
 #' @details Takes a data frame, variable names, and type of index and returns
 #'  the effective number of functions - i.e., the equivalent number of 
 #'  functions if all were performing at the same level. See Jost 2006 and 2010.
-#'  Internally, uses \link{\code{vegetarian::d}}
+#'  Internally, uses \link[vegetarian]{\code{d}}
 #' 
 #' @author Jarrett Byrnes.
 #' @param data A vector of measurements of a function.
@@ -37,7 +37,7 @@ funcDiv <- function(data, vars, q=1){
 #' @details Takes a data frame, variable names, and type of index and returns
 #'  the effective number of functions - i.e., the equivalent number of 
 #'  functions if all were performing at the same level. See Jost 2006 and 2010.
-#'  Internally, uses \link{\code{vegetarian::d}}
+#'  Internally, uses \link[vegetarian]{\code{d}}
 #' 
 #' @author Jarrett Byrnes.
 #' @param df A data frame of functions

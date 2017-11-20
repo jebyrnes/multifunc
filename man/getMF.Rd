@@ -2,8 +2,7 @@
 % Please edit documentation in R/getMF.R
 \name{getMF}
 \alias{getMF}
-\title{getMF
-\code{getMF} get multifunctionality index defined by function and evenness}
+\title{getMF}
 \usage{
 getMF(data, vars, standardizeFunction = standardizeUnitScale, q = 1)
 }
@@ -21,6 +20,10 @@ Shannon case where q = 1. For Simpson, q=2.}
 }
 \value{
 Returns a vector.
+}
+\description{
+An entropy-based multifunctionality index.
+\code{getMF} get multifunctionality index defined by function and evenness
 }
 \details{
 Takes a data frame, variable names, a standardizing function, and a type of diversity index and returns an index of multifunctionality. Here MF = MF_a * MF_e where MF_a is the average level of functionality across functions sampled and MF_e is the evenness factor from \code{funcEven}.

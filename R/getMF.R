@@ -1,4 +1,5 @@
 #' @title getMF
+#' @description An entropy-based multifunctionality index.
 #' \code{getMF} get multifunctionality index defined by function and evenness
 #' 
 #' @details Takes a data frame, variable names, a standardizing function, and a type of diversity index and returns an index of multifunctionality. Here MF = MF_a * MF_e where MF_a is the average level of functionality across functions sampled and MF_e is the evenness factor from \code{funcEven}.
