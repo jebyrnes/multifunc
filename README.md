@@ -5,7 +5,7 @@ R package for Byrnes, J. E. K., Gamfeldt, L., Isbell, F., Lefcheck, J. S., Griff
 
 
     library(devtools)
-    install_github("multifunc", "jebyrnes")
+    install_github("jebyrnes/multifunc")
 
 
 
