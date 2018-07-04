@@ -4,8 +4,10 @@ Date: 2017-09-25
 Title: Analysis of Ecological Drivers on Ecosystem Multifunctionality
 Description: Methods for the analysis of how ecological drivers affect the
     multifunctionality of an ecosystem.
-Author: Jarrett Byrnes
+Authors@R: person("Jarrett", "Byrnes",  role = c("aut","cre"), email = "jarrett.byrnes@umb.edu")
 Maintainer: Jarrett Byrnes <jarrett.byrnes@umb.edu>
+URL: https://github.com/jebyrnes/multifunc
+BugReports: https://github.com/jebyrnes/multifunc/piecewiseSEM/issues
 Imports:
     plyr,
     car,
@@ -46,5 +48,5 @@ Collate:
     'funcDiv.R'
     'funcEven.R'
     'getMF.R'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
