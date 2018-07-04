@@ -14,15 +14,18 @@
 
 
 ## 0.7.1 (Release date: 2017-03-15)
-Changed from Depends (from older version of R) to Imports
+* Changed from Depends (from older version of R) to Imports
+*
 
-
-## 0.6.2
+## 0.6.2 (Release date: 2016-06-26)
 * Changed to semantic versioning. Added catch for users trying to get indices from multiple threshold approach when none of the coefficients of interest are different from 0.
 
 
-## 0.6-1
+## 0.6.1 (Release date 2016-03-25)
 * Fixed error in getMaxFuncs that was leading to one additional sample being pulled to calculate max values
 
-## 0.6.0
-* Fixed error in getMaxFuncs that was leading to bad row indices and no max being calculated  
+## 0.6.0 (Release date 2013-11-18)
+* Fixed error in getMaxFuncs that was leading to bad row indices and no max being calculated
+
+## 0.5.0 (Release Date 2013-02-11)
+* First release
