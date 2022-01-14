@@ -14,4 +14,4 @@
 #'
 
 
-standardizeZScore<-function(afun) (afun-mean(afun, na.rm=F))/sd(afun, na.rm=T)
+standardizeZScore <- function(afun) (afun - mean(afun, na.rm=F))/stats::sd(afun, na.rm=T)
