@@ -35,12 +35,3 @@ whichVars<-function(a.df, vars=NA, thresh=2/3){
       
       vars
 }
-
-
-
-#qw - a helper function that we
-#will use later to deal with strings
-#analagous to qw in PERL
-qw <- function(...) {
-  sapply(match.call()[-1], deparse)
-}
