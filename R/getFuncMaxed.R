@@ -32,9 +32,9 @@
 #' #re-normalize N.Soil so that everything is on the same 
 #' #sign-scale (e.g. the maximum level of a function is 
 #' #the "best" function)
-#' germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+#' germany$N.Soil <- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
 #' 
-#' germanyThresh<-getFuncMaxed(germany, vars, thresh=0.5, prepend=c("plot","Diversity"), maxN=7)
+#' germanyThresh <- getFuncMaxed(germany, vars, thresh=0.5, prepend=c("plot","Diversity"), maxN=7)
 #' 
 
 #A function that will return a data frame with the first several columns
