@@ -17,7 +17,6 @@
 #' then all thresholds are porportions of the largest value measured for a function.  If maxN=8, then it's the
 #' porportion of the mean of the highest 8 measurements.
 #' 
-#' @import plyr car MASS reshape2 stats utils vegetarian
 #' @export
 #' @return Returns a data frame of number or fraction of functions greater than or equal to the selected thresholds in each plot.
 #'
@@ -62,13 +61,13 @@ getFuncMaxed<-function(adf, vars=NA, thresh=0.7, proportion=F, prepend="Diversit
     }
     
     
-    funcMaxed<-rowSums(colwise(function(x) x >= thresh*getMaxValue(x))(adf[,which(names(adf)%in%vars)]))
+    funcMaxed <- rowSums(colwise(function(x) x >= thresh*getMaxValue(x))(adf[,which(names(adf)%in%vars)]))
     
     
     if(proportion) funcMaxed<-funcMaxed/length(vars)
  
     #bind together the prepend columns and the functions at or above a threshold
-    ret<-data.frame(cbind(adf[,which(names(adf) %in% prepend)], funcMaxed))
+    ret <- data.frame(cbind(adf[,which(names(adf) %in% prepend)], funcMaxed))
     names(ret) <- c(names(adf)[which(names(adf) %in% prepend)], "funcMaxed")
  
   #how many functions were considered
