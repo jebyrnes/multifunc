@@ -19,6 +19,9 @@
 #standardizeFunction standardizes a function so that it's values are between 0 and 1
 #if the value of a function is <0, assumes that that is the lowest level possible
 standardizeUnitScale<-function(afun, min0=T, maxValue=max(afun, na.rm=T)){
- if(min0 && min(afun, na.rm=T)<0) afun<-afun+abs(min(afun, na.rm=T))
- afun/maxValue 
+
+  #add back minimum of negative values in function so you can rescale properly  
+  if(min0 && min(afun, na.rm=T) <0) afun <- afun+abs(min(afun, na.rm=T))
+
+  afun/maxValue 
 }
