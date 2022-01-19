@@ -52,33 +52,39 @@
 
 
 getCoefTab<-function(eqn, fun=glm, data, groupVar="thresholds", coefVar=NULL, ...){
-  ret <- plyr::ddply(data, .variables=groupVar, function(adf) {
-    
-   # if(length(unique(adf[[ as.character(eqn[[2]]) ]]))==1) return(c(0,0,NA,1)) #in case all functions perform exactly the same, the slope is a flat line
-    
-    options(warn=2)
-    
-    #use try-catch in case there are errors
-    aFit<-try(fun(eqn, data=adf, ...))
-
-    options(warn=0)
-    
-    #if there was a problem, catch it and just return NAs for this coefficient
-    if("try-error" %in% class(aFit)) return(rep(NA, 4))
-    
-    if("glm" %in% class(aFit)) {    if(!aFit$converged) return(rep(NA, 4))	}
-    
-    
-    coefInfo<-summary(aFit)$coef
-    
-    coefInfo <- cbind(coef_name = rownames(coefInfo), as.data.frame(coefInfo))
-    
-#    idx<-which(rownames(coefInfo) %in% coefVar)
-     return(coefInfo)
-#    return(coefInfo[idx,])  
-  })  
+  gv <- sym(groupVar)
+ # options(warn=2)
   
-  if(!is.null(coefVar)) ret <- subset(ret, ret$coef_name==coefVar)
+  ret <- data %>%
+    dplyr::group_by({{gv}}) %>%
+    tidyr::nest() %>%
+    dplyr::mutate(mod = purrr::map(data, ~try(fun(eqn, data = .x, ...)))) %>%
+  
+  #get info on if things failed
+    mutate(err = purrr::map_lgl(mod, ~"try-error" %in% class(.x)),
+           err_conv = purrr::map_lgl(mod, ~ifelse("glm" %in% class(.x),
+                                                  !.x$converged,
+                                                  FALSE))
+    )
+
+  #get coefs
+  ret <- ret %>% 
+    dplyr::mutate(coefs = purrr::map(mod, broom::tidy)) %>%
+    dplyr::select(-data, -mod) %>%
+    tidyr::unnest(coefs) %>%
+    ungroup() 
+  
+  #filter out fit errors
+  ret %>%
+    mutate(across(estimate:p.value, ~ifelse(err | err_conv, NA, .x))) %>%
+    select(-errr, -err_conv)
+  
+  if(!is.null(coefVar)){
+    ret <- ret %>% dplyr::filter(term %in% coefVar)
+  }
+  
+  # options(warn=0)
   
   return(ret)
+  
 }
