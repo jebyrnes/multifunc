@@ -47,11 +47,12 @@ funcDiv <- function(data, vars, q=1){
 #' @export
 #' @return Returns a vector.
 #'
-eff_div <- function(df, q=1){
+eff_div <- function(df, q = 1){
+  vegan::renyi(df, scales = q)
   #loop over the whole data frame, row by row
-  sapply(1:nrow(df), function(x){
-    vegetarian::d(df[x,], q=q)
-  })
+  # sapply(1:nrow(df), function(x){
+  #   vegetarian::d(df[x,], q=q)
+  # })
 }
 
 

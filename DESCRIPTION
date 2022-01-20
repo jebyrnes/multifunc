@@ -17,12 +17,11 @@ Imports:
     reshape2,
     stats,
     utils,
-    vegetarian
+    vegan
 Suggests:
     ggplot2,
     gridExtra,
-    knitr,
-    rmarkdown
+    knitr
 License: CC0
 LazyData: true
 Collate:
