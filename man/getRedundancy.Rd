@@ -4,8 +4,16 @@
 \alias{getRedundancy}
 \title{getRedundancy}
 \usage{
-getRedundancy(vars, species, data, negVars = NA, method = "lm",
-  combine = "+", output = "effect", ...)
+getRedundancy(
+  vars,
+  species,
+  data,
+  negVars = NA,
+  method = "lm",
+  combine = "+",
+  output = "effect",
+  ...
+)
 }
 \arguments{
 \item{vars}{Vector of column names of functions}
@@ -59,4 +67,3 @@ getRedundancy(vars, species, germany, output="coef")
 \author{
 Jarrett Byrnes.
 }
-

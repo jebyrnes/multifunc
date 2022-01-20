@@ -4,8 +4,16 @@
 \alias{getFuncsMaxed}
 \title{getFuncsMaxed}
 \usage{
-getFuncsMaxed(adf, vars = NA, threshmin = 0.05, threshmax = 0.99,
-  threshstep = 0.01, proportion = F, prepend = "Diversity", maxN = 1)
+getFuncsMaxed(
+  adf,
+  vars = NA,
+  threshmin = 0.05,
+  threshmax = 0.99,
+  threshstep = 0.01,
+  proportion = F,
+  prepend = "Diversity",
+  maxN = 1
+)
 }
 \arguments{
 \item{adf}{A data frame with functions.}
@@ -57,4 +65,3 @@ germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05,
 \author{
 Jarrett Byrnes.
 }
-

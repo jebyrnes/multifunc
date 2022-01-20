@@ -48,4 +48,3 @@ posCurve<-divNeeded(redund, type="positive")
 \author{
 Jarrett Byrnes.
 }
-

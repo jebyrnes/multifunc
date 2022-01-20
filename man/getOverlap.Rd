@@ -4,8 +4,13 @@
 \alias{getOverlap}
 \title{getOverlap}
 \usage{
-getOverlap(overData, m = 2, type = "positive", index = "sorensen",
-  denom = "set")
+getOverlap(
+  overData,
+  m = 2,
+  type = "positive",
+  index = "sorensen",
+  denom = "set"
+)
 }
 \arguments{
 \item{overData}{Matrix of functions and which species affect them from \code{getRedundancy}.}
@@ -58,4 +63,3 @@ getOverlap(redund, m=2, index="mountford")
 \author{
 Jarrett Byrnes.
 }
-

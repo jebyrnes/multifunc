@@ -7,9 +7,6 @@
 \description{
 Data from the pan-European Biodepth grassland diversity manipulation
 }
-\author{
-Jarrett Byrnes
-}
 \references{
 Spehn, E. M., A. Hector, J. Joshi, M. Scherer-Lorenzen, B. Schmid, 
 E. Bazeley-White, C. Beierkuhnlein, M. C. Caldeira,
@@ -21,5 +18,7 @@ A. S. Siamantziouras, A. C. Terry, A. Y. Troumbis, F. I. Woodward, S. Yachi, and
 Ecosystem effects of biodiversity manipulations in European grasslands.
 Ecological Monographs 75:37-63.
 }
+\author{
+Jarrett Byrnes
+}
 \keyword{data}
-

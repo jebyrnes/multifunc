@@ -26,4 +26,3 @@ Jost 2010
 \author{
 Jarrett Byrnes.
 }
-

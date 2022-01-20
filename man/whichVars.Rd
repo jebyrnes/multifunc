@@ -26,13 +26,12 @@ This is a helper function for data processing.
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location=="Germany")
 
-vars<-whichVars(germany, allVars)
+vars <- whichVars(germany, allVars)
 }
 \author{
 Jarrett Byrnes.
 }
-

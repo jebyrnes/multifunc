@@ -31,4 +31,3 @@ Takes a data frame, variable names, a standardizing function, and a type of dive
 \author{
 Jarrett Byrnes.
 }
-

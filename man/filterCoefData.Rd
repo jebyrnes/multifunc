@@ -48,4 +48,3 @@ filterCoefData(stdCoefs)
 \author{
 Jarrett Byrnes.
 }
-

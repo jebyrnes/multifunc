@@ -47,4 +47,3 @@ filterOverData(redund, type="positive")
 \author{
 Jarrett Byrnes.
 }
-

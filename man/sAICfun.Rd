@@ -4,8 +4,15 @@
 \alias{sAICfun}
 \title{sAICfun}
 \usage{
-sAICfun(response, species, data, positive.desired = T, method = "lm",
-  combine = "+", ...)
+sAICfun(
+  response,
+  species,
+  data,
+  positive.desired = T,
+  method = "lm",
+  combine = "+",
+  ...
+)
 }
 \arguments{
 \item{response}{Name of the response column}
@@ -56,4 +63,3 @@ names(res.list)<-vars
 \author{
 Jarrett Byrnes.
 }
-

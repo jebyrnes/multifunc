@@ -4,8 +4,14 @@
 \alias{getFuncMaxed}
 \title{getFuncMaxed}
 \usage{
-getFuncMaxed(adf, vars = NA, thresh = 0.7, proportion = F,
-  prepend = "Diversity", maxN = 1)
+getFuncMaxed(
+  adf,
+  vars = NA,
+  thresh = 0.7,
+  proportion = F,
+  prepend = "Diversity",
+  maxN = 1
+)
 }
 \arguments{
 \item{adf}{A data frame with functions.}
@@ -44,12 +50,11 @@ vars<-whichVars(germany, allVars)
 #re-normalize N.Soil so that everything is on the same 
 #sign-scale (e.g. the maximum level of a function is 
 #the "best" function)
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+germany$N.Soil <- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
 
-germanyThresh<-getFuncMaxed(germany, vars, thresh=0.5, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh <- getFuncMaxed(germany, vars, thresh=0.5, prepend=c("plot","Diversity"), maxN=7)
 
 }
 \author{
 Jarrett Byrnes.
 }
-

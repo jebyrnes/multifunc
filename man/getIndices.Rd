@@ -4,8 +4,15 @@
 \alias{getIndices}
 \title{getIndices}
 \usage{
-getIndices(slopedata, threshdata, eqn, fun = glm, divvar = "Diversity",
-  groupVar = "thresholds", showNfunc = T)
+getIndices(
+  slopedata,
+  threshdata,
+  eqn,
+  fun = glm,
+  divvar = "Diversity",
+  groupVar = "thresholds",
+  showNfunc = T
+)
 }
 \arguments{
 \item{slopedata}{A data frame with slopes of the relationship between diversity and number of functions greather than or equal to a threshold
@@ -53,4 +60,3 @@ getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
 \author{
 Jarrett Byrnes.
 }
-

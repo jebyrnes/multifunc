@@ -4,8 +4,7 @@
 \alias{getCoefTab}
 \title{getCoefTab}
 \usage{
-getCoefTab(eqn, fun = glm, data, groupVar = "thresholds", coefVar = NULL,
-  ...)
+getCoefTab(eqn, fun = glm, data, groupVar = "thresholds", coefVar = NULL, ...)
 }
 \arguments{
 \item{eqn}{The model to be fit at each threshold.}
@@ -55,4 +54,3 @@ germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity,
 \author{
 Jarrett Byrnes.
 }
-

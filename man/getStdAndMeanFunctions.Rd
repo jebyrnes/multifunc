@@ -51,4 +51,3 @@ ggplot(aes(x=Diversity, y=meanFunction),data=germany)+geom_point(size=3)+
 \author{
 Jarrett Byrnes.
 }
-

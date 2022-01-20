@@ -4,8 +4,13 @@
 \alias{getOverlapSummary}
 \title{getOverlapSummary}
 \usage{
-getOverlapSummary(overData, m = 2, type = "positive", index = "sorensen",
-  denom = "set")
+getOverlapSummary(
+  overData,
+  m = 2,
+  type = "positive",
+  index = "sorensen",
+  denom = "set"
+)
 }
 \arguments{
 \item{overData}{Matrix of functions and which species affect them from \code{getRedundancy}.}
@@ -55,4 +60,3 @@ getOverlapSummary(redund, m=2)
 \author{
 Jarrett Byrnes.
 }
-

@@ -27,4 +27,3 @@ qw(a, b)
 \author{
 Jarrett Byrnes.
 }
-

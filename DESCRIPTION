@@ -24,30 +24,5 @@ Suggests:
     knitr
 License: CC0
 LazyData: true
-Collate:
-    'getIndices.R'
-    'whichVars.R'
-    'divNeeded.R'
-    'getOverlap.R'
-    'getOverlapSummary.R'
-    'filterOverData.R'
-    'getCoefTab.R'
-    'getRedundancy.R'
-    'stdEffects.R'
-    'qw.R'
-    'getFuncMaxed.R'
-    'getFuncsMaxed.R'
-    'StandardizeUnitScale.R'
-    'getStdAndMeanFunctions.R'
-    'relevantSp.R'
-    'standardizeZScore.R'
-    'sAICfun.R'
-    'filterCoefData.R'
-    'all_biodepth.R'
-    'duffy_2003.R'
-    'multifunc.R'
-    'funcDiv.R'
-    'funcEven.R'
-    'getMF.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr

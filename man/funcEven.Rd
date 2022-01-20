@@ -25,10 +25,9 @@ Takes a data frame, variable names, and type of index and gets
 the evenness factor for the collection of values supplied as defined in 
 Jost  2010
 }
-\author{
-Jarrett Byrnes.
-}
 \references{
 Jost, L. 2006. Entropy and diversity. Oikos 113(2): 363-375.
 }
-
+\author{
+Jarrett Byrnes.
+}
