@@ -18,7 +18,7 @@ the vector's maximum.}
 Returns a standardized vector.
 }
 \description{
-\code{standardizeUnitScale} standardized a variable so its masimum is 1
+\code{standardizeUnitScale} standardized a variable so its maximum is 1
 }
 \details{
 Takes a vector and then divides it by a maximum value.

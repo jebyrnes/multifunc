@@ -26,3 +26,4 @@ License: CC0
 LazyData: true
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Encoding: UTF-8
