@@ -32,17 +32,14 @@
 #' germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
 #' 
 #' germany<-cbind(germany, getStdAndMeanFunctions(germany, vars))
-#' 
-#' #plot it
-#' library(ggplot2)
-#' ggplot(aes(x=Diversity, y=meanFunction),data=germany)+geom_point(size=3)+
-#'   theme_bw(base_size=15)+
-#'   stat_smooth(method="lm", colour="black", size=2)
+
 
 getStdAndMeanFunctions<-function(data, vars, standardizeFunction=standardizeUnitScale){
-  ret<-colwise(standardizeFunction)(data[,which(names(data) %in% vars)])
   
-  names(ret)<-paste(names(ret), ".std", sep="")
+  
+  ret <- dplyr::mutate(dat, across(vars, standardizeUnitScale, .names = "{.col}.std")) %>%
+    dplyr::select(paste0(vars, ".std"))
+  
   ret$meanFunction<-rowSums(ret)/ncol(ret)
   
   return(ret)
