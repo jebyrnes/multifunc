@@ -60,18 +60,26 @@ getFuncMaxed<-function(adf, vars=NA, thresh=0.7, proportion=F, prepend="Diversit
       mean( sort(x, na.last=F)[l:(l-maxN+1)], na.rm=T)
     }
     
+    #old
+    #funcMaxed <- rowSums(colwise(function(x) x >= thresh*getMaxValue(x))(adf[,which(names(adf)%in%vars)]))
     
-    funcMaxed <- rowSums(colwise(function(x) x >= thresh*getMaxValue(x))(adf[,which(names(adf)%in%vars)]))
+   ret <- adf %>%
+      #get functions over threshold
+      dplyr::mutate(dplyr::across(vars, 
+                                  ~.x >= thresh*max(.x, na.rm=TRUE), 
+                                  .names = "{.col}_OVER_THRESH"),
+                    nFunc = length(vars)) %>%
+      #sum over functions
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+             funcMaxed = sum(dplyr::c_across(paste0(vars, "_OVER_THRESH")))
+             ) %>%
+      dplyr::ungroup() %>%
+      #cleanup
+      dplyr::select(-dplyr::contains("_OVER_THRESH"))
     
-    
-    if(proportion) funcMaxed<-funcMaxed/length(vars)
- 
-    #bind together the prepend columns and the functions at or above a threshold
-    ret <- data.frame(cbind(adf[,which(names(adf) %in% prepend)], funcMaxed))
-    names(ret) <- c(names(adf)[which(names(adf) %in% prepend)], "funcMaxed")
- 
-  #how many functions were considered
-  ret$nFunc<-length(vars)
-
+    if(proportion) 
+      ret <- ret %>% dplyr::mutate(funcMaxed = funcMaxed/length(vars))
+   
   ret
 }
