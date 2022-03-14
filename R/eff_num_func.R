@@ -169,7 +169,14 @@ eff_num_func <- function(dat, vars, q = 1,
 
 eff_num_func_no_d <- function(adf_freq, q = 1){
   if(q==1){
-    exp(-rowSums(adf_freq*log(adf_freq)))
+    summand <- adf_freq*log(adf_freq)
+    #deal with 0 log 0 = 0
+    zero_idx <- which(is.nan(as.matrix(summand)), arr.ind=TRUE)
+    if(length(zero_idx)>0){
+      summand[which(is.nan(as.matrix(summand)), arr.ind=TRUE)] <- 0
+    }
+    
+    exp(-rowSums(summand))
   }else{
     rowSums(adf_freq^q)^(1/(1-q))
   }
