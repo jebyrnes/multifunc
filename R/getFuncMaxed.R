@@ -47,6 +47,7 @@
 #changelog
 # 2014-03-24 Fixed -1 error in getMaxValue
 # 2015-06-24 Fixed column name from prepend error https://github.com/jebyrnes/multifunc/issues/1
+# 2022-04-14 Updated to use dplyr
 getFuncMaxed<-function(adf, vars=NA, thresh=0.7, proportion=F, prepend="Diversity", maxN=1){
     if(is.na(vars)[1]) stop("You need to specify some response variable names")
 
@@ -65,10 +66,12 @@ getFuncMaxed<-function(adf, vars=NA, thresh=0.7, proportion=F, prepend="Diversit
     
    ret <- adf %>%
       #get functions over threshold
-      dplyr::mutate(dplyr::across(vars, 
-                                  ~.x >= thresh*max(.x, na.rm=TRUE), 
-                                  .names = "{.col}_OVER_THRESH"),
-                    nFunc = length(vars)) %>%
+      dplyr::mutate(
+        thresholds = thresh,
+        dplyr::across(vars, 
+                      ~.x >= thresh*max(.x, na.rm=TRUE), 
+                      .names = "{.col}_OVER_THRESH"),
+        nFunc = length(vars)) %>%
       #sum over functions
       dplyr::rowwise() %>%
       dplyr::mutate(

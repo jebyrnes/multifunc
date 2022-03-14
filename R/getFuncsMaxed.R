@@ -44,20 +44,24 @@
 #Create a data frame that has the value of proportion of functions greather than a threshold for several different thresholds at the plot later   
 ####
 
-getFuncsMaxed<-function(adf, vars=NA, threshmin=0.05, threshmax=0.99, threshstep=0.01, proportion=F, prepend="Diversity", maxN=1) {
+getFuncsMaxed<-function(adf, vars = NA, 
+                        threshmin = 0.05, threshmax = 0.99,
+                        threshstep = 0.01, proportion = FALSE, 
+                        prepend = "Diversity", maxN = 1) {
   
-  ret_dummy <- data.frame(thresholds=seq(threshmin,threshmax,threshstep))
+  thresh_vec <-seq(threshmin,threshmax,threshstep)
   
-  ret<-ddply(ret_dummy, .variables="thresholds",
-                  function(x) {getFuncMaxed(adf,
-                                            vars=vars,
-                                            thresh=x[1,1], #the threshold
-                                            proportion=proportion,
-                                            maxN=maxN,
-                                            prepend=c(prepend))
-                })
-        ret$thresh<-as.numeric(ret$thresh) #not sure why, but it was sometimes returning as a string
-        
-        ret
+  
+  ret <- purrr::map_dfr(thresh_vec,
+                ~getFuncMaxed(adf,
+                 vars=vars,
+                 thresh=.x, #the threshold
+                 proportion=proportion,
+                 maxN=maxN,
+                 prepend=c(prepend))
+                )
+  
+  ret
+
 
 }
