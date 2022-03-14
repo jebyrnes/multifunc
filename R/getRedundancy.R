@@ -110,6 +110,6 @@ sAICfun <- function(response, species, data, positive.desired=T, method="lm", co
 sAICFit<-function(response, species, data, method="lm", combine="+", ...){
   f <- as.formula(paste(response, "~" , paste(species, collapse="+")))
   fit <- eval(substitute(lm(f, data=data, ...)))
-  obj <- stepAIC(fit, trace=0)
+  obj <- MASS::stepAIC(fit, trace=0)
   obj
 }
