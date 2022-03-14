@@ -41,12 +41,6 @@ vars<-whichVars(germany, allVars)
 germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
 
 germany<-cbind(germany, getStdAndMeanFunctions(germany, vars))
-
-#plot it
-library(ggplot2)
-ggplot(aes(x=Diversity, y=meanFunction),data=germany)+geom_point(size=3)+
-  theme_bw(base_size=15)+
-  stat_smooth(method="lm", colour="black", size=2)
 }
 \author{
 Jarrett Byrnes.
