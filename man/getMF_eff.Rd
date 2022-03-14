@@ -40,7 +40,7 @@ function to the same scale, such as \code{standardizeUnitScale} or
 \code{standardizeZScore}}
 }
 \value{
-Returns a verctor of effective or standardized effective multifunctionality.
+Returns a vector of effective or standardized effective multifunctionality.
 }
 \description{
 A multifunctionality index rooted in Hill numbers.
