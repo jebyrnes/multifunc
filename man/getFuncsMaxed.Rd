@@ -10,7 +10,7 @@ getFuncsMaxed(
   threshmin = 0.05,
   threshmax = 0.99,
   threshstep = 0.01,
-  proportion = F,
+  proportion = FALSE,
   prepend = "Diversity",
   maxN = 1
 )
