@@ -249,7 +249,7 @@ eff_num_func_d <- function(adf_freq, q = 1, D, tau = NULL){
 
 eff_num_func_d_onerow <- function(arow_freq, D, tau, q){
   arow_freq <- as.numeric(arow_freq)
-  a <- as.vector((1 - D/tau) %*% arow )  #from Chao et al 2019 code
+  a <- as.vector((1 - D/tau) %*% arow_freq )  #from Chao et al 2019 code
   
   if(q==1){
     exp(-1 * sum(arow_freq * log(a)))
