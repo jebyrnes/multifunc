@@ -40,7 +40,7 @@
 #' consequences. Ecology 54: 427-432.
 #' 
 #' @export
-#' @return Returns a verctor of effective or standardized effective multifunctionality.
+#' @return Returns a vector of effective or standardized effective multifunctionality.
 #'
 
 getMF_eff <- function(data, vars, q=1,
