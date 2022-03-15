@@ -1,0 +1,8 @@
+utils::globalVariables(c("mod",
+                         "err",
+                         "err_conv",
+                         "coefs",
+                         "estimate",
+                         "p.value",
+                         "term",
+                         "funcMaxed"))

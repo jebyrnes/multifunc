@@ -264,7 +264,7 @@ eff_num_func_d_onerow <- function(arow_freq, D, tau, q){
 #' @description Calculates the average distance between functions for one or an entire
 #' assemblage of replicates
 #'
-#' @param dat A adf_raw frame with functions in columns and rows as replicates 
+#' @param adf_raw A data frame frame with functions in columns and rows as replicates 
 #' @param D A distance matrix describing dissimilarity between functions. 
 #' @references 
 #' 
@@ -273,7 +273,7 @@ eff_num_func_d_onerow <- function(arow_freq, D, tau, q){
 #' functional diversity, functional beta diversity, and related (dis)similarity 
 #' measures. Ecological Monographs. 89: e01343.
 #' 
-#' @return
+#' @return Single numeric of weighted average of distance matrix
 #' @export
 #'
 

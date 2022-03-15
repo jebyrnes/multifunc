@@ -7,12 +7,12 @@
 dmean(adf_raw, D)
 }
 \arguments{
-\item{D}{A distance matrix describing dissimilarity between functions.}
+\item{adf_raw}{A data frame frame with functions in columns and rows as replicates}
 
-\item{dat}{A adf_raw frame with functions in columns and rows as replicates}
+\item{D}{A distance matrix describing dissimilarity between functions.}
 }
 \value{
-
+Single numeric of weighted average of distance matrix
 }
 \description{
 Calculates the average distance between functions for one or an entire

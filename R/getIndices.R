@@ -38,7 +38,7 @@
 #' getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
 
 
-getIndices <- function(slopedata, threshdata, eqn, fun=glm, 
+getIndices <- function(slopedata, threshdata, eqn, fun = stats::glm, 
                        divvar = "Diversity",groupVar="thresholds",
                        showNfunc=T){
   Smax <- max(threshdata[[divvar]], na.rm=T)
@@ -49,7 +49,7 @@ getIndices <- function(slopedata, threshdata, eqn, fun=glm,
     if(is.na(thresh)) return(NA)
     subdata <- threshdata[which(threshdata[[groupVar]]==thresh),]
     fit <- getFit(eqn, fun, subdata)
-    predict(fit, newdata=subdata[which(threshdata[[divvar]]==S),], type="response")[1]
+    stats::predict(fit, newdata=subdata[which(threshdata[[divvar]]==S),], type="response")[1]
   }
   
   Mmin <- predFun(tdata$Tmin, Smax)
@@ -78,7 +78,7 @@ getIndices <- function(slopedata, threshdata, eqn, fun=glm,
 }
 
 
-getFit <- function(eqn, fun=glm, adf, ...){
+getFit <- function(eqn, fun = stats::glm, adf, ...){
   aFit<-try(fun(eqn, data=adf, ...))
   
   #if there was a problem, catch it and just return NAs for this coefficient
@@ -90,7 +90,7 @@ getFit <- function(eqn, fun=glm, adf, ...){
 }
 
 
-getIndices_nothresh <- function(eqn, fun=glm, threshdata, divvar = "Diversity", groupVar="thresholds", coefVar, ...){
+getIndices_nothresh <- function(eqn, fun = stats::glm, threshdata, divvar = "Diversity", groupVar="thresholds", coefVar, ...){
   slopedata = getCoefTab(eqn, fun=fun, threshdata, groupVar="thresholds", coefVar, ...)
   getIndices(slopedata, threshdata, eqn, fun, divvar, groupVar)
 }

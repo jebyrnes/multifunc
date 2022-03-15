@@ -8,7 +8,7 @@ getIndices(
   slopedata,
   threshdata,
   eqn,
-  fun = glm,
+  fun = stats::glm,
   divvar = "Diversity",
   groupVar = "thresholds",
   showNfunc = T
