@@ -23,4 +23,3 @@ Which columns have values that are greater than zero.
 \author{
 Jarrett Byrnes.
 }
-

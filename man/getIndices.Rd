@@ -4,8 +4,15 @@
 \alias{getIndices}
 \title{getIndices}
 \usage{
-getIndices(slopedata, threshdata, eqn, fun = glm, divvar = "Diversity",
-  groupVar = "thresholds", showNfunc = T)
+getIndices(
+  slopedata,
+  threshdata,
+  eqn,
+  fun = stats::glm,
+  divvar = "Diversity",
+  groupVar = "thresholds",
+  showNfunc = T
+)
 }
 \arguments{
 \item{slopedata}{A data frame with slopes of the relationship between diversity and number of functions greather than or equal to a threshold
@@ -35,22 +42,28 @@ the relationship between diversity and number of functoins greater than a thresh
 See Byrnes et al. In Review.
 }
 \examples{
+\dontrun{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
+vars <- whichVars(germany, allVars)
 
-germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, 
-   threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh <- getFuncsMaxed(germany, vars,
+  threshmin = 0.05,
+  threshmax = 0.99, prepend = c("plot", "Diversity"), maxN = 7
+)
 
-germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, data=germanyThresh, 
-   coefVar="Diversity", family=quasipoisson(link="identity"))
+germanyLinearSlopes <- getCoefTab(funcMaxed ~ Diversity,
+  data = germanyThresh,
+  coefVar = "Diversity", family = quasipoisson(link = "identity")
+)
 
 getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
+
+}
 }
 \author{
 Jarrett Byrnes.
 }
-

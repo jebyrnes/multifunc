@@ -1,52 +1,30 @@
 Package: multifunc
-Version: 0.8.0
-Date: 2017-09-25
+Version: 0.9.2
+Date: 2022-03-14
 Title: Analysis of Ecological Drivers on Ecosystem Multifunctionality
 Description: Methods for the analysis of how ecological drivers affect the
     multifunctionality of an ecosystem.
-Authors@R: person("Jarrett", "Byrnes",  role = c("aut","cre"), email = "jarrett.byrnes@umb.edu")
-Maintainer: Jarrett Byrnes <jarrett.byrnes@umb.edu>
+Authors@R: person("Jarrett", "Byrnes",  role = c("aut","cre", "cph"), email = "jarrett.byrnes@umb.edu")
 URL: https://github.com/jebyrnes/multifunc
-BugReports: https://github.com/jebyrnes/multifunc/piecewiseSEM/issues
+BugReports: https://github.com/jebyrnes/multifunc/issues
 Imports:
-    plyr,
-    car,
-    MASS,
-    reshape2,
     stats,
+    dplyr,
+    purrr,
+    broom,
+    MASS,
     utils,
-    vegetarian
+    magrittr
 Suggests:
     ggplot2,
+    forcats,
+    tidyr,
     gridExtra,
     knitr,
-    rmarkdown
-License: CC0
+    patchwork,
+    car
+License: MIT + file LICENSE
 LazyData: true
-Collate:
-    'getIndices.R'
-    'whichVars.R'
-    'divNeeded.R'
-    'getOverlap.R'
-    'getOverlapSummary.R'
-    'filterOverData.R'
-    'getCoefTab.R'
-    'getRedundancy.R'
-    'stdEffects.R'
-    'qw.R'
-    'getFuncMaxed.R'
-    'getFuncsMaxed.R'
-    'StandardizeUnitScale.R'
-    'getStdAndMeanFunctions.R'
-    'relevantSp.R'
-    'standardizeZScore.R'
-    'sAICfun.R'
-    'filterCoefData.R'
-    'all_biodepth.R'
-    'duffy_2003.R'
-    'multifunc.R'
-    'funcDiv.R'
-    'funcEven.R'
-    'getMF.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Encoding: UTF-8

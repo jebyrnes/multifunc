@@ -4,8 +4,13 @@
 \alias{getOverlap}
 \title{getOverlap}
 \usage{
-getOverlap(overData, m = 2, type = "positive", index = "sorensen",
-  denom = "set")
+getOverlap(
+  overData,
+  m = 2,
+  type = "positive",
+  index = "sorensen",
+  denom = "set"
+)
 }
 \arguments{
 \item{overData}{Matrix of functions and which species affect them from \code{getRedundancy}.}
@@ -14,7 +19,7 @@ getOverlap(overData, m = 2, type = "positive", index = "sorensen",
 
 \item{type}{Are the kinds of effects we're looking at "positive", "negative" or "all".}
 
-\item{index}{Type of overlap index to be used. Defaults to "sorenson" byt currently incorporates
+\item{index}{Type of overlap index to be used. Defaults to "sorenson" but currently incorporates
 "mountford" and "jaccard" as well.}
 
 \item{denom}{Should the denominator be "all" species or just the "set" of species with the types
@@ -35,27 +40,32 @@ m-wise overlap between species and returns the overlap index for each combinatio
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
-species<-relevantSp(germany,26:ncol(germany))
+vars <- whichVars(germany, allVars)
+species <- relevantSp(germany, 26:ncol(germany))
 
-#re-normalize N.Soil so that everything is on the 
-#same sign-scale (e.g. the maximum level of a function is the "best" function)
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the
+# same sign-scale (e.g. the maximum level of a function is the "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
 
-res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
-names(res.list)<-vars
+res.list <- lapply(vars, function(x) sAICfun(x, species, germany))
+names(res.list) <- vars
 
-redund<-getRedundancy(vars, species, germany)
+redund <- getRedundancy(vars, species, germany)
 
-getOverlap(redund, m=2)
-getOverlap(redund, m=2, index="jaccard")
-getOverlap(redund, m=2, index="mountford")
+getOverlap(redund, m = 2)
+getOverlap(redund, m = 2, index = "jaccard")
+getOverlap(redund, m = 2, index = "mountford")
+
+#########
+# getOverlap takes a matrix of 1s and -1s, and depending on whether we're
+# interested in positive, negative, or both types of interactions looks for the
+# m-wise overlap
+#########
 }
 \author{
 Jarrett Byrnes.
 }
-

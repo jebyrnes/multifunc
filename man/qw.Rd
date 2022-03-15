@@ -23,8 +23,13 @@ in other languages, and wanted a version for R.
 c("a", "b")
 
 qw(a, b)
+
+
+
+# qw - a helper function that we
+# will use later to deal with strings
+# analagous to qw in PERL
 }
 \author{
 Jarrett Byrnes.
 }
-

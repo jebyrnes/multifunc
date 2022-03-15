@@ -4,8 +4,14 @@
 \alias{getCoefTab}
 \title{getCoefTab}
 \usage{
-getCoefTab(eqn, fun = glm, data, groupVar = "thresholds", coefVar = NULL,
-  ...)
+getCoefTab(
+  eqn,
+  fun = stats::glm,
+  data,
+  groupVar = "thresholds",
+  coefVar = NULL,
+  ...
+)
 }
 \arguments{
 \item{eqn}{The model to be fit at each threshold.}
@@ -34,25 +40,30 @@ greater than a threshold at multiple different thresholds and returns the coeffi
 effect of diversity at each threshold
 }
 \examples{
+\dontrun{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
+vars <- whichVars(germany, allVars)
 
-#re-normalize N.Soil so that everything is on the same 
-#sign-scale (e.g. the maximum level of a function is 
-#the "best" function)
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the same
+# sign-scale (e.g. the maximum level of a function is
+# the "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
 
-germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, 
-   threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh <- getFuncsMaxed(germany, vars,
+  threshmin = 0.05,
+  threshmax = 0.99, prepend = c("plot", "Diversity"), maxN = 7
+)
 
-germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, 
-   data=germanyThresh, coefVar="Diversity", family=quasipoisson(link="identity"))
+germanyLinearSlopes <- getCoefTab(funcMaxed ~ Diversity,
+  data = germanyThresh, coefVar = "Diversity", family = quasipoisson(link = "identity")
+)
+
+}
 }
 \author{
 Jarrett Byrnes.
 }
-

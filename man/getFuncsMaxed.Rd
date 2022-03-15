@@ -4,8 +4,16 @@
 \alias{getFuncsMaxed}
 \title{getFuncsMaxed}
 \usage{
-getFuncsMaxed(adf, vars = NA, threshmin = 0.05, threshmax = 0.99,
-  threshstep = 0.01, proportion = F, prepend = "Diversity", maxN = 1)
+getFuncsMaxed(
+  adf,
+  vars = NA,
+  threshmin = 0.05,
+  threshmax = 0.99,
+  threshstep = 0.01,
+  proportion = FALSE,
+  prepend = "Diversity",
+  maxN = 1
+)
 }
 \arguments{
 \item{adf}{A data frame with functions.}
@@ -34,27 +42,30 @@ Returns a data frame of number or fraction of functions greater than or equal to
 \code{getFuncsMaxed} the number of functions greater than or equal to a wide variety of thresholds in each experimental unit
 }
 \details{
-Create a data frame that has the value of number or proportion of functions 
+Create a data frame that has the value of number or proportion of functions
 greater than a threshold for several different thresholds at the plot.
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
+vars <- whichVars(germany, allVars)
 
-#re-normalize N.Soil so that everything is on the same 
-#sign-scale (e.g. the maximum level of a function is 
-#the "best" function)
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the same
+# sign-scale (e.g. the maximum level of a function is
+# the "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + 
+                  max(germany$N.Soil, na.rm = TRUE)
 
-germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, 
-   threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh <- getFuncsMaxed(germany, vars,
+  threshmin = 0.50,
+  threshmax = 0.60, prepend = c("plot", "Diversity"), maxN = 7
+)
+
 
 }
 \author{
 Jarrett Byrnes.
 }
-

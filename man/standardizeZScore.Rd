@@ -21,4 +21,3 @@ Centers a vector and divides it by its standard deviation.
 \author{
 Jarrett Byrnes.
 }
-

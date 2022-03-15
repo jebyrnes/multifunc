@@ -4,8 +4,14 @@
 \alias{getFuncMaxed}
 \title{getFuncMaxed}
 \usage{
-getFuncMaxed(adf, vars = NA, thresh = 0.7, proportion = F,
-  prepend = "Diversity", maxN = 1)
+getFuncMaxed(
+  adf,
+  vars = NA,
+  thresh = 0.7,
+  proportion = FALSE,
+  prepend = "Diversity",
+  maxN = 1
+)
 }
 \arguments{
 \item{adf}{A data frame with functions.}
@@ -14,14 +20,14 @@ getFuncMaxed(adf, vars = NA, thresh = 0.7, proportion = F,
 
 \item{thresh}{The threshold value to assess.}
 
-\item{proportion}{Whether the output will be returned as a porportion of all functions.  Defaults to \code{FALSE}.}
+\item{proportion}{Whether the output will be returned as a proportion of all functions.  Defaults to \code{FALSE}.}
 
 \item{prepend}{Additional columns that will be imported from the data for the returned data frame.}
 
 \item{maxN}{As a 'maximum' value can be subject to outliers, etc., what number of the highest data points
 for a function will be used to calculate the value against which thresholds will be judged.  E.g., if maxN=1
-then all thresholds are porportions of the largest value measured for a function.  If maxN=8, then it's the
-porportion of the mean of the highest 8 measurements.}
+then all thresholds are proportions of the largest value measured for a function.  If maxN=8, then it's the
+proportion of the mean of the highest 8 measurements.}
 }
 \value{
 Returns a data frame of number or fraction of functions greater than or equal to the selected thresholds in each plot.
@@ -30,26 +36,41 @@ Returns a data frame of number or fraction of functions greater than or equal to
 \code{getFuncMaxed} the number of functions greater than or equal to a single threshold in one experimental unit
 }
 \details{
-Create a data frame that has the value of number or proportion of functions 
+Create a data frame that has the value of number or proportion of functions
 greater than a single threshold.
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
+vars <- whichVars(germany, allVars)
 
-#re-normalize N.Soil so that everything is on the same 
-#sign-scale (e.g. the maximum level of a function is 
-#the "best" function)
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the same
+# sign-scale (e.g. the maximum level of a function is
+# the "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
 
-germanyThresh<-getFuncMaxed(germany, vars, thresh=0.5, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh <- getFuncMaxed(germany, vars, 
+                              thresh = 0.5, 
+                              prepend = c("plot", "Diversity"), 
+                              maxN = 7)
 
+
+# A function that will return a data frame with the first several columns
+# being information the user wants for identification purposes (prepend)
+# which defaults to Diversity and the final column the number of columns
+# which pass a predefined threshold, defined as some proportion of the maximim
+# observed for each column.  vars=the names of the vars being specified
+# thresh is the threshold, between 0 and 1, of proportion of the max that needs
+# to be passed to be counted.
+
+# changelog
+# 2014-03-24 Fixed -1 error in getMaxValue
+# 2015-06-24 Fixed column name from prepend error https://github.com/jebyrnes/multifunc/issues/1
+# 2022-04-14 Updated to use dplyr
 }
 \author{
 Jarrett Byrnes.
 }
-

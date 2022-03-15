@@ -24,4 +24,4 @@ People wanting to contribute are welcome to do so by forking the repository,
 and submitting a pull request when their work is done. Please also edit the
 `DESCRIPTION` file to add your name to the `Authors` field.
 
-[semver]: http://semver.org/
+[semver]: https://semver.org/
