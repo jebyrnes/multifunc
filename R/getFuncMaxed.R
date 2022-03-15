@@ -10,12 +10,12 @@
 #' @param adf A data frame with functions.
 #' @param vars The column names of the functions to be assessed.
 #' @param thresh The threshold value to assess.
-#' @param proportion Whether the output will be returned as a porportion of all functions.  Defaults to \code{FALSE}.
+#' @param proportion Whether the output will be returned as a proportion of all functions.  Defaults to \code{FALSE}.
 #' @param prepend Additional columns that will be imported from the data for the returned data frame.
 #' @param maxN As a 'maximum' value can be subject to outliers, etc., what number of the highest data points
 #' for a function will be used to calculate the value against which thresholds will be judged.  E.g., if maxN=1
-#' then all thresholds are porportions of the largest value measured for a function.  If maxN=8, then it's the
-#' porportion of the mean of the highest 8 measurements.
+#' then all thresholds are proportions of the largest value measured for a function.  If maxN=8, then it's the
+#' proportion of the mean of the highest 8 measurements.
 #' 
 #' @export
 #' @return Returns a data frame of number or fraction of functions greater than or equal to the selected thresholds in each plot.
@@ -39,9 +39,9 @@
 #A function that will return a data frame with the first several columns
 #being information the user wants for identification purposes (prepend)
 #which defaults to Diversity and the final column the number of columns
-#which pass a predefined threshold, defined as some porportion of the maximim
+#which pass a predefined threshold, defined as some proportion of the maximim
 #observed for each column.  vars=the names of the vars being specified
-#thresh is the threshold, between 0 and 1, of porportion of the max that needs
+#thresh is the threshold, between 0 and 1, of proportion of the max that needs
 #to be passed to be counted.
 
 #changelog

@@ -13,7 +13,7 @@
 #' @param overData Matrix of functions and which species affect them from \code{getRedundancy}.
 #' @param m Number of functions. Defaults to 2.
 #' @param type Are the kinds of effects we're looking at "positive", "negative" or "all".
-#' @param index Type of overlap index to be used. Defaults to "sorenson" byt currently incorporates
+#' @param index Type of overlap index to be used. Defaults to "sorenson" but currently incorporates
 #' "mountford" and "jaccard" as well.
 #' @param denom Should the denominator be "all" species or just the "set" of species with the types
 #' of interactions being considered? Defaults to "set".

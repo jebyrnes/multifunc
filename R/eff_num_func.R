@@ -108,7 +108,7 @@ getMF_eff <- function(data, vars, q=1,
 #' consequences. Ecology 54: 427-432.
 #' 
 #'
-#' @return Returns a verctor of effective or standardized effective number of functions
+#' @return Returns a vector of effective or standardized effective number of functions
 #' @export
 #'
 
@@ -149,7 +149,7 @@ eff_num_func <- function(dat, vars, q = 1,
 #' @param adf_freq A data frame of functional "frequencies" - i.e. f_i/sum(f_i)
 #' @param q Order of hill number used for index. Defaults to q=1, as in Shannon Diversity
 #' @details Takes a data frame, with functions standardized against total level of function
-#' in their replicate as columns and replicates as rows.R eturns the effective number of functions using the appropriate method. See Chao
+#' in their replicate as columns and replicates as rows. Returns the effective number of functions using the appropriate method. See Chao
 #' et al. 2019 or Jost 2006 for details. Does not adjust for correlation between functions.
 #' @references 
 #' 

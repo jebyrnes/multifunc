@@ -11,7 +11,7 @@
 #' @author Jarrett Byrnes.
 #' @param vars Vector of column names of functions
 #' @param species Vector of column names of species
-#' @param data data frame with species presence/abscence of values of functions
+#' @param data data frame with species presence/absence of values of functions
 #' @param negVars Vector of names of species for which a negative coefficient is actually a positive effect.
 #' @param method Fitting function for statistical models.  Defaults to \code{lm}.
 #' @param combine How are species combined in the model? Defaults to "+" for additive combinations.

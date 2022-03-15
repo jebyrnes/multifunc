@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-To see how effective number of functions and effective multifunctionality can be used in practice, we have added functions for both into the `multifunc` package in R. To see how these metrics can be used, consider the example of Duffy et al. 2003. In this experiment, Duffy and colleagues sought to examine how biodiversity of grazers influences multiple different ecosystem functions in seagrass ecosystems. Using this framework, we standardized and reflected them as per how Duffy et al. discuss their results. We then compare average functional performance, effective multifunctionality with q = 1 and 2, and the same accomodating for correlations between functions.
+To see how effective number of functions and effective multifunctionality can be used in practice, we have added functions for both into the `multifunc` package in R. To see how these metrics can be used, consider the example of Duffy et al. 2003. In this experiment, Duffy and colleagues sought to examine how biodiversity of grazers influences multiple different ecosystem functions in seagrass ecosystems. Using this framework, we standardized and reflected them as per how Duffy et al. discuss their results. We then compare average functional performance, effective multifunctionality with q = 1 and 2, and the same accommodating for correlations between functions.
 
 
 ## Data prep and initial calculations
@@ -77,7 +77,7 @@ duffy <-duffy %>%
                 threshmin=0.8, threshmax=0.8)
 ```
 
-We can calculate effective number of functions with `multifunc::eff_num_func()`, whic has arguments for different levels of q, standardizing by number of functions, and the use of distance matrices and tau. Let's calculate the effective number of functions for q = 1 and q = 2. We can then multiple both by the average to get effecive multifunctionality.
+We can calculate effective number of functions with `multifunc::eff_num_func()`, which has arguments for different levels of q, standardizing by number of functions, and the use of distance matrices and tau. Let's calculate the effective number of functions for q = 1 and q = 2. We can then multiple both by the average to get effective multifunctionality.
 
 ```{r}
 duffyAllVars.std <- paste0(duffyAllVars, ".std")
@@ -114,9 +114,9 @@ duffy %>%
   scale_color_brewer(palette = "Set3") 
 ```
 
-Comparing across all metrics, they produce similar results - as one would hope. Note, however, that the drop-down in average for some of the intermediate diversity treatments is not as strong for effective number of functions. While we see it's infuence again in effective multifunctionality, note that some of the treatments have actually reversed in rank order. This is even more apparent when comparing to number of functions > 0.8, which is also flatter. These observations that the story described from the effective multifunctionality approaches are similar - at least in this data set - to those told by the averaging approach. However, they are subtly different in some key elements, which could have consequences for interpretation, and they have a much more solid grouding in Ecological theory.
+Comparing across all metrics, they produce similar results - as one would hope. Note, however, that the drop-down in average for some of the intermediate diversity treatments is not as strong for effective number of functions. While we see it's influence again in effective multifunctionality, note that some of the treatments have actually reversed in rank order. This is even more apparent when comparing to number of functions > 0.8, which is also flatter. These observations that the story described from the effective multifunctionality approaches are similar - at least in this data set - to those told by the averaging approach. However, they are subtly different in some key elements, which could have consequences for interpretation, and they have a much more solid grounding in Ecological theory.
 
-Further, the effective multifunctionality results broadly reproduce the qualitative conclusions of Duffy et al. (2003). They reveal, however, that in lower diversity assemblages, there is less of a drop in effective number of functions. The reason for the strong Biodiversity-Multifunctionality results derive from three observations. First,  some lower diversity treatments have low average levels of function despite diversity having more mild impact on evenness of function. Second, the control treatment, while maintaining a high level of function, has a much lower effective number of functions. Thus, the skew in functional dominance in the control drives down effective multifunctionality in this treatment at 0 richness. Third, some monocolutres  bave both low mean and low effective number of functions, further strenthening the effective multifunctionality results beyond what is seen in either the mean, threshold, or number of effective functions results alone.
+Further, the effective multifunctionality results broadly reproduce the qualitative conclusions of Duffy et al. (2003). They reveal, however, that in lower diversity assemblages, there is less of a drop in effective number of functions. The reason for the strong Biodiversity-Multifunctionality results derive from three observations. First,  some lower diversity treatments have low average levels of function despite diversity having more mild impact on evenness of function. Second, the control treatment, while maintaining a high level of function, has a much lower effective number of functions. Thus, the skew in functional dominance in the control drives down effective multifunctionality in this treatment at 0 richness. Third, some monocultures have both low mean and low effective number of functions, further strengthening the effective multifunctionality results beyond what is seen in either the mean, threshold, or number of effective functions results alone.
 
 
 ## Adjusting for correlation between functions
