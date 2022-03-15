@@ -1,7 +1,7 @@
 ---
 title: "Assessing Multifunctionality with the multifunc package"
 author: "Jarrett Byrnes"
-date: "`r Sys.Date()`"
+date: 2015-06-25
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Using multifunc}
@@ -35,11 +35,13 @@ library(multifunc)
 
 #for plotting
 library(ggplot2)
-library(gridExtra)
+library(patchwork)
 
 #for data
-library(reshape2)
-library(plyr)
+library(tidyr)
+library(dplyr)
+library(purrr)
+library(forcats)
 
 #for analysus
 library(car)
@@ -51,7 +53,8 @@ Next, we load in the BIODEPTH data.  We use some of the helper functions in the 
 #Read in data  to run sample analyses on the biodepth data
 data(all_biodepth)
 
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars<-c("biomassY3", "root3", "N.g.m2",  "light3", "N.Soil", "wood3", "cotton3")
+
 varIdx<-which(names(all_biodepth) %in% allVars)
 ```
 
@@ -61,21 +64,32 @@ As we want to work with just the German data, we next subset down the data to ju
 #Now, specify what data we're working with - Germany
 #and the relevant variables we'll be working with
 #######
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany<- all_biodepth %>%
+  filter(location=="Germany")
 
 
-vars<-whichVars(germany, allVars)
-species<-relevantSp(germany,26:ncol(germany))
+# which variables have > 2/3 of the values not NA?
+german_vars <- whichVars(germany, allVars)
+
+# What are the names of species in this dataset
+# that have at least some values > 0?
+species <- relevantSp(germany,26:ncol(germany))
+
 spIDX <- which(names(germany) %in% species) #in case we need these
 ```
 
 ## Single Function Approach
 
-First, we will demonstrate the qualitative single function approach.  As we're using *ggplot2* for plotting, we'll use *reshape* to melt the data into something suitable to make a nice faceted plot of each relationship.
+First, we will demonstrate the qualitative single function approach.  As we're using *ggplot2* for plotting, we'll use *tidyr* to pivot the data long for a nice faceted plot of each relationship.
 
 ```{r}
-germanyForPlotting<-melt(germany[,c(8,which(names(germany) %in% vars))], id.vars="Diversity")
-germanyForPlotting$variable <- factor(germanyForPlotting$variable)
+germanyForPlotting <- germany %>%
+  select(Diversity, german_vars) %>%
+  pivot_longer(cols = german_vars,
+               names_to = "variable",
+               values_to = "value") %>%
+  mutate(variable = factor(variable))
+
 
 #make the levels of the functions into something nice for plots
 levels(germanyForPlotting$variable) <- c('Aboveground Biomass', 'Root Biomass', 'Cotton Decomposition', 'Soil Nitrogen', 'Plant Nitrogen')
@@ -84,16 +98,30 @@ levels(germanyForPlotting$variable) <- c('Aboveground Biomass', 'Root Biomass', 
 Nest, as we want to display additional information about the fit of diversity to each function, we'll need to iterate over each function, derive a fit, and then make some labels to be used in the eventual plot.
 
 ```{r}
-germanyFits <- dlply(germanyForPlotting, .(variable), function(x) lm(value ~ Diversity, data=x))
-germanyLabels <- data.frame(variable = levels(germanyForPlotting$variable), 
-                            Diversity=7, value=c(2000, 1200, 1.5, 6, 20), 
-                            lab=paste(letters[1:5], ")", sep=""),
-                            r2 = sapply(germanyFits, function(x) summary(x)$r.squared),
-                            p = sapply(germanyFits, function(x) anova(x)[1,5])
-                            )
-
-germanyLabels$labels <- with(germanyLabels, paste(lab, "p =", round(p,3),expression(R^2), "=", round(r2,2),   sep=" "))
-germanyLabels$labels <- gsub("p = 0 ", "p < 0.001 ", germanyLabels$labels)
+germanyLabels <- germanyForPlotting %>%
+  group_by(variable) %>%
+  nest() %>%
+  mutate(fits = map(data, ~lm(value ~ Diversity, data=.x)),
+         stats = map(fits, broom::glance)) %>%
+  unnest(stats) %>%
+  ungroup() %>%
+  mutate(labels = paste0("p = ", round(p.value, 3), ", ", 
+                        expression(R^2), " = ", round(r.squared, 2)),
+         labels =  gsub("p = 0 ", "p < 0.001 ", labels),
+         Diversity = 7, 
+         value=c(2000, 1200, 1.5, 6, 20))
+#   
+# 
+# germanyFits <- dlply(germanyForPlotting, .(variable), function(x) lm(value ~ Diversity, data=x))
+# germanyLabels <- data.frame(variable = levels(germanyForPlotting$variable), 
+#                             Diversity=7, value=c(2000, 1200, 1.5, 6, 20), 
+#                             lab=paste(letters[1:5], ")", sep=""),
+#                             r2 = sapply(germanyFits, function(x) summary(x)$r.squared),
+#                             p = sapply(germanyFits, function(x) anova(x)[1,5])
+#                             )
+# 
+# germanyLabels$labels <- with(germanyLabels, paste(lab, "p =", round(p,3),expression(R^2), "=", round(r2,2),   sep=" "))
+# germanyLabels$labels <- gsub("p = 0 ", "p < 0.001 ", germanyLabels$labels)
 ```
 
 Finally, we will put it all together into a single plot.
@@ -103,8 +131,8 @@ ggplot(aes(x=Diversity, y=value),data=germanyForPlotting) +
   facet_wrap(~variable, scales="free") +
   theme_bw(base_size=15)+
   stat_smooth(method="lm", colour="black", size=2) + 
-  xlab("\nSpecies Richness") +
-  ylab("Value of Function\n") +
+  xlab("Species Richness") +
+  ylab("Value of Function") +
   geom_text(data=germanyLabels,
             aes(label=labels)) +
  theme(panel.grid = element_blank())
@@ -114,26 +142,33 @@ Next, we ask whether the best performing species differs between functions.  To 
 
 ```{r}
 #pull out only those plots planted in monoculture
-monoGermany<- subset(germany, rowSums(germany[,spIDX])==1)
-
-#figure out which monoculture is which
-monoGermany$mono<-apply(monoGermany[,spIDX], 1, function(x) species[which(x==1)])
-
-#melt by function for easier analysis
-monoGermanyMelt<-melt(monoGermany[,c(ncol(monoGermany),which(names(monoGermany) %in% vars))], id.vars="mono")
-
-#get the mean for each monoculture that has >1 replicate
-monoGermanyMelt <- ddply(monoGermanyMelt, .(variable, mono), summarize, value=mean(value))
-
+monoGermany<- germany %>%
+  filter(rowSums(select(., ACHMIL1:VICTET1))==1) %>%
+  #get mono names
+  pivot_longer(ACHMIL1:VICTET1,
+               names_to = "mono") %>%
+    filter(value !=0) %>%
+  select(-value) %>%
+#pivot by function
+  pivot_longer(german_vars,
+               names_to = "variable") %>%
+  
+#get the mean for each monoculture
+group_by(variable, mono) %>%
+summarize(value = mean(value))
+  
 #now, who is the best performer?
-ddply(monoGermanyMelt, .(variable), summarize, maxMono=mono[which(value==max(value, na.rm=T))])
+monoGermany %>%
+  group_by(variable) %>%
+  filter(value == max(value)) 
 ```
 
 ## Overlap Approach
 
 One of the functions we are looking at, soil N, first needs to be reflected before we can apply the overlap approach. 
 ```{r}
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=T)
+germany <- germany %>%
+  mutate(N.Soil = -1*N.Soil +max(N.Soil, na.rm=T))
 ```
 
 We can examine any single species and generate coefficient values and 'effects' - i.e., whether a species has a positive (1), negative (-1), or neutral (0) effect on a function.  Let's examine this for biomass production in year 3.
@@ -145,9 +180,10 @@ spList
 Using this as our starting point, we can use the getRedundancy function to generate a) an effect matrix for all functions, b) a  coefficient matrix for all functions, and c) a standardized coefficient matrix for all functions.
 
 ```{r}
-redund<-getRedundancy(vars, species, germany)
-coefs<-getRedundancy(vars, species, germany, output="coef")
-stdCoefs<-stdEffects(coefs, germany, vars, species)
+
+redund<-getRedundancy(german_vars, species, germany)
+coefs<-getRedundancy(german_vars, species, germany, output="coef")
+stdCoefs<-stdEffects(coefs, germany, german_vars, species)
 
 #for example
 redund
@@ -159,7 +195,9 @@ Using the effect matrix, we then estimate the average number of species affectin
 
 #plot the num. functions by fraction of the species pool needed
 posCurve<-divNeeded(redund, type="positive")
+
 posCurve$div<-posCurve$div/ncol(redund)
+
 pc<-qplot(nfunc, div, data=posCurve, group=nfunc, geom=c("boxplot"))+
   geom_jitter(size=4, position = position_jitter(height=0.001, width = .04))+
   ylab("Fraction of Species Pool\nwith Positive Effect\n")+ 
@@ -167,20 +205,27 @@ pc<-qplot(nfunc, div, data=posCurve, group=nfunc, geom=c("boxplot"))+
 
 
 negCurve<-divNeeded(redund, type="negative")
+
 negCurve$div<-negCurve$div/ncol(redund)
+
 nc<-qplot(nfunc, div, data=negCurve, group=nfunc, geom=c("boxplot"))+
   geom_jitter(size=4, position = position_jitter(height=0.001, width = .04))+
   ylab("Fraction of Species Pool\nwith Negative Effect\n")+ 
   xlab("\nNumber of Functions")+theme_bw(base_size=24)+ylim(c(0,1))
 
 #combine these into one plot
-grid.arrange(pc+annotate("text", x=1, y=1, label="a)"), nc+annotate("text", x=1, y=1, label="b)"), ncol=2)
+pc + nc +
+   plot_annotation(tag_levels = 'A')
 ```
 
 We could have also looked at overlap indices, such as the Sorenson index.
 
 ```{r}
-allOverlapPos<-ddply(data.frame(m=2:nrow(redund)), .(m), function(adf) getOverlapSummary(redund, m=adf$m[1], denom="set"))
+allOverlapPos <- map_df(2:nrow(redund),
+                        ~getOverlapSummary(redund, m = .x, denom = "set"),
+                        .id = "m")
+
+allOverlapPos
 ```
 
 One we've examined the consequences of functional overlap, we can then move on to compare the number and size of these effects.  First, what is the relative balance of positive to negative contributions for each species?
@@ -197,10 +242,12 @@ ggplot(aes(x=Pos,y= Neg), data=posNeg) +
   xlab("\n# of Positive Contributions per species\n") + 
   ylab("# of Negative Contributions per species\n") +
   annotate("text", x=0, y=3, label="a)") +
-  stat_smooth(method="glm", colour="black", size=2, family=poisson(link="identity"))
+  stat_smooth(method="glm", colour="black", size=2, 
+              method.args = list(family=poisson(link="identity"))) +
+  geom_abline(slope = 1, intercept = 0, lty = 2, color = "red")
 ```
 
-So, a generally positive relationship.  We can see from the figure that the slope is slightly less than 1:1, so positive effects accumulate faster.  Still, more positive effects = more negative effects.  What about the size of those positive versus negative effects?
+So, a generally positive relationship.  We can see from the figure that the slope is  less than 1:1, so positive effects accumulate faster.  Still, more positive effects = more negative effects.  What about the size of those positive versus negative effects?
 
 ```{r}
 #now get the standardized effect sizes
@@ -232,7 +279,7 @@ Now we'll try the averaging approach.  The first step is to create a set of colu
 ```{r}
 
 #add on the new functions along with the averaged multifunctional index
-germany<-cbind(germany, getStdAndMeanFunctions(germany, vars))
+germany<-cbind(germany, getStdAndMeanFunctions(germany, german_vars))
 #germany<-cbind(germany, getStdAndMeanFunctions(germany, vars, standardizeZScore))
 ```
 
@@ -252,8 +299,11 @@ We may want to look at all of the functions on a standardized scale, and add in 
 
 ```{r fig.width=16, fig.height=8}
 #reshape for plotting everything with ggplot2
-germanyMeanForPlotting<-melt(germany[,c(8,129:134)], id.vars="Diversity")
-
+germanyMeanForPlotting <- germany %>%
+  select(Diversity, biomassY3.std:meanFunction) %>%
+  pivot_longer(cols = c(biomassY3.std:meanFunction),
+               names_to = "variable") %>%
+    mutate(variable = fct_inorder(variable))
 #nice names for plotting
 levels(germanyMeanForPlotting$variable) <- c('Aboveground Biomass', 'Root Biomass', 'Cotton Decomposition', 'Soil Nitrogen', 'Plant Nitrogen', 'Mean Multifuncion Index')
 
@@ -280,7 +330,7 @@ summary(aveFit)
 First, we need to create a new data set that looks at the number of functions greater than or equal to a threshold across a wide range of thresholds.
 
 ```{r}
-germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh<-getFuncsMaxed(germany, german_vars, threshmin=0.05, threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
 ```
 
 Next, let's perform an analysis on just the 0.8 threshold data.
@@ -301,7 +351,9 @@ gcPlot<-subset(germanyThresh, germanyThresh$thresholds %in% qw(0.2, 0.4, 0.6, 0.
 gcPlot$percent<-paste(100*gcPlot$thresholds, "%", sep="")
 
 qplot(Diversity, funcMaxed, data=gcPlot, facets=~percent) +
-  stat_smooth(method="glm", family=quasipoisson(link="identity"), colour="red", lwd=1.2) +
+  stat_smooth(method="glm", 
+              method.args = list(family=quasipoisson(link="identity")),
+              colour="red", lwd=1.2) +
   ylab(expression("Number of Functions" >= Threshold)) +
   xlab("Species Richness") +
   theme_bw(base_size=14) +
@@ -320,7 +372,9 @@ germanyThresh$percent <- 100*germanyThresh$thresholds
 ggplot(data=germanyThresh, aes(x=Diversity, y=funcMaxed, group=percent)) +
     ylab(expression("Number of Functions" >= Threshold)) +
     xlab("Species Richness") +
-    stat_smooth(method="glm", family=quasipoisson(link="identity"), lwd=0.8, fill=NA, aes(color=percent)) +
+    stat_smooth(method="glm", 
+                method.args = list(family=quasipoisson(link="identity")), 
+                lwd=0.8, fill=NA, aes(color=percent)) +
     theme_bw(base_size=14) +
     scale_color_gradient(name="Percent of \nMaximum", low="blue", high="red")
 ```
@@ -330,18 +384,22 @@ ggplot(data=germanyThresh, aes(x=Diversity, y=funcMaxed, group=percent)) +
 To systematically explore the variation in the relationship based on threshold choice, let's look at the slope of the relationship and its confidence interval over all thresholds. We will then plot this relationship.
 
 ```{r, fig.height=8, fig.width=12}
-
-germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, data=germanyThresh, coefVar="Diversity", family=quasipoisson(link="identity"))
+germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity,
+                                data = germanyThresh, 
+                                coefVar = "Diversity",
+                                family = quasipoisson(link="identity"))
 
 
 ######
 # Plot the values of the diversity slope at
 # different levels of the threshold
 ######
-germanSlopes <- ggplot(germanyLinearSlopes, aes(x=thresholds)) +
-  geom_ribbon(fill="grey50", aes(x=thresholds*100, ymin=Estimate-1.96*germanyLinearSlopes[["Std. Error"]], 
-                                  ymax=Estimate+1.96*germanyLinearSlopes[["Std. Error"]])) +
-  geom_point(aes(x=thresholds*100, y=Estimate)) +
+germanSlopes <- ggplot(germanyLinearSlopes, aes(x=thresholds*100,
+                                                y = estimate,
+                                                ymax = estimate + 1.96 * std.error,
+                                                ymin = estimate - 1.96 * std.error)) +
+  geom_ribbon(fill="grey50") +
+  geom_point() +
   ylab("Change in Number of Functions per Addition of 1 Species\n") +
   xlab("\nThreshold (%)") +
   geom_abline(intercept=0, slope=0, lwd=1, linetype=2) +
@@ -360,7 +418,7 @@ germanIDX
 We can now add annotations to our earlier plot to make it more rich, and show us those crucial threshold values.
 ```{r, fig.height=8, fig.width=12}
 
-germanyLinearSlopes$Estimate[which(germanyLinearSlopes$thresholds==germanIDX$Tmde)]
+germanyLinearSlopes$estimate[which(germanyLinearSlopes$thresholds==germanIDX$Tmde)]
 
 germanyThresh$IDX <- 0
 germanyThresh$IDX [which(germanyThresh$thresholds %in% 
@@ -371,7 +429,8 @@ germanyThresh$IDX [which(germanyThresh$thresholds %in%
 ggplot(data=germanyThresh, aes(x=Diversity, y=funcMaxed, group=percent)) +
   ylab(expression("Number of Functions" >= Threshold)) +
   xlab("Species Richness") +
-  geom_smooth(method="glm", family=quasipoisson(link="identity"), 
+  geom_smooth(method="glm", 
+              method.args = list(family=quasipoisson(link="identity")), 
               fill=NA, aes(color=percent, lwd=IDX)) +
   theme_bw(base_size=14) +
   scale_color_gradient(name="Percent of \nMaximum", low="blue", high="red") +
@@ -398,8 +457,8 @@ Furthermore, we can extend this to the more of the BIODEPTH dataset to compare t
 ####
 # Now we will look at the entire BIODEPTH dataset
 #
-# Note the use of ddply from plyr to generate the new data frame using all locations from biodepth.
-# If you're not using plyr for your data aggregation, you should be.  http://plyr.had.co.nz/
+# Note the use of dplyr to generate the new data frame using all locations from biodepth.
+# If you're not using dplyr for your data aggregation, you should be!
 # It will save you a lot of time and headaches in the future.
 ####
 
@@ -416,23 +475,41 @@ varIdx<-which(names(sub_biodepth) %in% allVars)
 #re-normalize so that everything is on the same 
 #sign-scale (e.g. the maximum level of a function is 
 #the "best" function)
-sub_biodepth<-ddply(sub_biodepth, .(location), function(adf){
-  adf$light3<- -1*adf$light3+max(adf$light3, na.rm=T)
-  adf$N.Soil<- -1*adf$N.Soil +max(adf$N.Soil, na.rm=T)
-  
-  adf
-})
+sub_biodepth <- sub_biodepth %>%
+  group_by(location) %>%
+  mutate(
+    light3 <- ifelse(sum(is.na(light3)==0),
+      -1*light3+max(light3, na.rm=T),
+      NA),
+    
+    N.Soil <- ifelse(sum(is.na(N.Soil)==0),
+      -1*N.Soil+max(N.Soil, na.rm=T),
+      NA)
+  )  %>%
+  ungroup()
 
 
 #get thresholds
-bdThreshes<-ddply(sub_biodepth, .(location), function(x) getFuncsMaxed(x, vars=allVars, prepend=c("plot","Diversity"), maxN=8))
+bdThreshes<-sub_biodepth %>%
+  group_by(location) %>%
+  nest() %>%
+  mutate(fmaxed = map(data, getFuncsMaxed,
+                         vars=allVars,
+                         maxN=8)) %>%
+  ungroup() %>%
+  unnest(fmaxed)
+
 
 
 ####look at slopes
 
 #note, maxIT argument is due to some fits needing more iterations to converge
-bdLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, data=bdThreshes, groupVar=c("location", "thresholds"), 
-                           coefVar="Diversity", family=quasipoisson(link="identity"), control=list(maxit=800))
+bdLinearSlopes<-getCoefTab(funcMaxed ~ Diversity,
+                           data=bdThreshes,
+                           groupVar=c("location", "thresholds"), 
+                           coefVar="Diversity",
+                           family=quasipoisson(link="identity"),
+                           control=list(maxit=800))
 
 ```
 
@@ -447,7 +524,7 @@ indexTable <- lapply(levels(bdLinearSlopes$location), function(x){
   ret<-cbind(location=x, ret)
   ret
 })
-indexTable <- ldply(indexTable)
+indexTable <- do.call(rbind, indexTable)
 
 indexTable <- rbind(data.frame(location="Germany", germanIDX), indexTable)
 
@@ -463,7 +540,9 @@ library(gridExtra)
 bdCurvesAll<-qplot(Diversity, funcMaxed, data=bdThreshes, group=thresholds, alpha=I(0)) +
   facet_wrap(~location)+#, scales="free") +
   scale_color_gradient(low="blue", high="red", name="Proportion of \nMaximum", guide=FALSE) +
-  stat_smooth(method="glm", lwd=0.8, fill=NA, family=gaussian(link="identity"), control=list(maxit=200), aes(color=thresholds)) +
+  stat_smooth(method="glm", lwd=0.8, fill=NA,
+              method.args = list(family=gaussian(link="identity"), 
+                                 control=list(maxit=200)), aes(color=thresholds)) +
   ylab("\nNumber of Functions ≥ Threshold\n\n") +
   xlab("Species Richness") +
   theme_bw(base_size=15)  + 
@@ -472,18 +551,25 @@ bdCurvesAll<-qplot(Diversity, funcMaxed, data=bdThreshes, group=thresholds, alph
 
 
 #Plot it!
-slopePlot<-ggplot(bdLinearSlopes, aes(x=thresholds, y=Estimate)) +
-  geom_ribbon(fill="grey50", aes( x=thresholds*100,ymin=Estimate-2*bdLinearSlopes[["Std. Error"]], 
-                                  ymax=Estimate+2*bdLinearSlopes[["Std. Error"]])) +
-  geom_point(aes(x=thresholds*100, y=Estimate)) +
+slopePlot<-ggplot(bdLinearSlopes, aes(x=thresholds*100, 
+                                      y=estimate,
+                                      ymin = estimate - 2*std.error,
+                                      ymax = estimate + 2*std.error)) +
+  geom_ribbon(fill="grey50") +
+  geom_point() +
   ylab("Change in Number of Functions \nper Addition of 1 Species\n") +
   xlab("Threshold (%)") +
   facet_wrap(~location)+#, scale="free") +
   geom_abline(intercept=0, slope=0, lwd=0.6, linetype=2) +
   theme_bw(base_size=15)+ 
   geom_text(data=data.frame(location = levels(bdThreshes$location), 
-                            lab = paste(letters[4:6], ")", sep=""), 
-                            thresholds=c(NA, NA, NA)), x=0.05, y=0.27, mapping=aes(label=lab))
+                            lab = paste(letters[4:6], ")", 
+                                        sep=""), 
+                            thresholds=c(NA, NA, NA),
+                            std.error=c(NA, NA, NA),
+                            estimate = c(NA, NA, NA)
+                            ), 
+            x=0.05, y=0.27, mapping=aes(label=lab))
 
 
 ###Plot them in a single figure
