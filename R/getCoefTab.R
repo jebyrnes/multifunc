@@ -52,19 +52,24 @@
 
 
 getCoefTab<-function(eqn, fun=glm, data, groupVar="thresholds", coefVar=NULL, ...){
-  gv <- sym(groupVar)
+ # gv <- dplyr::syms(groupVar)
  # options(warn=2)
   
+  get_model <- function(one_dat){
+    try(fun(eqn, data = one_dat, ...))
+  }
+  
   ret <- data %>%
-    dplyr::group_by({{gv}}) %>%
+    dplyr::group_by(across(groupVar)) %>%
     tidyr::nest() %>%
-    dplyr::mutate(mod = purrr::map(data, ~try(fun(eqn, data = .x, ...)))) %>%
+    dplyr::mutate(mod = purrr::map(data, get_model)) %>%
   
   #get info on if things failed
     mutate(err = purrr::map_lgl(mod, ~"try-error" %in% class(.x)),
            err_conv = purrr::map_lgl(mod, ~ifelse("glm" %in% class(.x),
                                                   !.x$converged,
-                                                  FALSE))
+                                                  FALSE)),
+           mod = ifelse(err+err_conv > 0, NA, mod)
     )
 
   #get coefs
@@ -75,9 +80,9 @@ getCoefTab<-function(eqn, fun=glm, data, groupVar="thresholds", coefVar=NULL, ..
     ungroup() 
   
   #filter out fit errors
-  ret %>%
+  ret <- ret %>%
     mutate(across(estimate:p.value, ~ifelse(err | err_conv, NA, .x))) %>%
-    select(-errr, -err_conv)
+    select(-err, -err_conv)
   
   if(!is.null(coefVar)){
     ret <- ret %>% dplyr::filter(term %in% coefVar)
