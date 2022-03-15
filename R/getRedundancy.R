@@ -53,7 +53,7 @@
 #' #########
 getRedundancy <- function(vars, species, data, negVars = NA, method = "lm", combine = "+", output = "effect", ...) {
   res.list <- lapply(vars, function(x) {
-    positive.desired <- T
+    positive.desired <- TRUE
     if (x %in% negVars) positive.desired <- F
     sAICfun(response = x, species = species, data = data, positive.desired, method = method, combine = combine, ...) # used to be method[idx]
   })
@@ -79,7 +79,8 @@ getRedundancy <- function(vars, species, data, negVars = NA, method = "lm", comb
 # to determine the best model.  From that it extracts the species with a positive,
 # negative, and neutral effect on that function
 #########
-sAICfun <- function(response, species, data, positive.desired = T, method = "lm", combine = "+", ...) {
+sAICfun <- function(response, species, data, positive.desired = TRUE, 
+                    method = "lm", combine = "+", ...) {
   # first fit the model
   obj <- sAICFit(response, species, data, method, combine, ...)
 

@@ -49,7 +49,8 @@
 #' # to determine the best model.  From that it extracts the species with a positive,
 #' # negative, and neutral effect on that function
 #' #########
-sAICfun <- function(response, species, data, positive.desired = T, method = "lm", combine = "+", ...) {
+sAICfun <- function(response, species, data, positive.desired = TRUE, 
+                    method = "lm", combine = "+", ...) {
   # first fit the model
   obj <- sAICFit(response, species, data, method, combine, ...)
 

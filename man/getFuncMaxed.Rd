@@ -8,7 +8,7 @@ getFuncMaxed(
   adf,
   vars = NA,
   thresh = 0.7,
-  proportion = F,
+  proportion = FALSE,
   prepend = "Diversity",
   maxN = 1
 )

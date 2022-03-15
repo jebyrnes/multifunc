@@ -44,8 +44,8 @@
 #' #########
 filterOverData <- function(overData, type = "positive") {
   # format the data properly given the type of analysis being done
-  neg <- which(overData < 0, arr.ind = T)
-  pos <- which(overData > 0, arr.ind = T)
+  neg <- which(overData < 0, arr.ind = TRUE)
+  pos <- which(overData > 0, arr.ind = TRUE)
 
   if (type == "positive") apply(neg, 1, function(x) overData[x[1], x[2]] <<- 0) # ugh, using apply and <<- because nothing else worked
   if (type == "negative") {

@@ -133,6 +133,6 @@ get_t_indices <- function(adf) {
     Tmax <- NA
   }
 
-  Tmde <- adf$thresholds[which(adf$estimate == max(abs(adf$estimate), na.rm = T))][1] # the [1] is in case there are multiple identical peaks
+  Tmde <- adf$thresholds[which(adf$estimate == max(abs(adf$estimate), na.rm = TRUE))][1] # the [1] is in case there are multiple identical peaks
   return(data.frame(Tmin = Tmin, Tmax = Tmax, Tmde = Tmde))
 }

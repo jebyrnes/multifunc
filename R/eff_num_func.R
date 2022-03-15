@@ -216,7 +216,7 @@ eff_num_func_d <- function(adf_freq, q = 1, D, tau = NULL) {
   D <- as.matrix(D)
 
   # truncate by tau
-  D[which(D > tau, arr.ind = T)] <- tau
+  D[which(D > tau, arr.ind = TRUE)] <- tau
 
   # iterate over rows
   apply(adf_freq, 1, eff_num_func_d_onerow, D = D, tau = tau, q = q)

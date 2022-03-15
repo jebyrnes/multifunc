@@ -4,7 +4,7 @@
 \alias{standardizeUnitScale}
 \title{standardizeUnitScale}
 \usage{
-standardizeUnitScale(afun, min0 = T, maxValue = max(afun, na.rm = T))
+standardizeUnitScale(afun, min0 = TRUE, maxValue = max(afun, na.rm = T))
 }
 \arguments{
 \item{afun}{A vector of measurements of a function.}

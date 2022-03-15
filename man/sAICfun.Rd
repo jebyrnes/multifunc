@@ -8,7 +8,7 @@ sAICfun(
   response,
   species,
   data,
-  positive.desired = T,
+  positive.desired = TRUE,
   method = "lm",
   combine = "+",
   ...

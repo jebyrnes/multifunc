@@ -44,8 +44,10 @@
 #' # std coef = b *sx/sy
 #' #########
 stdEffects <- function(cmat, adf, vars, species) {
-  sFunc <- sapply(adf[, which(names(adf) %in% vars)], function(x) stats::sd(x, na.rm = T))
-  sTrt <- sapply(adf[, which(names(adf) %in% species)], function(x) stats::sd(x, na.rm = T))
+  sFunc <- sapply(adf[, which(names(adf) %in% vars)], 
+                  function(x) stats::sd(x, na.rm = TRUE))
+  sTrt <- sapply(adf[, which(names(adf) %in% species)], 
+                 function(x) stats::sd(x, na.rm = TRUE))
   sFunc_sTrt <- t(sTrt %*% t(1 / sFunc))
 
   # get the order right
