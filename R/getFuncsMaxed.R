@@ -34,17 +34,20 @@
 #' # re-normalize N.Soil so that everything is on the same
 #' # sign-scale (e.g. the maximum level of a function is
 #' # the "best" function)
-#' germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
+#' germany$N.Soil <- -1 * germany$N.Soil + 
+#'                   max(germany$N.Soil, na.rm = TRUE)
 #'
 #' germanyThresh <- getFuncsMaxed(germany, vars,
-#'   threshmin = 0.05,
-#'   threshmax = 0.99, prepend = c("plot", "Diversity"), maxN = 7
+#'   threshmin = 0.50,
+#'   threshmax = 0.60, prepend = c("plot", "Diversity"), maxN = 7
 #' )
 #'
 #'
-#' ####
-#' # Create a data frame that has the value of proportion of functions greather than a threshold for several different thresholds at the plot later
-#' ####
+####
+# Create a data frame that has the value of proportion of functions 
+# greather than a threshold for several different thresholds at the plot 
+# later
+####
 getFuncsMaxed <- function(adf, vars = NA,
                           threshmin = 0.05, threshmax = 0.99,
                           threshstep = 0.01, proportion = FALSE,

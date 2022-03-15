@@ -12,10 +12,8 @@ Imports:
     dplyr,
     purrr,
     broom,
-    car,
     MASS,
     utils,
-    vegan,
     magrittr
 Suggests:
     ggplot2,

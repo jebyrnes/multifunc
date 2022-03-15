@@ -22,6 +22,7 @@
 #' @return Returns a data frame of thresholds, coefficients, and their statistical properties.
 #'
 #' @examples
+#'\dontrun{
 #' data(all_biodepth)
 #' allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 #'
@@ -43,15 +44,16 @@
 #'   data = germanyThresh, coefVar = "Diversity", family = quasipoisson(link = "identity")
 #' )
 #'
-#'
-#'
-#' ####
-#' # A function that will take a data frame with a lot of different thresholds
-#' # and at each threshold, fit a user specified statistical model, then pull out
-#' # a coefficient of interest (e.g., Diversity) and it's information from a summar
-#' # table.  This function can be used for glm and lm models, and potentially others
-#' # with the proper specification.
-#' #####
+#'}
+
+
+####
+# A function that will take a data frame with a lot of different thresholds
+# and at each threshold, fit a user specified statistical model, then pull out
+# a coefficient of interest (e.g., Diversity) and it's information from a summar
+# table.  This function can be used for glm and lm models, and potentially others
+# with the proper specification.
+#####
 getCoefTab <- function(eqn,
                        fun = stats::glm,
                        data,

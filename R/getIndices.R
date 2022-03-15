@@ -22,6 +22,7 @@
 #' @return A data frame of indices
 #'
 #' @examples
+#'\dontrun{
 #' data(all_biodepth)
 #' allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 #'
@@ -40,6 +41,8 @@
 #' )
 #'
 #' getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
+#' 
+#' }
 getIndices <- function(slopedata, threshdata, eqn, fun = stats::glm,
                        divvar = "Diversity", groupVar = "thresholds",
                        showNfunc = T) {

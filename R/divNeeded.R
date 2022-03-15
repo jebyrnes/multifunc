@@ -37,6 +37,8 @@
 #' redund <- getRedundancy(vars, species, germany)
 #'
 #' posCurve <- divNeeded(redund, type = "positive")
+
+
 divNeeded <- function(overData, type = "positive") {
   overData <- filterOverData(overData, type = type)
 
