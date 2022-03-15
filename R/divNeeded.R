@@ -46,7 +46,7 @@ divNeeded<-function(overData, type="positive"){
     if(m==1){
       rowSums(overData) #species case if m=1 because combn borks on it
     }else{
-      combn(1:nrow(overData), m, function(x) length(which(colSums(overData[x,])>0))) #combn to get each individual combo
+      utils::combn(1:nrow(overData), m, function(x) length(which(colSums(overData[x,])>0))) #combn to get each individual combo
     }}      )
   
   ret<-data.frame(nfunc=1, div=dn[[1]])
