@@ -5,4 +5,4 @@
 ^.*\.Rhistory$
 ^\.Rproj\.user$
 docs
-cran-commends.md
+^cran-comments\.md$

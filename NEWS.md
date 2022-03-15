@@ -1,3 +1,13 @@
+## multifunc 0.9.2 (Release date: 2022-04-16)
+* Cleanup for push to CRAN and paper submission to biorXiv
+
+## multifunc 0.9.1 (Release date: 2022-02-14)
+* Added vignette for effective number of functions approach
+
+## multifunc 0.9.0 (Release date: 2022-01-25)
+* Re-writing new metrics functions and changing names.
+* New functions from 0.8.0 are gone
+
 ## multifunc 0.8.0 (Release date: 2017-09-25)
 * Adding `getMF` and associated functions to incorporate ongoing work on new metrics
 * See also `funcEven` and `funcDiv`
