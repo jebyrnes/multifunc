@@ -6,3 +6,5 @@
 ^\.Rproj\.user$
 docs
 ^cran-comments\.md$
+^LICENSE\.md$
+^CODE_OF_CONDUCT\.md$
