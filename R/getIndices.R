@@ -55,8 +55,8 @@ getIndices <- function(slopedata, threshdata, eqn, fun=glm,
   Mmin <- predFun(tdata$Tmin, Smax)
   Mmax <- predFun(tdata$Tmax, Smax)
   Mmde <- predFun(tdata$Tmde, Smax)
-  Rmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]
-  Pmde.linear <- slopedata$Estimate[which(slopedata[[groupVar]]==tdata$Tmde)]/(threshdata$nFunc[1]/Smax)
+  Rmde.linear <- slopedata$estimate[which(slopedata[[groupVar]]==tdata$Tmde)]
+  Pmde.linear <- slopedata$estimate[which(slopedata[[groupVar]]==tdata$Tmde)]/(threshdata$nFunc[1]/Smax)
   nFunc <- threshdata$nFunc[1]
   
   if(is.na(tdata$Tmde)) {
@@ -98,8 +98,8 @@ getIndices_nothresh <- function(eqn, fun=glm, threshdata, divvar = "Diversity", 
 
 
 get_t_indices <- function(adf){
-  minSlope <- adf$Estimate-2*adf[["Std. Error"]]
-  maxSlope <- adf$Estimate+2*adf[["Std. Error"]]
+  minSlope <- adf$estimate-2*adf[["std.error"]]
+  maxSlope <- adf$estimate+2*adf[["std.error"]]
   sloperng <- rbind(minSlope, maxSlope)
   
   #which thresholds have non-zero slopes
@@ -121,7 +121,7 @@ get_t_indices <- function(adf){
   	Tmax <- NA
   }
   
-  Tmde <-  adf$thresholds[which( adf$Estimate == max( abs(adf$Estimate), na.rm=T))][1] #the [1] is in case there are multiple identical peaks
+  Tmde <-  adf$thresholds[which( adf$estimate == max( abs(adf$estimate), na.rm=T))][1] #the [1] is in case there are multiple identical peaks
   return(data.frame(Tmin = Tmin, Tmax = Tmax, Tmde = Tmde))
   
 }
