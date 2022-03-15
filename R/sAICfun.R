@@ -73,7 +73,7 @@ sAICfun <- function(response, species, data, positive.desired=T, method="lm", co
   
   coefs<-c(effects,0)
   names(coefs)[length(coefs)]<-"(Intercept)"
-  coefs[ match(names(coef(obj)), names(coefs)) ]<-coef(obj)
+  coefs[ match(names(stats::coef(obj)), names(coefs)) ] <- stats::coef(obj)
   
   return(list(pos.sp=pos.sp,neg.sp=neg.sp,neu.sp=neu.sp, functions=response, coefs=coefs, effects=effects))
 }
