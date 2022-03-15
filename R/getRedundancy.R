@@ -60,10 +60,14 @@ getRedundancy<-function(vars, species, data, negVars=NA,  method="lm", combine="
   
   #what if they want the coefficients
   if(output=="coef") {
-    ret<-ldply(res.list, function(x) x$coefs)
+   # ret<-plyr::ldply(res.list, function(x) x$coefs)
+    ret <- lapply(res.list, function(x) x$coefs)
+    ret <- do.call(rbind, ret) %>% as.data.frame
   }else{
     #the default of returning the 1s, -1s, and 0s
-    ret<-ldply(res.list, function(x) x$effects)
+   # ret<-ldply(res.list, function(x) x$effects)
+    ret <- lapply(res.list, function(x) x$effects)
+    ret <- do.call(rbind, ret) %>% as.data.frame
   }
   
   rownames(ret)<-vars
