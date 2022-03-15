@@ -21,7 +21,8 @@ Suggests:
     tidyr,
     gridExtra,
     knitr,
-    patchwork
+    patchwork,
+    car
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 7.1.1

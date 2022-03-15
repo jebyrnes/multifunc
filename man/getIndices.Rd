@@ -42,6 +42,7 @@ the relationship between diversity and number of functoins greater than a thresh
 See Byrnes et al. In Review.
 }
 \examples{
+\dontrun{
 data(all_biodepth)
 allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
@@ -60,6 +61,8 @@ germanyLinearSlopes <- getCoefTab(funcMaxed ~ Diversity,
 )
 
 getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
+
+}
 }
 \author{
 Jarrett Byrnes.

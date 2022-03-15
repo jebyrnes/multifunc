@@ -40,6 +40,7 @@ greater than a threshold at multiple different thresholds and returns the coeffi
 effect of diversity at each threshold
 }
 \examples{
+\dontrun{
 data(all_biodepth)
 allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
@@ -61,15 +62,7 @@ germanyLinearSlopes <- getCoefTab(funcMaxed ~ Diversity,
   data = germanyThresh, coefVar = "Diversity", family = quasipoisson(link = "identity")
 )
 
-
-
-####
-# A function that will take a data frame with a lot of different thresholds
-# and at each threshold, fit a user specified statistical model, then pull out
-# a coefficient of interest (e.g., Diversity) and it's information from a summar
-# table.  This function can be used for glm and lm models, and potentially others
-# with the proper specification.
-#####
+}
 }
 \author{
 Jarrett Byrnes.
