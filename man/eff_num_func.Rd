@@ -11,10 +11,10 @@ eff_num_func(dat, vars, q = 1, standardized = FALSE, D = NULL, tau = NULL)
 
 \item{vars}{Column names of function variables}
 
-\item{q}{Order of the diversity measure. Defaults to the 
+\item{q}{Order of the diversity measure. Defaults to the
 Shannon case where q = 1. For Simpson, q=2.}
 
-\item{standardized}{Use standardized number of functions (scaled by total 
+\item{standardized}{Use standardized number of functions (scaled by total
 number of functions, so between 0-1), or just raw effective number of
 functions for calculation. Defaults to \code{FALSE}.}
 
@@ -28,7 +28,7 @@ to be different. If tau is the minimum non-zero value of D, all functions are di
 if tau is the maximum value of D are greater, all functions are considered the same.}
 }
 \value{
-Returns a verctor of effective or standardized effective number of functions
+Returns a vector of effective or standardized effective number of functions
 }
 \description{
 Calculate the effective number of functions for rows in a dataset
@@ -42,13 +42,13 @@ and returns the effective number of functions using the appropriate method. See 
 et al. 2019 for more.
 }
 \references{
-Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C., 
-Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to 
-functional diversity, functional beta diversity, and related (dis)similarity 
+Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C.,
+Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to
+functional diversity, functional beta diversity, and related (dis)similarity
 measures. Ecological Monographs. 89: e01343.
 
 Jost, L. 2006. Entropy and diversity. Oikos 113(2): 363-375.
 
-Hill, M. 1973. Diversity and evenness: A unifying notation and its 
+Hill, M. 1973. Diversity and evenness: A unifying notation and its
 consequences. Ecology 54: 427-432.
 }

@@ -19,8 +19,8 @@ Calculates the average distance between functions for one or an entire
 assemblage of replicates
 }
 \references{
-Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C., 
-Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to 
-functional diversity, functional beta diversity, and related (dis)similarity 
+Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C.,
+Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to
+functional diversity, functional beta diversity, and related (dis)similarity
 measures. Ecological Monographs. 89: e01343.
 }

@@ -29,23 +29,29 @@ using std coef = b *sx/sy
 }
 \examples{
 data(all_biodepth)
-allVars <- qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany <- subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
 vars <- whichVars(germany, allVars)
-species <- relevantSp(germany,26:ncol(germany))
+species <- relevantSp(germany, 26:ncol(germany))
 
-#re-normalize N.Soil so that everything is on the same 
-#sign-scale (e.g. the maximum level of a function is 
-#the "best" function)
-germany$N.Soil <- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the same
+# sign-scale (e.g. the maximum level of a function is
+# the "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
 
 res.list <- lapply(vars, function(x) sAICfun(x, species, germany))
 names(res.list) <- vars
 
-coefs <- getRedundancy(vars, species, germany, output="coef")
+coefs <- getRedundancy(vars, species, germany, output = "coef")
 stdCoefs <- stdEffects(coefs, germany, vars, species)
+
+#########
+# A function that uses the coefficient matrix and information from the
+# data to calculate standardized effects of species using the method
+# std coef = b *sx/sy
+#########
 }
 \author{
 Jarrett Byrnes.

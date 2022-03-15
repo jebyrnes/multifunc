@@ -20,7 +20,7 @@ getRedundancy(
 
 \item{species}{Vector of column names of species}
 
-\item{data}{data frame with species presence/abscence of values of functions}
+\item{data}{data frame with species presence/absence of values of functions}
 
 \item{negVars}{Vector of names of species for which a negative coefficient is actually a positive effect.}
 
@@ -46,23 +46,32 @@ species whose effect is not different from 0 at the alpha=0.05 level, a 0 is ret
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
-species<-relevantSp(germany,26:ncol(germany))
+vars <- whichVars(germany, allVars)
+species <- relevantSp(germany, 26:ncol(germany))
 
-#re-normalize N.Soil so that everything is on the same 
-#sign-scale (e.g. the maximum level of a function is 
-#the "best" function)
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the same
+# sign-scale (e.g. the maximum level of a function is
+# the "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
 
-res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
-names(res.list)<-vars
+res.list <- lapply(vars, function(x) sAICfun(x, species, germany))
+names(res.list) <- vars
 
 getRedundancy(vars, species, germany)
-getRedundancy(vars, species, germany, output="coef")
+getRedundancy(vars, species, germany, output = "coef")
+
+
+
+#########
+# takes a vector of responses, the species that may cause them
+# and returns a table of 1s, -1s, and 0s with regards to the kind of effect
+# or a coefficient table, if asked for.  Arugments can take the form of the fitting function
+# how variables are combined, and additional arguments to the fitting function
+#########
 }
 \author{
 Jarrett Byrnes.

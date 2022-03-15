@@ -19,15 +19,15 @@ getMF_eff(
 
 \item{vars}{Name of function variables}
 
-\item{q}{Order of the diversity measure. Defaults to the 
+\item{q}{Order of the diversity measure. Defaults to the
 Shannon case where q = 1. For Simpson, q=2.}
 
-\item{standardized}{Use standardized number of functions (scaled by total 
+\item{standardized}{Use standardized number of functions (scaled by total
 number of functions, so between 0-1), or just raw effective number of
 functions for calculation. Defaults to \code{FALSE}.}
 
-\item{standardize_function}{A function to standardize each individual 
-function to the same scale, such as \code{standardizeUnitScale} or 
+\item{standardize_function}{A function to standardize each individual
+function to the same scale, such as \code{standardizeUnitScale} or
 \code{standardizeZScore}}
 
 \item{D}{A distance matrix describing dissimilarity between functions. Defaults
@@ -51,18 +51,18 @@ Takes a data frame, variable names, a standardizing function, whether we want
 an index standardized by number of functions or not, an order of Hill number for our
 effective number of functions as well as a dissimilarity matrix (if desired) and value
 for a dissimilarity cutoff (defaults to the average dissimilarity). It then calculates
-both the average standardized function in each plot and the effective number of 
+both the average standardized function in each plot and the effective number of
 functions and returns their product as a measure of effective multifunctionality.
 }
 \references{
-Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C., 
-Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to 
-functional diversity, functional beta diversity, and related (dis)similarity 
+Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C.,
+Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to
+functional diversity, functional beta diversity, and related (dis)similarity
 measures. Ecological Monographs. 89: e01343.
 
 Jost, L. 2006. Entropy and diversity. Oikos 113(2): 363-375.
 
-Hill, M. 1973. Diversity and evenness: A unifying notation and its 
+Hill, M. 1973. Diversity and evenness: A unifying notation and its
 consequences. Ecology 54: 427-432.
 }
 \author{

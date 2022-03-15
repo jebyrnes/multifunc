@@ -39,26 +39,35 @@ relevant coefficient and effect matrices, and response name
 }
 \details{
 \code{sAICfun} takes a dataset, response, and function, and then uses a stepAIC approach
-to determine the best model.  From that it extracts the species with a positive, 
+to determine the best model.  From that it extracts the species with a positive,
 negative, and neutral effect on that function.
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
-species<-relevantSp(germany,26:ncol(germany))
+vars <- whichVars(germany, allVars)
+species <- relevantSp(germany, 26:ncol(germany))
 
-#re-normalize N.Soil so that everything is on the same 
-#sign-scale (e.g. the maximum level of a function is 
-#the "best" function)
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the same
+# sign-scale (e.g. the maximum level of a function is
+# the "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
 
-spList<-sAICfun("biomassY3", species, germany)
-res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
-names(res.list)<-vars
+spList <- sAICfun("biomassY3", species, germany)
+# " spList
+res.list <- lapply(vars, function(x) sAICfun(x, species, germany))
+names(res.list) <- vars
+
+
+
+#########
+# sAICfun takes a dataset, response, and function, and then uses a stepAIC approach
+# to determine the best model.  From that it extracts the species with a positive,
+# negative, and neutral effect on that function
+#########
 }
 \author{
 Jarrett Byrnes.

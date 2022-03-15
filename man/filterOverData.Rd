@@ -25,24 +25,31 @@ only the sign of contributions desired.  Typically used by other functions in th
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
-species<-relevantSp(germany,26:ncol(germany))
+vars <- whichVars(germany, allVars)
+species <- relevantSp(germany, 26:ncol(germany))
 
-#re-normalize N.Soil so that everything is on the same 
-#sign-scale (e.g. the maximum level of a function is the 
-#"best" function)
-germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the same
+# sign-scale (e.g. the maximum level of a function is the
+# "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
 
-res.list<-lapply(vars, function(x) sAICfun(x, species, germany))
-names(res.list)<-vars
+res.list <- lapply(vars, function(x) sAICfun(x, species, germany))
+names(res.list) <- vars
 
-redund<-getRedundancy(vars, species, germany)
+redund <- getRedundancy(vars, species, germany)
 
-filterOverData(redund, type="positive")
+filterOverData(redund, type = "positive")
+
+
+#########
+# filterOverData takes a matrix of 1s, 0s, and -1s
+# and filters it so that only the positive, negative, or both contributions
+# are 1 for later overlap function usage
+#########
 }
 \author{
 Jarrett Byrnes.

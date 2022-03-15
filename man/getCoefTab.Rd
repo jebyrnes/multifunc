@@ -41,22 +41,35 @@ effect of diversity at each threshold
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
+vars <- whichVars(germany, allVars)
 
-#re-normalize N.Soil so that everything is on the same 
-#sign-scale (e.g. the maximum level of a function is 
-#the "best" function)
-germany$N.Soil<- -1*germany$N.Soil + max(germany$N.Soil, na.rm=TRUE)
+# re-normalize N.Soil so that everything is on the same
+# sign-scale (e.g. the maximum level of a function is
+# the "best" function)
+germany$N.Soil <- -1 * germany$N.Soil + max(germany$N.Soil, na.rm = TRUE)
 
-germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, 
-   threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh <- getFuncsMaxed(germany, vars,
+  threshmin = 0.05,
+  threshmax = 0.99, prepend = c("plot", "Diversity"), maxN = 7
+)
 
-germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, 
-   data=germanyThresh, coefVar="Diversity", family=quasipoisson(link="identity"))
+germanyLinearSlopes <- getCoefTab(funcMaxed ~ Diversity,
+  data = germanyThresh, coefVar = "Diversity", family = quasipoisson(link = "identity")
+)
+
+
+
+####
+# A function that will take a data frame with a lot of different thresholds
+# and at each threshold, fit a user specified statistical model, then pull out
+# a coefficient of interest (e.g., Diversity) and it's information from a summar
+# table.  This function can be used for glm and lm models, and potentially others
+# with the proper specification.
+#####
 }
 \author{
 Jarrett Byrnes.

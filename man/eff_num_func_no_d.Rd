@@ -19,17 +19,17 @@ eff_num_func_no_d
 }
 \details{
 Takes a data frame, with functions standardized against total level of function
-in their replicate as columns and replicates as rows.R eturns the effective number of functions using the appropriate method. See Chao
+in their replicate as columns and replicates as rows. Returns the effective number of functions using the appropriate method. See Chao
 et al. 2019 or Jost 2006 for details. Does not adjust for correlation between functions.
 }
 \references{
-Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C., 
-Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to 
-functional diversity, functional beta diversity, and related (dis)similarity 
+Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C.,
+Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to
+functional diversity, functional beta diversity, and related (dis)similarity
 measures. Ecological Monographs. 89: e01343.
 
 Jost, L. 2006. Entropy and diversity. Oikos 113(2): 363-375.
 
-Hill, M. 1973. Diversity and evenness: A unifying notation and its 
+Hill, M. 1973. Diversity and evenness: A unifying notation and its
 consequences. Ecology 54: 427-432.
 }

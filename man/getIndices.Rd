@@ -43,17 +43,21 @@ See Byrnes et al. In Review.
 }
 \examples{
 data(all_biodepth)
-allVars<-qw(biomassY3, root3, N.g.m2,  light3, N.Soil, wood3, cotton3)
+allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 
-germany<-subset(all_biodepth, all_biodepth$location=="Germany")
+germany <- subset(all_biodepth, all_biodepth$location == "Germany")
 
-vars<-whichVars(germany, allVars)
+vars <- whichVars(germany, allVars)
 
-germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, 
-   threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
+germanyThresh <- getFuncsMaxed(germany, vars,
+  threshmin = 0.05,
+  threshmax = 0.99, prepend = c("plot", "Diversity"), maxN = 7
+)
 
-germanyLinearSlopes<-getCoefTab(funcMaxed ~ Diversity, data=germanyThresh, 
-   coefVar="Diversity", family=quasipoisson(link="identity"))
+germanyLinearSlopes <- getCoefTab(funcMaxed ~ Diversity,
+  data = germanyThresh,
+  coefVar = "Diversity", family = quasipoisson(link = "identity")
+)
 
 getIndices(germanyLinearSlopes, germanyThresh, funcMaxed ~ Diversity)
 }
