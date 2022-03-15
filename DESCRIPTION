@@ -11,19 +11,21 @@ BugReports: https://github.com/jebyrnes/multifunc/issues
 Imports:
     stats,
     dplyr,
-    plyr,
+    purrr,
+    broom,
     car,
     MASS,
-    reshape2,
     stats,
     utils,
-    vegan
+    vegan,
+    magrittr
 Suggests:
     ggplot2,
     forcats,
     tidyr,
     gridExtra,
-    knitr
+    knitr,
+    patchwork
 License: CC0
 LazyData: true
 RoxygenNote: 7.1.1
