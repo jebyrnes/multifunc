@@ -49,5 +49,7 @@
 #########
 getOverlapSummary<-function(overData, m=2,  type="positive", index="sorensen", denom="set"){
   overlap<-getOverlap(overData, m=m,  type=type, index=index, denom=denom)
-  return(c(meanOverlap=mean(overlap), sdOverlap=sd(overlap), n=length(overlap)))
+  return(c(meanOverlap = mean(overlap), 
+           sdOverlap = stats::sd(overlap), 
+           n = length(overlap)))
 }

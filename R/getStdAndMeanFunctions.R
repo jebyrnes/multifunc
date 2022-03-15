@@ -37,7 +37,7 @@
 getStdAndMeanFunctions<-function(data, vars, standardizeFunction=standardizeUnitScale){
   
   
-  ret <- dplyr::mutate(data, across(vars, standardizeUnitScale, .names = "{.col}.std")) %>%
+  ret <- dplyr::mutate(data, dplyr::across(vars, standardizeUnitScale, .names = "{.col}.std")) %>%
     dplyr::select(paste0(vars, ".std"))
   
   ret$meanFunction<-rowSums(ret)/ncol(ret)

@@ -15,7 +15,6 @@ Imports:
     broom,
     car,
     MASS,
-    stats,
     utils,
     vegan,
     magrittr

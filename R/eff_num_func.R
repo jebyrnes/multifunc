@@ -15,7 +15,7 @@
 #' @param standardized Use standardized number of functions (scaled by total 
 #' number of functions, so between 0-1), or just raw effective number of
 #' functions for calculation. Defaults to \code{FALSE}.
-#' @param standardizeFunction A function to standardize each individual 
+#' @param standardize_function A function to standardize each individual 
 #' function to the same scale, such as \code{standardizeUnitScale} or 
 #' \code{standardizeZScore}
 #' @param q 	Order of the diversity measure. Defaults to the 
@@ -264,7 +264,7 @@ eff_num_func_d_onerow <- function(arow_freq, D, tau, q){
 #' @description Calculates the average distance between functions for one or an entire
 #' assemblage of replicates
 #'
-#' @param dat A data frame with functions in columns and rows as replicates 
+#' @param dat A adf_raw frame with functions in columns and rows as replicates 
 #' @param D A distance matrix describing dissimilarity between functions. 
 #' @references 
 #' 
@@ -323,7 +323,7 @@ dmin <- function(D){
 
 cor_dist <- function(adf){
   if(sum(is.na(adf))>0) stop("Some function values are NA. Cannot compute a distance matrix.")
-  cmat <- cor(adf)
+  cmat <- stats::cor(adf)
   D <- (1-cmat)/2
   D
 }

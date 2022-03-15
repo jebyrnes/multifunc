@@ -9,7 +9,7 @@ dmean(adf_raw, D)
 \arguments{
 \item{D}{A distance matrix describing dissimilarity between functions.}
 
-\item{dat}{A data frame with functions in columns and rows as replicates}
+\item{dat}{A adf_raw frame with functions in columns and rows as replicates}
 }
 \value{
 

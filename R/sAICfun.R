@@ -82,8 +82,8 @@ sAICfun <- function(response, species, data, positive.desired=T, method="lm", co
 #sAICFit does the business of fitting a model using a stepAIC approach
 #########
 sAICFit<-function(response, species, data, method="lm", combine="+", ...){
-  f <- as.formula(paste(response, "~" , paste(species, collapse="+")))
-  fit <- eval(substitute(lm(f, data=data, ...)))
+  f <- stats::as.formula(paste(response, "~" , paste(species, collapse="+")))
+  fit <- eval(substitute(stats::lm(f, data=data, ...)))
   obj <- MASS::stepAIC(fit, trace=0)
   obj
 }

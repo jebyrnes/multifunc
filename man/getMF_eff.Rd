@@ -26,6 +26,10 @@ Shannon case where q = 1. For Simpson, q=2.}
 number of functions, so between 0-1), or just raw effective number of
 functions for calculation. Defaults to \code{FALSE}.}
 
+\item{standardize_function}{A function to standardize each individual 
+function to the same scale, such as \code{standardizeUnitScale} or 
+\code{standardizeZScore}}
+
 \item{D}{A distance matrix describing dissimilarity between functions. Defaults
 to NULL, and the index is calculated assuming all functions are different. If
 it is not null, it must be a symmetric matrix with dimensions matching the
@@ -34,10 +38,6 @@ number of functions listed in \code{vars}.}
 \item{tau}{A cutoff for degree of dissimilarity under which functions are considered
 to be different. If tau is the minimum non-zero value of D, all functions are different.
 if tau is the maximum value of D are greater, all functions are considered the same.}
-
-\item{standardizeFunction}{A function to standardize each individual 
-function to the same scale, such as \code{standardizeUnitScale} or 
-\code{standardizeZScore}}
 }
 \value{
 Returns a vector of effective or standardized effective multifunctionality.

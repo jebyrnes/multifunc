@@ -91,7 +91,7 @@ getFit <- function(eqn, fun=glm, adf, ...){
 
 
 getIndices_nothresh <- function(eqn, fun=glm, threshdata, divvar = "Diversity", groupVar="thresholds", coefVar, ...){
-  slopedata = getCoefTab(eqn, fun=glm, threshdata, groupVar="thresholds", coefVar, ...)
+  slopedata = getCoefTab(eqn, fun=fun, threshdata, groupVar="thresholds", coefVar, ...)
   getIndices(slopedata, threshdata, eqn, fun, divvar, groupVar)
 }
 

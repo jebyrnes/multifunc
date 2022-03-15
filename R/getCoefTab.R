@@ -32,7 +32,7 @@
 #' #re-normalize N.Soil so that everything is on the same 
 #' #sign-scale (e.g. the maximum level of a function is 
 #' #the "best" function)
-#' germany$N.Soil<- -1*germany$N.Soil +max(germany$N.Soil, na.rm=TRUE)
+#' germany$N.Soil<- -1*germany$N.Soil + max(germany$N.Soil, na.rm=TRUE)
 #' 
 #' germanyThresh<-getFuncsMaxed(germany, vars, threshmin=0.05, 
 #'    threshmax=0.99, prepend=c("plot","Diversity"), maxN=7)
@@ -51,21 +51,25 @@
 #####
 
 
-getCoefTab<-function(eqn, fun=glm, data, groupVar="thresholds", coefVar=NULL, ...){
- # gv <- dplyr::syms(groupVar)
- # options(warn=2)
+getCoefTab<-function(eqn, 
+                     fun = stats::glm, 
+                     data, 
+                     groupVar="thresholds", 
+                     coefVar=NULL, ...){
+
+   # options(warn=2)
   
   get_model <- function(one_dat){
     try(fun(eqn, data = one_dat, ...))
   }
   
   ret <- data %>%
-    dplyr::group_by(across(groupVar)) %>%
+    dplyr::group_by(dplyr::across(groupVar)) %>%
     tidyr::nest() %>%
     dplyr::mutate(mod = purrr::map(data, get_model)) %>%
   
   #get info on if things failed
-    mutate(err = purrr::map_lgl(mod, ~"try-error" %in% class(.x)),
+    dplyr::mutate(err = purrr::map_lgl(mod, ~"try-error" %in% class(.x)),
            err_conv = purrr::map_lgl(mod, ~ifelse("glm" %in% class(.x),
                                                   !.x$converged,
                                                   FALSE)),
@@ -77,12 +81,12 @@ getCoefTab<-function(eqn, fun=glm, data, groupVar="thresholds", coefVar=NULL, ..
     dplyr::mutate(coefs = purrr::map(mod, broom::tidy)) %>%
     dplyr::select(-data, -mod) %>%
     tidyr::unnest(coefs) %>%
-    ungroup() 
+    dplyr::ungroup() 
   
   #filter out fit errors
   ret <- ret %>%
-    mutate(across(estimate:p.value, ~ifelse(err | err_conv, NA, .x))) %>%
-    select(-err, -err_conv)
+    dplyr::mutate(dplyr::across(estimate:p.value, ~ifelse(err | err_conv, NA, .x))) %>%
+    dplyr::select(-err, -err_conv)
   
   if(!is.null(coefVar)){
     ret <- ret %>% dplyr::filter(term %in% coefVar)
