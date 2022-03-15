@@ -4,3 +4,5 @@
 ^.*\.Rproj$
 ^.*\.Rhistory$
 ^\.Rproj\.user$
+docs
+cran-commends.md
