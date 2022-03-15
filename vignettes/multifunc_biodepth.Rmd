@@ -4,14 +4,11 @@ author: "Jarrett Byrnes"
 date: 2015-06-25
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using multifunc}
+  %\VignetteIndexEntry{Assessing Multifunctionality with the multifunc package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-
-# Using the *multifunc* package for analysis of Biodiversity Ecosystem Multifunctionality Relationships in the BIODEPTH Experiment  
-\
 ## Intro
 
 This is a step-by-step walk-through of the analysis of the German BIODEPTH site in the paper to illustrate the different analyses we conducted to evaluate the relationship between biodiversity and ecosystem multifunctionality.
@@ -20,10 +17,12 @@ We begin by loading the *multifunc* package.  If it is not currently installed, 
 
 ```{r set-options, echo=FALSE, cache=FALSE, include=FALSE}
 library(knitr)
-opts_chunk$set(tidy=FALSE)
-opts_chunk$set(prompt=FALSE)
-opts_chunk$set(warning=FALSE)
+opts_chunk$set(tidy=FALSE,
+               prompt=FALSE,
+               warning=FALSE,
+               message = FALSE)
 opts_chunk$set(comment="#")
+options(warn = -1)
 ```
 
 ```{r, eval=FALSE}
@@ -453,7 +452,6 @@ germanSlopes + annotate(geom="text", y=c(-0.01, -0.01, -0.01, germanIDX$Rmde.lin
 Furthermore, we can extend this to the more of the BIODEPTH dataset to compare the strength of multifunctionality across sites.  We begin by loading in the data and calculating slopes at different thresholds.  We'll subset down to Sheffield, Portugal, and Sweden for simplicity, but this could be done for all sites quite easily.
 
 ```{r}
-
 ####
 # Now we will look at the entire BIODEPTH dataset
 #
