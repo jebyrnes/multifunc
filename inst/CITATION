@@ -23,7 +23,8 @@ citEntry(entry = "Article",
   "Griffin, J. N., Hector, A., Cardinale, B. J., Hooper, D. U., Dee, L. E.",
   "and Emmett Duffy, J. 2014. Investigating the relationship between",
   "biodiversity and ecosystem multifunctionality: challenges and solutions.,",
-   "Methods in Ecology and Evolution 5: 111–124."
+   "Methods in Ecology and Evolution 5: 111–124. ", 
+   "https://doi.org/10.1111/2041-210X.12143"
 )
 )
 
@@ -39,7 +40,7 @@ citEntry(
   textVersion = paste(
         "Byrnes, J. E. K., Roger, F. and Bagchi, R.",
         "2022. Understandable Multifunctionality Measures Using Hill",
-        "Numbers. 2022.03.17.484802."
+        "Numbers. bioRxiv. 2022.03.17.484802. https://doi.org/10.1101/2022.03.17.484802"
 
   )
 )
