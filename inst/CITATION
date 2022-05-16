@@ -1,0 +1,45 @@
+citHeader("To cite multifunc in publications use:")
+
+citEntry(entry = "Article",
+  title        = "Dates and Times Made Easy with {lubridate}",
+  author       = personList(as.person("Jarrett E.K. Byrnes"),
+                   as.person("Lars Gamfeldt"),
+                   as.person("Forest Isbell"),
+                   as.person("Jonathan S. Lefcheck"),
+                   as.person("John N. Griffin"),
+                   as.person("Andy Hector"),
+                   as.person("Bradley J. Cardinale"),
+                   as.person("David U. Hooper"),
+                   as.person("Laura E. Dee")
+                   ),
+  journal      = "Methods in Ecology and Evolution",
+  year         = "2014",
+  volume       = "5",
+  pages        = "111--124",
+  url          = "https://doi.org/10.1111/2041-210X.12143",
+
+  textVersion  =
+  paste("Byrnes, J. E. K., Gamfeldt, L., Isbell, F., Lefcheck, J. S.,",
+  "Griffin, J. N., Hector, A., Cardinale, B. J., Hooper, D. U., Dee, L. E.",
+  "and Emmett Duffy, J. 2014. Investigating the relationship between",
+  "biodiversity and ecosystem multifunctionality: challenges and solutions.,",
+   "Methods in Ecology and Evolution 5: 111–124."
+)
+)
+
+citEntry(
+  entry    = "Article",
+  title    = "Understandable Multifunctionality Measures Using Hill Numbers",
+  author   = personList(as.person("Jarrett E.K. Byrnes"),
+                   as.person("Fabian Roger"),
+                   as.person("Robert Bagchi")),
+  journal  = "bioRxiv",
+  year     = "2022",
+  url      = "https://doi.org/10.1101/2022.03.17.484802",
+  textVersion = paste(
+        "Byrnes, J. E. K., Roger, F. and Bagchi, R.",
+        "2022. Understandable Multifunctionality Measures Using Hill",
+        "Numbers. 2022.03.17.484802."
+
+  )
+)
