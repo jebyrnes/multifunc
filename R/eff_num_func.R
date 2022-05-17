@@ -233,6 +233,10 @@ eff_num_func_d <- function(adf_freq, q = 1, D, tau = NULL) {
 #' if tau is the maximum value of D are greater, all functions are considered the same.
 #' @references
 #'
+#'Byrnes, J. E. K., Roger, F. and Bagchi, R. 2022. Understandable 
+#'Multifunctionality Measures Using Hill Numbers. bioRxiv. 
+#'2022.03.17.484802. https://doi.org/10.1101/2022.03.17.484802
+#'
 #' Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C.,
 #' Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to
 #' functional diversity, functional beta diversity, and related (dis)similarity
@@ -262,6 +266,10 @@ eff_num_func_d_onerow <- function(arow_freq, D, tau, q) {
 #' @param adf_raw A data frame frame with functions in columns and rows as replicates
 #' @param D A distance matrix describing dissimilarity between functions.
 #' @references
+#'
+#'Byrnes, J. E. K., Roger, F. and Bagchi, R. 2022. Understandable 
+#'Multifunctionality Measures Using Hill Numbers. bioRxiv. 
+#'2022.03.17.484802. https://doi.org/10.1101/2022.03.17.484802
 #'
 #' Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C.,
 #' Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to

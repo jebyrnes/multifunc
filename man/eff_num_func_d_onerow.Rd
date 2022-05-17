@@ -24,6 +24,10 @@ A single value of effective number of functions
 eff_num_func_d_onerow
 }
 \references{
+Byrnes, J. E. K., Roger, F. and Bagchi, R. 2022. Understandable 
+Multifunctionality Measures Using Hill Numbers. bioRxiv. 
+2022.03.17.484802. https://doi.org/10.1101/2022.03.17.484802
+
 Chao, A., Chiu, C.-H., Villéger, S., Sun, I.-F., Thorn, S., Lin, Y.-C.,
 Chiang, J.-M. and Sherwin, W. B. 2019. An attribute-diversity approach to
 functional diversity, functional beta diversity, and related (dis)similarity

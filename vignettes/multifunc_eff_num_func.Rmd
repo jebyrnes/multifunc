@@ -44,14 +44,17 @@ duffyAllVars <- qw(grazer_mass,wkall_chla,tot_algae_mass,
 #sign-scale (e.g. the maximum level of a function is the "best" function)
 #and the dataset is cleaner
 duffy <- duffy_2003 %>%
- dplyr::select(id, treatment, diversity, one_of(duffyAllVars)) %>%
- dplyr::mutate(wkall_chla = -1*wkall_chla + max(wkall_chla, na.rm=T),
-               tot_algae_mass = -1*tot_algae_mass + max(tot_algae_mass, na.rm=T)) 
+ dplyr::select(id, treatment, 
+               diversity, all_of(duffyAllVars)) %>%
+ dplyr::mutate(wkall_chla = -1*wkall_chla + 
+                 max(wkall_chla, na.rm=T),
+               tot_algae_mass = -1*tot_algae_mass + 
+                 max(tot_algae_mass, na.rm=T)) 
 
 # Plot functions we want
 duffy %>% 
-  select(treatment, diversity, duffyAllVars) %>%
-  pivot_longer(duffyAllVars) %>%
+  select(treatment, diversity, all_of(duffyAllVars)) %>%
+  pivot_longer(all_of(duffyAllVars)) %>%
   ggplot(aes(x = diversity, y = value, 
              color = treatment)) +
   stat_summary(fun.data = mean_se) +
@@ -127,13 +130,13 @@ We can also incorporate correlation between functions to calculate effective num
 To begin with, we will need a distance matrix based on correlations. For that, we have `multifunc::cor_dist()` which calculates a correlation matrix, subtracts it from 1 and divides by two to make a distance matrix.
 
 ```{r}
-D <- cor_dist(duffy %>% select(duffyAllVars.std))
+D <- cor_dist(duffy %>% select(all_of(duffyAllVars.std)))
 ```
 
 With the approach outlined for effective multifunctionality, we need to also consider a cutoff in similarity, $\tau$. As a default choice for functions, we use $d_{mean}$, the average of the matrix weighted by the total frequency of function. To see what $d_{mean}$ would be, we can use `multifunc::dmean()` and then either use that in future functions, or recognize that functions default to calculating $d_{mean}$. Other choices could be $d_{max}$ or $d_{min}$ - the minimum non-zero value of the distance matrix which can be calculated with `multfunc::dmin()` in the same way we use `dmean()` below.
 
 ```{r dmean}
-tau <- dmean(duffy %>% select(duffyAllVars.std),
+tau <- dmean(duffy %>% select(all_of(duffyAllVars.std)),
              D)
 
 tau
