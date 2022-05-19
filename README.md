@@ -1,4 +1,8 @@
 ## Analysis of the effects of drivers on multifunctionality within a system 
+  <!-- badges: start -->
+  [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+    [![CRAN status](https://www.r-pkg.org/badges/version/multifunc)](https://CRAN.R-project.org/package=multifunc)
+  <!-- badges: end -->
   
 R package for the analysis of multifunctionality in ecological (or other) systems based on the following papers:
 
