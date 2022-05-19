@@ -81,8 +81,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Assessing Multifunctionality with the multifunc package</h1>
-                        <h4 data-toc-skip class="author">Jarrett Byrnes</h4>
+      <h1 data-toc-skip>Assessing Multifunctionality with the multifunc
+package</h1>
+                        <h4 data-toc-skip class="author">Jarrett
+Byrnes</h4>
             
             <h4 data-toc-skip class="date">2015-06-25</h4>
       
@@ -96,13 +98,18 @@
 <div class="section level2">
 <h2 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
 </h2>
-<p>This is a step-by-step walk-through of the analysis of the German BIODEPTH site in the paper to illustrate the different analyses we conducted to evaluate the relationship between biodiversity and ecosystem multifunctionality.</p>
-<p>We begin by loading the <em>multifunc</em> package. If it is not currently installed, it can be found on github, and installed using the <em>devtools</em> library.</p>
+<p>This is a step-by-step walk-through of the analysis of the German
+BIODEPTH site in the paper to illustrate the different analyses we
+conducted to evaluate the relationship between biodiversity and
+ecosystem multifunctionality.</p>
+<p>We begin by loading the <em>multifunc</em> package. If it is not
+currently installed, it can be found on github, and installed using the
+<em>devtools</em> library.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
 <span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"multifunc"</span>, username<span class="op">=</span><span class="st">"jebyrnes"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jebyrnes/multifunc" class="external-link">multifunc</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jebyrnes.github.io/multifunc/" class="external-link">multifunc</a></span><span class="op">)</span>
 
 <span class="co">#for plotting</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
@@ -116,7 +123,9 @@
 
 <span class="co">#for analysus</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/" class="external-link">car</a></span><span class="op">)</span></code></pre></div>
-<p>Next, we load in the BIODEPTH data. We use some of the helper functions in the package to identify the column numbers of the relevant functions for later use.</p>
+<p>Next, we load in the BIODEPTH data. We use some of the helper
+functions in the package to identify the column numbers of the relevant
+functions for later use.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Read in data  to run sample analyses on the biodepth data</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">all_biodepth</span><span class="op">)</span>
@@ -124,7 +133,12 @@
 <span class="va">allVars</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"biomassY3"</span>, <span class="st">"root3"</span>, <span class="st">"N.g.m2"</span>,  <span class="st">"light3"</span>, <span class="st">"N.Soil"</span>, <span class="st">"wood3"</span>, <span class="st">"cotton3"</span><span class="op">)</span>
 
 <span class="va">varIdx</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">all_biodepth</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">allVars</span><span class="op">)</span></code></pre></div>
-<p>As we want to work with just the German data, we next subset down the data to just Germany. We then look at the whether species were seeded or not, and determine which species were indeed seeded in Germany. If a column of species is full of zeroes, then it was not seeded in these plots. We will need the column indices of relevant species for later use in the overlap analyses.</p>
+<p>As we want to work with just the German data, we next subset down the
+data to just Germany. We then look at the whether species were seeded or
+not, and determine which species were indeed seeded in Germany. If a
+column of species is full of zeroes, then it was not seeded in these
+plots. We will need the column indices of relevant species for later use
+in the overlap analyses.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#######</span>
 <span class="co">#Now, specify what data we're working with - Germany</span>
@@ -146,7 +160,9 @@
 <div class="section level2">
 <h2 id="single-function-approach">Single Function Approach<a class="anchor" aria-label="anchor" href="#single-function-approach"></a>
 </h2>
-<p>First, we will demonstrate the qualitative single function approach. As we’re using <em>ggplot2</em> for plotting, we’ll use <em>tidyr</em> to pivot the data long for a nice faceted plot of each relationship.</p>
+<p>First, we will demonstrate the qualitative single function approach.
+As we’re using <em>ggplot2</em> for plotting, we’ll use <em>tidyr</em>
+to pivot the data long for a nice faceted plot of each relationship.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germanyForPlotting</span> <span class="op">&lt;-</span> <span class="va">germany</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Diversity</span>, <span class="va">german_vars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -158,7 +174,10 @@
 
 <span class="co">#make the levels of the functions into something nice for plots</span>
 <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">germanyForPlotting</span><span class="op">$</span><span class="va">variable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Aboveground Biomass'</span>, <span class="st">'Root Biomass'</span>, <span class="st">'Cotton Decomposition'</span>, <span class="st">'Soil Nitrogen'</span>, <span class="st">'Plant Nitrogen'</span><span class="op">)</span></code></pre></div>
-<p>Nest, as we want to display additional information about the fit of diversity to each function, we’ll need to iterate over each function, derive a fit, and then make some labels to be used in the eventual plot.</p>
+<p>Nest, as we want to display additional information about the fit of
+diversity to each function, we’ll need to iterate over each function,
+derive a fit, and then make some labels to be used in the eventual
+plot.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germanyLabels</span> <span class="op">&lt;-</span> <span class="va">germanyForPlotting</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -197,7 +216,10 @@
             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="va">labels</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>panel.grid <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-7-1.png" width="1152"></p>
-<p>Next, we ask whether the best performing species differs between functions. To do that, we have to pull out all monoculture plots, then reshape the data and run a quick qualitative analysis on it to determine the best performer.</p>
+<p>Next, we ask whether the best performing species differs between
+functions. To do that, we have to pull out all monoculture plots, then
+reshape the data and run a quick qualitative analysis on it to determine
+the best performer.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#pull out only those plots planted in monoculture</span>
 <span class="va">monoGermany</span><span class="op">&lt;-</span> <span class="va">germany</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -232,11 +254,15 @@
 <div class="section level2">
 <h2 id="overlap-approach">Overlap Approach<a class="anchor" aria-label="anchor" href="#overlap-approach"></a>
 </h2>
-<p>One of the functions we are looking at, soil N, first needs to be reflected before we can apply the overlap approach.</p>
+<p>One of the functions we are looking at, soil N, first needs to be
+reflected before we can apply the overlap approach.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germany</span> <span class="op">&lt;-</span> <span class="va">germany</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>N.Soil <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">*</span><span class="va">N.Soil</span> <span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">N.Soil</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>We can examine any single species and generate coefficient values and ‘effects’ - i.e., whether a species has a positive (1), negative (-1), or neutral (0) effect on a function. Let’s examine this for biomass production in year 3.</p>
+<p>We can examine any single species and generate coefficient values and
+‘effects’ - i.e., whether a species has a positive (1), negative (-1),
+or neutral (0) effect on a function. Let’s examine this for biomass
+production in year 3.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">spList</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/sAICfun.html">sAICfun</a></span><span class="op">(</span><span class="st">"biomassY3"</span>, <span class="va">species</span>, <span class="va">germany</span><span class="op">)</span>
 <span class="va">spList</span></code></pre></div>
@@ -278,7 +304,10 @@
 <span class="co">#       0      -1       0       0      -1       0       0       1       1       0 </span>
 <span class="co"># VICSEP1 </span>
 <span class="co">#       0</span></code></pre>
-<p>Using this as our starting point, we can use the getRedundancy function to generate a) an effect matrix for all functions, b) a coefficient matrix for all functions, and c) a standardized coefficient matrix for all functions.</p>
+<p>Using this as our starting point, we can use the getRedundancy
+function to generate a) an effect matrix for all functions, b) a
+coefficient matrix for all functions, and c) a standardized coefficient
+matrix for all functions.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">redund</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/getRedundancy.html">getRedundancy</a></span><span class="op">(</span><span class="va">german_vars</span>, <span class="va">species</span>, <span class="va">germany</span><span class="op">)</span>
 <span class="va">coefs</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/getRedundancy.html">getRedundancy</a></span><span class="op">(</span><span class="va">german_vars</span>, <span class="va">species</span>, <span class="va">germany</span>, output<span class="op">=</span><span class="st">"coef"</span><span class="op">)</span>
@@ -310,7 +339,9 @@
 <span class="co"># N.g.m2         -1       0       0       1       1       0       0</span>
 <span class="co"># N.Soil          1       0       0      -1      -1       0       0</span>
 <span class="co"># cotton3         0       0       0       1       1       0       0</span></code></pre>
-<p>Using the effect matrix, we then estimate the average number of species affecting all possible combinations of functions - both positive and negative - and then plot the results.</p>
+<p>Using the effect matrix, we then estimate the average number of
+species affecting all possible combinations of functions - both positive
+and negative - and then plot the results.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#plot the num. functions by fraction of the species pool needed</span>
 <span class="va">posCurve</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/divNeeded.html">divNeeded</a></span><span class="op">(</span><span class="va">redund</span>, type<span class="op">=</span><span class="st">"positive"</span><span class="op">)</span>
@@ -336,7 +367,8 @@
 <span class="va">pc</span> <span class="op">+</span> <span class="va">nc</span> <span class="op">+</span>
    <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">plot_annotation</a></span><span class="op">(</span>tag_levels <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span></code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-12-1.png" width="1152"></p>
-<p>We could have also looked at overlap indices, such as the Sorenson index.</p>
+<p>We could have also looked at overlap indices, such as the Sorenson
+index.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">allOverlapPos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">redund</span><span class="op">)</span>,
                         <span class="op">~</span><span class="fu"><a href="../reference/getOverlapSummary.html">getOverlapSummary</a></span><span class="op">(</span><span class="va">redund</span>, m <span class="op">=</span> <span class="va">.x</span>, denom <span class="op">=</span> <span class="st">"set"</span><span class="op">)</span>,
@@ -350,7 +382,10 @@
 <span class="co"># <span style="color: #BCBCBC;">2</span> 2          0.065<span style="text-decoration: underline;">8</span>     0.116    10</span>
 <span class="co"># <span style="color: #BCBCBC;">3</span> 3          0          0         5</span>
 <span class="co"># <span style="color: #BCBCBC;">4</span> 4          0         <span style="color: #BB0000;">NA</span>         1</span></code></pre>
-<p>One we’ve examined the consequences of functional overlap, we can then move on to compare the number and size of these effects. First, what is the relative balance of positive to negative contributions for each species?</p>
+<p>One we’ve examined the consequences of functional overlap, we can
+then move on to compare the number and size of these effects. First,
+what is the relative balance of positive to negative contributions for
+each species?</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">posNeg</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">redund</span><span class="op">)</span>,
                    Pos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="fu"><a href="../reference/filterOverData.html">filterOverData</a></span><span class="op">(</span><span class="va">redund</span><span class="op">)</span><span class="op">)</span>,
@@ -367,7 +402,10 @@
               method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>family<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">poisson</a></span><span class="op">(</span>link<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">0</span>, lty <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<p>So, a generally positive relationship. We can see from the figure that the slope is less than 1:1, so positive effects accumulate faster. Still, more positive effects = more negative effects. What about the size of those positive versus negative effects?</p>
+<p>So, a generally positive relationship. We can see from the figure
+that the slope is less than 1:1, so positive effects accumulate faster.
+Still, more positive effects = more negative effects. What about the
+size of those positive versus negative effects?</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#now get the standardized effect sizes</span>
 <span class="va">posNeg</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">posNeg</span>, <span class="op">{</span>
@@ -394,7 +432,10 @@
 <div class="section level2">
 <h2 id="averaging-approach">Averaging Approach<a class="anchor" aria-label="anchor" href="#averaging-approach"></a>
 </h2>
-<p>Now we’ll try the averaging approach. The first step is to create a set of columns where we have standardized all of the functions of interest, and then create an average of those standardized functions.</p>
+<p>Now we’ll try the averaging approach. The first step is to create a
+set of columns where we have standardized all of the functions of
+interest, and then create an average of those standardized
+functions.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#add on the new functions along with the averaged multifunctional index</span>
 <span class="va">germany</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">germany</span>, <span class="fu"><a href="../reference/getStdAndMeanFunctions.html">getStdAndMeanFunctions</a></span><span class="op">(</span><span class="va">germany</span>, <span class="va">german_vars</span><span class="op">)</span><span class="op">)</span>
@@ -408,7 +449,9 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"\nSpecies Richness"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Average Value of Standardized Functions\n"</span><span class="op">)</span></code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<p>We may want to look at all of the functions on a standardized scale, and add in the averaged line for comparison as well. We can do this by reshaping the data, and plotting it.</p>
+<p>We may want to look at all of the functions on a standardized scale,
+and add in the averaged line for comparison as well. We can do this by
+reshaping the data, and plotting it.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#reshape for plotting everything with ggplot2</span>
 <span class="va">germanyMeanForPlotting</span> <span class="op">&lt;-</span> <span class="va">germany</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -427,7 +470,8 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"\nSpecies Richness"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Standardized Value of Function\n"</span><span class="op">)</span></code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-18-1.png" width="1536"></p>
-<p>Last, let’s test the statistical fit of the effect of diversity on the averaged multifunctionality index.</p>
+<p>Last, let’s test the statistical fit of the effect of diversity on
+the averaged multifunctionality index.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#statistical fit</span>
 <span class="va">aveFit</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">meanFunction</span> <span class="op">~</span> <span class="va">Diversity</span>, data<span class="op">=</span><span class="va">germany</span><span class="op">)</span>
@@ -464,7 +508,9 @@
 <div class="section level2">
 <h2 id="threshold-approach">Threshold Approach<a class="anchor" aria-label="anchor" href="#threshold-approach"></a>
 </h2>
-<p>First, we need to create a new data set that looks at the number of functions greater than or equal to a threshold across a wide range of thresholds.</p>
+<p>First, we need to create a new data set that looks at the number of
+functions greater than or equal to a threshold across a wide range of
+thresholds.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germanyThresh</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/getFuncsMaxed.html">getFuncsMaxed</a></span><span class="op">(</span><span class="va">germany</span>, <span class="va">german_vars</span>, threshmin<span class="op">=</span><span class="fl">0.05</span>, threshmax<span class="op">=</span><span class="fl">0.99</span>, prepend<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plot"</span>,<span class="st">"Diversity"</span><span class="op">)</span>, maxN<span class="op">=</span><span class="fl">7</span><span class="op">)</span></code></pre></div>
 <p>Next, let’s perform an analysis on just the 0.8 threshold data.</p>
@@ -508,7 +554,9 @@
 <span class="co"># AIC: NA</span>
 <span class="co"># </span>
 <span class="co"># Number of Fisher Scoring iterations: 6</span></code></pre>
-<p>To get a better sense of how robust these results are to threshold choice, let’s plot the diversity versus number of functions greater than or equal to a threshold for four different thresholds.</p>
+<p>To get a better sense of how robust these results are to threshold
+choice, let’s plot the diversity versus number of functions greater than
+or equal to a threshold for four different thresholds.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gcPlot</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">germanyThresh</span>, <span class="va">germanyThresh</span><span class="op">$</span><span class="va">thresholds</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="../reference/qw.html">qw</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span> <span class="co">#note, using qw as %in% is a string comparison operator</span>
 
@@ -527,7 +575,8 @@
                        funcMaxed<span class="op">=</span><span class="fl">6</span>
                        <span class="op">)</span>, mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Diversity</span>, y<span class="op">=</span><span class="va">funcMaxed</span>, label<span class="op">=</span><span class="va">lab</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
-<p>Given that variation, let’s look at the entire spread of thresholds.</p>
+<p>Given that variation, let’s look at the entire spread of
+thresholds.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germanyThresh</span><span class="op">$</span><span class="va">percent</span> <span class="op">&lt;-</span> <span class="fl">100</span><span class="op">*</span><span class="va">germanyThresh</span><span class="op">$</span><span class="va">thresholds</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">germanyThresh</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Diversity</span>, y<span class="op">=</span><span class="va">funcMaxed</span>, group<span class="op">=</span><span class="va">percent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -543,7 +592,10 @@
 <div class="section level2">
 <h2 id="multiple-threshold-approach">Multiple Threshold Approach<a class="anchor" aria-label="anchor" href="#multiple-threshold-approach"></a>
 </h2>
-<p>To systematically explore the variation in the relationship based on threshold choice, let’s look at the slope of the relationship and its confidence interval over all thresholds. We will then plot this relationship.</p>
+<p>To systematically explore the variation in the relationship based on
+threshold choice, let’s look at the slope of the relationship and its
+confidence interval over all thresholds. We will then plot this
+relationship.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germanyLinearSlopes</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/getCoefTab.html">getCoefTab</a></span><span class="op">(</span><span class="va">funcMaxed</span> <span class="op">~</span> <span class="va">Diversity</span>,
                                 data <span class="op">=</span> <span class="va">germanyThresh</span>, 
@@ -568,13 +620,15 @@
 
 <span class="va">germanSlopes</span></code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-24-1.png" width="1152"></p>
-<p>We can easily see a number of indices mentioned in the text - Tmin, Tmax, Tmde, etc. Let’s pull them out with our indices function.</p>
+<p>We can easily see a number of indices mentioned in the text - Tmin,
+Tmax, Tmde, etc. Let’s pull them out with our indices function.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germanIDX</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getIndices.html">getIndices</a></span><span class="op">(</span><span class="va">germanyLinearSlopes</span>, <span class="va">germanyThresh</span>, <span class="va">funcMaxed</span> <span class="op">~</span> <span class="va">Diversity</span><span class="op">)</span>
 <span class="va">germanIDX</span></code></pre></div>
 <pre><code><span class="co">#   Tmin Tmax Tmde Rmde.linear Pmde.linear     Mmin    Mmax    Mmde nFunc</span>
 <span class="co"># 1 0.11 0.81 0.41   0.1734241    0.554957 5.050544 1.06222 4.53135     5</span></code></pre>
-<p>We can now add annotations to our earlier plot to make it more rich, and show us those crucial threshold values.</p>
+<p>We can now add annotations to our earlier plot to make it more rich,
+and show us those crucial threshold values.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germanyLinearSlopes</span><span class="op">$</span><span class="va">estimate</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">germanyLinearSlopes</span><span class="op">$</span><span class="va">thresholds</span><span class="op">==</span><span class="va">germanIDX</span><span class="op">$</span><span class="va">Tmde</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <pre><code><span class="co"># [1] 0.1734241</span></code></pre>
@@ -597,7 +651,8 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span>geom<span class="op">=</span><span class="st">"text"</span>, x<span class="op">=</span><span class="fl">0</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">2</span>,<span class="fl">4.6</span><span class="op">)</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tmax"</span>, <span class="st">"Tmde"</span>, <span class="st">"Tmin"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span>geom<span class="op">=</span><span class="st">"text"</span>, x<span class="op">=</span><span class="fl">16.7</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">germanIDX</span><span class="op">$</span><span class="va">Mmin</span>, <span class="va">germanIDX</span><span class="op">$</span><span class="va">Mmax</span>, <span class="va">germanIDX</span><span class="op">$</span><span class="va">Mmde</span><span class="op">)</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Mmin"</span>, <span class="st">"Mmax"</span>, <span class="st">"Mmde"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-26-1.png" width="1152"></p>
-<p>Or we can see where they are on the curve of slopes at different thresholds.</p>
+<p>Or we can see where they are on the curve of slopes at different
+thresholds.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">germanSlopes</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span>geom<span class="op">=</span><span class="st">"text"</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.01</span>, <span class="op">-</span><span class="fl">0.01</span>, <span class="op">-</span><span class="fl">0.01</span>, <span class="va">germanIDX</span><span class="op">$</span><span class="va">Rmde.linear</span><span class="op">+</span><span class="fl">0.02</span><span class="op">)</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">germanIDX</span><span class="op">$</span><span class="va">Tmin</span><span class="op">*</span><span class="fl">100</span>, <span class="va">germanIDX</span><span class="op">$</span><span class="va">Tmde</span><span class="op">*</span><span class="fl">100</span>, <span class="va">germanIDX</span><span class="op">$</span><span class="va">Tmax</span><span class="op">*</span><span class="fl">100</span>, <span class="va">germanIDX</span><span class="op">$</span><span class="va">Tmde</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span>,  label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tmin"</span>, <span class="st">"Tmde"</span>, <span class="st">"Tmax"</span>, <span class="st">"Rmde"</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"black"</span><span class="op">)</span> </code></pre></div>
 <p><img src="multifunc_biodepth_files/figure-html/unnamed-chunk-27-1.png" width="1152"></p>
@@ -605,7 +660,11 @@
 <div class="section level2">
 <h2 id="comparison-of-sites">Comparison of Sites<a class="anchor" aria-label="anchor" href="#comparison-of-sites"></a>
 </h2>
-<p>Furthermore, we can extend this to the more of the BIODEPTH dataset to compare the strength of multifunctionality across sites. We begin by loading in the data and calculating slopes at different thresholds. We’ll subset down to Sheffield, Portugal, and Sweden for simplicity, but this could be done for all sites quite easily.</p>
+<p>Furthermore, we can extend this to the more of the BIODEPTH dataset
+to compare the strength of multifunctionality across sites. We begin by
+loading in the data and calculating slopes at different thresholds.
+We’ll subset down to Sheffield, Portugal, and Sweden for simplicity, but
+this could be done for all sites quite easily.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">####</span>
 <span class="co"># Now we will look at the entire BIODEPTH dataset</span>
@@ -686,7 +745,8 @@
 <span class="co"># Error : no valid set of coefficients has been found: please supply starting values</span>
 <span class="co"># Error : no valid set of coefficients has been found: please supply starting values</span>
 <span class="co"># Error : no valid set of coefficients has been found: please supply starting values</span></code></pre>
-<p>Great, now we can look at the indices of these three new sites. We’ll add Germany in so we can compare them against the German values.</p>
+<p>Great, now we can look at the indices of these three new sites. We’ll
+add Germany in so we can compare them against the German values.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">indexTable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">bdLinearSlopes</span><span class="op">$</span><span class="va">location</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span>
   <span class="va">slopedata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">bdLinearSlopes</span>, <span class="va">bdLinearSlopes</span><span class="op">$</span><span class="va">location</span><span class="op">==</span><span class="va">x</span><span class="op">)</span> 
@@ -711,7 +771,9 @@
 <span class="co"># 13     6</span>
 <span class="co"># 11     6</span>
 <span class="co"># 12     4</span></code></pre>
-<p>Finally, let’s compare a visualization of the relevant curves at different thresholds to the relationship between threshold and slope of curve to give the table of numbers some visual meaning.</p>
+<p>Finally, let’s compare a visualization of the relevant curves at
+different thresholds to the relationship between threshold and slope of
+curve to give the table of numbers some visual meaning.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span>
 
@@ -774,7 +836,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>

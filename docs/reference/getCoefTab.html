@@ -111,7 +111,8 @@ effect of diversity at each threshold</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">all_biodepth</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">all_biodepth</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">allVars</span> <span class="op">&lt;-</span> <span class="fu"><a href="qw.html">qw</a></span><span class="op">(</span><span class="va">biomassY3</span>, <span class="va">root3</span>, <span class="va">N.g.m2</span>, <span class="va">light3</span>, <span class="va">N.Soil</span>, <span class="va">wood3</span>, <span class="va">cotton3</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">germany</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">all_biodepth</span>, <span class="va">all_biodepth</span><span class="op">$</span><span class="va">location</span> <span class="op">==</span> <span class="st">"Germany"</span><span class="op">)</span></span>
@@ -132,15 +133,7 @@ effect of diversity at each threshold</p>
 <span class="r-in">  data <span class="op">=</span> <span class="va">germanyThresh</span>, coefVar <span class="op">=</span> <span class="st">"Diversity"</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">quasipoisson</a></span><span class="op">(</span>link <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">####</span></span>
-<span class="r-in"><span class="co"># A function that will take a data frame with a lot of different thresholds</span></span>
-<span class="r-in"><span class="co"># and at each threshold, fit a user specified statistical model, then pull out</span></span>
-<span class="r-in"><span class="co"># a coefficient of interest (e.g., Diversity) and it's information from a summar</span></span>
-<span class="r-in"><span class="co"># table.  This function can be used for glm and lm models, and potentially others</span></span>
-<span class="r-in"><span class="co"># with the proper specification.</span></span>
-<span class="r-in"><span class="co">#####</span></span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -155,7 +148,8 @@ effect of diversity at each threshold</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>

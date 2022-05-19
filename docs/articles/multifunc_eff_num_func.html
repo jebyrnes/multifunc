@@ -81,10 +81,12 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Effective number of functions with multifunc</h1>
-                        <h4 data-toc-skip class="author">Jarrett Byrnes</h4>
+      <h1 data-toc-skip>Effective number of functions with
+multifunc</h1>
+                        <h4 data-toc-skip class="author">Jarrett
+Byrnes</h4>
             
-            <h4 data-toc-skip class="date">2022-03-15</h4>
+            <h4 data-toc-skip class="date">2022-05-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jebyrnes/multifunc/blob/HEAD/vignettes/multifunc_eff_num_func.Rmd" class="external-link"><code>vignettes/multifunc_eff_num_func.Rmd</code></a></small>
       <div class="hidden name"><code>multifunc_eff_num_func.Rmd</code></div>
@@ -93,14 +95,23 @@
 
     
     
-<p>To see how effective number of functions and effective multifunctionality can be used in practice, we have added functions for both into the <code>multifunc</code> package in R. To see how these metrics can be used, consider the example of Duffy et al. 2003. In this experiment, Duffy and colleagues sought to examine how biodiversity of grazers influences multiple different ecosystem functions in seagrass ecosystems. Using this framework, we standardized and reflected them as per how Duffy et al. discuss their results. We then compare average functional performance, effective multifunctionality with q = 1 and 2, and the same accommodating for correlations between functions.</p>
+<p>To see how effective number of functions and effective
+multifunctionality can be used in practice, we have added functions for
+both into the <code>multifunc</code> package in R. To see how these
+metrics can be used, consider the example of Duffy et al. 2003. In this
+experiment, Duffy and colleagues sought to examine how biodiversity of
+grazers influences multiple different ecosystem functions in seagrass
+ecosystems. Using this framework, we standardized and reflected them as
+per how Duffy et al. discuss their results. We then compare average
+functional performance, effective multifunctionality with q = 1 and 2,
+and the same accommodating for correlations between functions.</p>
 <div class="section level2">
 <h2 id="data-prep-and-initial-calculations">Data prep and initial calculations<a class="anchor" aria-label="anchor" href="#data-prep-and-initial-calculations"></a>
 </h2>
 <p>First, let’s load up</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jebyrnes/multifunc" class="external-link">multifunc</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jebyrnes.github.io/multifunc/" class="external-link">multifunc</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://forcats.tidyverse.org" class="external-link">forcats</a></span><span class="op">)</span>
@@ -115,14 +126,17 @@
 <span class="co">#sign-scale (e.g. the maximum level of a function is the "best" function)</span>
 <span class="co">#and the dataset is cleaner</span>
 <span class="va">duffy</span> <span class="op">&lt;-</span> <span class="va">duffy_2003</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
- <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">treatment</span>, <span class="va">diversity</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/one_of.html" class="external-link">one_of</a></span><span class="op">(</span><span class="va">duffyAllVars</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
- <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>wkall_chla <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">*</span><span class="va">wkall_chla</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">wkall_chla</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,
-               tot_algae_mass <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">*</span><span class="va">tot_algae_mass</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">tot_algae_mass</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span> 
+ <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">treatment</span>, 
+               <span class="va">diversity</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">duffyAllVars</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+ <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>wkall_chla <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">*</span><span class="va">wkall_chla</span> <span class="op">+</span> 
+                 <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">wkall_chla</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span>,
+               tot_algae_mass <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">*</span><span class="va">tot_algae_mass</span> <span class="op">+</span> 
+                 <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">tot_algae_mass</span>, na.rm<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span> 
 
 <span class="co"># Plot functions we want</span>
 <span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">treatment</span>, <span class="va">diversity</span>, <span class="va">duffyAllVars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="va">duffyAllVars</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">treatment</span>, <span class="va">diversity</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">duffyAllVars</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">duffyAllVars</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">diversity</span>, y <span class="op">=</span> <span class="va">value</span>, 
              color <span class="op">=</span> <span class="va">treatment</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html" class="external-link">stat_summary</a></span><span class="op">(</span>fun.data <span class="op">=</span> <span class="va">mean_se</span><span class="op">)</span> <span class="op">+</span>
@@ -132,7 +146,8 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Level of Function"</span>, x <span class="op">=</span> <span class="st">"Species Richness"</span>,
        color <span class="op">=</span> <span class="st">"Treatment"</span><span class="op">)</span></code></pre></div>
 <p><img src="multifunc_eff_num_func_files/figure-html/duffy-1.png" width="768"></p>
-<p>From this, we can standardize functions and calculate A, the mean multifunctionality.</p>
+<p>From this, we can standardize functions and calculate A, the mean
+multifunctionality.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#first, mean multifunctionality</span>
 <span class="va">duffy</span> <span class="op">&lt;-</span> <span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -144,7 +159,12 @@
 <span class="va">duffy</span> <span class="op">&lt;-</span><span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/getFuncsMaxed.html">getFuncsMaxed</a></span><span class="op">(</span><span class="va">duffyAllVars</span>,
                 threshmin<span class="op">=</span><span class="fl">0.8</span>, threshmax<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></code></pre></div>
-<p>We can calculate effective number of functions with <code><a href="../reference/eff_num_func.html">multifunc::eff_num_func()</a></code>, which has arguments for different levels of q, standardizing by number of functions, and the use of distance matrices and tau. Let’s calculate the effective number of functions for q = 1 and q = 2. We can then multiple both by the average to get effective multifunctionality.</p>
+<p>We can calculate effective number of functions with
+<code><a href="../reference/eff_num_func.html">multifunc::eff_num_func()</a></code>, which has arguments for
+different levels of q, standardizing by number of functions, and the use
+of distance matrices and tau. Let’s calculate the effective number of
+functions for q = 1 and q = 2. We can then multiple both by the average
+to get effective multifunctionality.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">duffyAllVars.std</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">duffyAllVars</span>, <span class="st">".std"</span><span class="op">)</span>
 
@@ -160,7 +180,9 @@
 <div class="section level2">
 <h2 id="comparison-of-approaches">Comparison of approaches<a class="anchor" aria-label="anchor" href="#comparison-of-approaches"></a>
 </h2>
-<p>With these metrics in hand, how different do either effective number of functions or effective multifunctionality look from previous approaches?</p>
+<p>With these metrics in hand, how different do either effective number
+of functions or effective multifunctionality look from previous
+approaches?</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">treatment</span>, <span class="va">richness</span>,
@@ -178,24 +200,69 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, scale <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set3"</span><span class="op">)</span> </code></pre></div>
 <p><img src="multifunc_eff_num_func_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
-<p>Comparing across all metrics, they produce similar results - as one would hope. Note, however, that the drop-down in average for some of the intermediate diversity treatments is not as strong for effective number of functions. While we see it’s influence again in effective multifunctionality, note that some of the treatments have actually reversed in rank order. This is even more apparent when comparing to number of functions &gt; 0.8, which is also flatter. These observations that the story described from the effective multifunctionality approaches are similar - at least in this data set - to those told by the averaging approach. However, they are subtly different in some key elements, which could have consequences for interpretation, and they have a much more solid grounding in Ecological theory.</p>
-<p>Further, the effective multifunctionality results broadly reproduce the qualitative conclusions of Duffy et al. (2003). They reveal, however, that in lower diversity assemblages, there is less of a drop in effective number of functions. The reason for the strong Biodiversity-Multifunctionality results derive from three observations. First, some lower diversity treatments have low average levels of function despite diversity having more mild impact on evenness of function. Second, the control treatment, while maintaining a high level of function, has a much lower effective number of functions. Thus, the skew in functional dominance in the control drives down effective multifunctionality in this treatment at 0 richness. Third, some monocultures have both low mean and low effective number of functions, further strengthening the effective multifunctionality results beyond what is seen in either the mean, threshold, or number of effective functions results alone.</p>
+<p>Comparing across all metrics, they produce similar results - as one
+would hope. Note, however, that the drop-down in average for some of the
+intermediate diversity treatments is not as strong for effective number
+of functions. While we see it’s influence again in effective
+multifunctionality, note that some of the treatments have actually
+reversed in rank order. This is even more apparent when comparing to
+number of functions &gt; 0.8, which is also flatter. These observations
+that the story described from the effective multifunctionality
+approaches are similar - at least in this data set - to those told by
+the averaging approach. However, they are subtly different in some key
+elements, which could have consequences for interpretation, and they
+have a much more solid grounding in Ecological theory.</p>
+<p>Further, the effective multifunctionality results broadly reproduce
+the qualitative conclusions of Duffy et al. (2003). They reveal,
+however, that in lower diversity assemblages, there is less of a drop in
+effective number of functions. The reason for the strong
+Biodiversity-Multifunctionality results derive from three observations.
+First, some lower diversity treatments have low average levels of
+function despite diversity having more mild impact on evenness of
+function. Second, the control treatment, while maintaining a high level
+of function, has a much lower effective number of functions. Thus, the
+skew in functional dominance in the control drives down effective
+multifunctionality in this treatment at 0 richness. Third, some
+monocultures have both low mean and low effective number of functions,
+further strengthening the effective multifunctionality results beyond
+what is seen in either the mean, threshold, or number of effective
+functions results alone.</p>
 </div>
 <div class="section level2">
 <h2 id="adjusting-for-correlation-between-functions">Adjusting for correlation between functions<a class="anchor" aria-label="anchor" href="#adjusting-for-correlation-between-functions"></a>
 </h2>
-<p>We can also incorporate correlation between functions to calculate effective number of functions controlling for some functions being driven by the same underlying unmeasured function - this producing lower scores for effective number of functions than would appear from our initial approach.</p>
-<p>To begin with, we will need a distance matrix based on correlations. For that, we have <code><a href="../reference/cor_dist.html">multifunc::cor_dist()</a></code> which calculates a correlation matrix, subtracts it from 1 and divides by two to make a distance matrix.</p>
+<p>We can also incorporate correlation between functions to calculate
+effective number of functions controlling for some functions being
+driven by the same underlying unmeasured function - this producing lower
+scores for effective number of functions than would appear from our
+initial approach.</p>
+<p>To begin with, we will need a distance matrix based on correlations.
+For that, we have <code><a href="../reference/cor_dist.html">multifunc::cor_dist()</a></code> which calculates a
+correlation matrix, subtracts it from 1 and divides by two to make a
+distance matrix.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cor_dist.html">cor_dist</a></span><span class="op">(</span><span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">duffyAllVars.std</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>With the approach outlined for effective multifunctionality, we need to also consider a cutoff in similarity, <span class="math inline">\(\tau\)</span>. As a default choice for functions, we use <span class="math inline">\(d_{mean}\)</span>, the average of the matrix weighted by the total frequency of function. To see what <span class="math inline">\(d_{mean}\)</span> would be, we can use <code><a href="../reference/dmean.html">multifunc::dmean()</a></code> and then either use that in future functions, or recognize that functions default to calculating <span class="math inline">\(d_{mean}\)</span>. Other choices could be <span class="math inline">\(d_{max}\)</span> or <span class="math inline">\(d_{min}\)</span> - the minimum non-zero value of the distance matrix which can be calculated with <code>multfunc::dmin()</code> in the same way we use <code><a href="../reference/dmean.html">dmean()</a></code> below.</p>
+<code class="sourceCode R"><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cor_dist.html">cor_dist</a></span><span class="op">(</span><span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">duffyAllVars.std</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>With the approach outlined for effective multifunctionality, we need
+to also consider a cutoff in similarity, <span class="math inline">\(\tau\)</span>. As a default choice for functions,
+we use <span class="math inline">\(d_{mean}\)</span>, the average of the
+matrix weighted by the total frequency of function. To see what <span class="math inline">\(d_{mean}\)</span> would be, we can use
+<code><a href="../reference/dmean.html">multifunc::dmean()</a></code> and then either use that in future
+functions, or recognize that functions default to calculating <span class="math inline">\(d_{mean}\)</span>. Other choices could be <span class="math inline">\(d_{max}\)</span> or <span class="math inline">\(d_{min}\)</span> - the minimum non-zero value of
+the distance matrix which can be calculated with
+<code>multfunc::dmin()</code> in the same way we use
+<code><a href="../reference/dmean.html">dmean()</a></code> below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tau</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dmean.html">dmean</a></span><span class="op">(</span><span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">duffyAllVars.std</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">tau</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dmean.html">dmean</a></span><span class="op">(</span><span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">all_of</a></span><span class="op">(</span><span class="va">duffyAllVars.std</span><span class="op">)</span><span class="op">)</span>,
              <span class="va">D</span><span class="op">)</span>
 
 <span class="va">tau</span>
 <span class="co">#&gt; [1] 0.3860855</span></code></pre></div>
-<p>We can then get the effective multifunctionality for q = 1 and q = 2 adjusting for correlation between species. Here we will use <code><a href="../reference/getMF_eff.html">multifunc::getMF_eff()</a></code> so that we do not have to calculate effective number of functions and multiply by the mean. We can though, if we would like, using <code>n_eff_func()</code> as before with new arguments as below.</p>
+<p>We can then get the effective multifunctionality for q = 1 and q = 2
+adjusting for correlation between species. Here we will use
+<code><a href="../reference/getMF_eff.html">multifunc::getMF_eff()</a></code> so that we do not have to calculate
+effective number of functions and multiply by the mean. We can though,
+if we would like, using <code>n_eff_func()</code> as before with new
+arguments as below.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">duffy</span> <span class="op">&lt;-</span> <span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>mf_eff_1_cor <span class="op">=</span> <span class="fu"><a href="../reference/getMF_eff.html">getMF_eff</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">duffyAllVars</span>, q <span class="op">=</span> <span class="fl">1</span>, 
@@ -203,7 +270,8 @@
          mf_eff_2_cor <span class="op">=</span> <span class="fu"><a href="../reference/getMF_eff.html">getMF_eff</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">duffyAllVars</span>, q <span class="op">=</span> <span class="fl">2</span>,
                                   D <span class="op">=</span> <span class="va">D</span>, tau <span class="op">=</span> <span class="va">tau</span><span class="op">)</span>
          <span class="op">)</span></code></pre></div>
-<p>Let’s then evaluate the consequences of incorporating correlation.</p>
+<p>Let’s then evaluate the consequences of incorporating
+correlation.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">duffy</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">treatment</span>, <span class="va">richness</span>,
@@ -220,7 +288,10 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Set3"</span><span class="op">)</span> </code></pre></div>
 <p><img src="multifunc_eff_num_func_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
-<p>Qualitatively, the results do not appear to change very much, although values incorporating correlations are lower, as expected. However, as fewer unique underlying “functions” are being affected, the results are somewhat weaker in slope.</p>
+<p>Qualitatively, the results do not appear to change very much,
+although values incorporating correlations are lower, as expected.
+However, as fewer unique underlying “functions” are being affected, the
+results are somewhat weaker in slope.</p>
 </div>
   </div>
 
@@ -241,7 +312,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>
