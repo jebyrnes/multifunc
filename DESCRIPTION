@@ -4,8 +4,8 @@ Date: 2022-05-19
 Title: Analysis of Ecological Drivers on Ecosystem Multifunctionality
 Description: Methods for the analysis of how ecological drivers affect the
     multifunctionality of an ecosystem based on methods of Byrnes et al. 
-    2016 <https://doi.org/10.1111/2041-210X.12143> and Byrnes et al. 
-    2022 <https://doi.org/10.1101/2022.03.17.484802>. Most standard
+    2016 <doi:10.1111/2041-210X.12143> and Byrnes et al. 
+    2022 <doi:10.1101/2022.03.17.484802>. Most standard
     methods in the literature are implemented (see vignettes) in a tidy
     format.
 Authors@R: person("Jarrett", "Byrnes",  role = c("aut","cre", "cph"), email = "jarrett.byrnes@umb.edu")
