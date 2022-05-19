@@ -1,7 +1,7 @@
 citHeader("To cite multifunc in publications use:")
 
 citEntry(entry = "Article",
-  title        = "Dates and Times Made Easy with {lubridate}",
+  title        = "Investigating the relationship between biodiversity and ecosystem multifunctionality: challenges and solutions",
   author       = personList(as.person("Jarrett E.K. Byrnes"),
                    as.person("Lars Gamfeldt"),
                    as.person("Forest Isbell"),

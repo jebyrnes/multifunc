@@ -5,7 +5,7 @@ R package for the analysis of multifunctionality in ecological (or other) system
 
 Byrnes, J. E. K., Gamfeldt, L., Isbell, F., Lefcheck, J. S., Griffin, J. N., Hector, A., Cardinale, B. J., Hooper, D. U., Dee, L. E., Emmett Duffy, J. (2014), Investigating the relationship between biodiversity and ecosystem multifunctionality: challenges and solutions. Methods in Ecology and Evolution, 5: 111–124. doi: [10.1111/2041-210X.12143](http://dx.doi.org/10.1111/2041-210X.12143)
 
-Byrnes, J. E. K., Roger, F. and Bagchi, R. 2022. Understandable Multifunctionality Measures Using Hill Numbers. bioRxiv. 2022.03.17.484802. doi: [10.1101/2022.03.17.484802](https://doi.org/10.1101/2022.03.17.484802)
+Byrnes, J. E. K., Roger, F. and Bagchi, R. (2022), Understandable Multifunctionality Measures Using Hill Numbers. bioRxiv. 2022.03.17.484802. doi: [10.1101/2022.03.17.484802](https://doi.org/10.1101/2022.03.17.484802)
 
     library(devtools)
     install_github("jebyrnes/multifunc")
