@@ -9,7 +9,7 @@ Description: Methods for the analysis of how ecological drivers affect the
     methods in the literature are implemented (see vignettes) in a tidy
     format.
 Authors@R: person("Jarrett", "Byrnes",  role = c("aut","cre", "cph"), email = "jarrett.byrnes@umb.edu")
-URL: https://github.com/jebyrnes/multifunc
+URL: https://jebyrnes.github.io/multifunc/, https://github.com/jebyrnes/multifunc
 BugReports: https://github.com/jebyrnes/multifunc/issues
 Imports:
     stats,
