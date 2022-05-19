@@ -1,3 +1,7 @@
+## multifunc 0.9.3 (Release date: 2022-05-19)
+* Minor revisions for CRAN
+* Includes link to bioRxiv paper
+
 ## multifunc 0.9.2 (Release date: 2022-04-16)
 * Cleanup for push to CRAN and paper submission to biorXiv
 
