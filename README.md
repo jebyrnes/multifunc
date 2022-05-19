@@ -1,5 +1,4 @@
 ## Analysis of the effects of drivers on multifunctionality within a system 
-![https://travis-ci.org/jebyrnes/multifunc](https://travis-ci.org/jebyrnes/multifunc.svg?branch=master)  
   
 R package for the analysis of multifunctionality in ecological (or other) systems based on the following papers:
 
