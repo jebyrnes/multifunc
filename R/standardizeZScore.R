@@ -15,4 +15,4 @@
 
 
 standardizeZScore <- function(afun) 
-  (afun - mean(afun, na.rm = FALSE)) / stats::sd(afun, na.rm = T)
+  (afun - mean(afun, na.rm = FALSE)) / stats::sd(afun, na.rm = TRUE)

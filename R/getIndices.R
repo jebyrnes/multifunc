@@ -45,9 +45,9 @@
 #' }
 getIndices <- function(slopedata, threshdata, eqn, fun = stats::glm,
                        divvar = "Diversity", groupVar = "thresholds",
-                       showNfunc = T) {
-  Smax <- max(threshdata[[divvar]], na.rm = T)
-  Smin <- min(threshdata[[divvar]], na.rm = T)
+                       showNfunc = TRUE) {
+  Smax <- max(threshdata[[divvar]], na.rm = TRUE)
+  Smin <- min(threshdata[[divvar]], na.rm = TRUE)
   tdata <- get_t_indices(slopedata)
 
   predFun <- function(thresh, S) {

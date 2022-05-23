@@ -59,7 +59,7 @@ getFuncMaxed <- function(adf, vars = NA, thresh = 0.7, proportion = FALSE,
   vars <- whichVars(adf, vars)
 
   # scan across all functions, see which are >= a threshold
-  # funcMaxed<-rowSums(colwise(function(x) x >= (thresh*max(x, na.rm=T)))(adf[,which(names(adf)%in%vars)]))
+  # funcMaxed<-rowSums(colwise(function(x) x >= (thresh*max(x, na.rm = TRUE)))(adf[,which(names(adf)%in%vars)]))
   getMaxValue <- function(x) {
     l <- length(x)
     mean(sort(x, na.last = FALSE)[l:(l - maxN + 1)], na.rm = TRUE)
