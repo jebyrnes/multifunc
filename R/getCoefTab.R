@@ -22,7 +22,7 @@
 #' @return Returns a data frame of thresholds, coefficients, and their statistical properties.
 #'
 #' @examples
-#'\dontrun{
+#'\donttest{
 #' data(all_biodepth)
 #' allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 #'

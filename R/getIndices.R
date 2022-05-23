@@ -22,7 +22,7 @@
 #' @return A data frame of indices
 #'
 #' @examples
-#'\dontrun{
+#'\donttest{
 #' data(all_biodepth)
 #' allVars <- qw(biomassY3, root3, N.g.m2, light3, N.Soil, wood3, cotton3)
 #'
