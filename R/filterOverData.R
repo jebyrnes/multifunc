@@ -47,12 +47,10 @@ filterOverData <- function(overData, type = "positive") {
   neg <- which(overData < 0, arr.ind = TRUE)
   pos <- which(overData > 0, arr.ind = TRUE)
 
-  if (type == "positive") apply(neg, 1, function(x) overData[x[1], x[2]] <<- 0) # ugh, using apply and <<- because nothing else worked
+  if (type == "positive" | type == "all") overData[neg] <- 0 
   if (type == "negative") {
-    apply(pos, 1, function(x) overData[x[1], x[2]] <<- 0)
-    apply(neg, 1, function(x) overData[x[1], x[2]] <<- 1)
+    overData[pos] <- 0
+    overData[neg] <- 1
   }
-  if (type == "all") apply(neg, 1, function(x) overData[x[1], x[2]] <<- 1)
-
   overData
 }
