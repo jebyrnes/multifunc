@@ -60,7 +60,6 @@ getCoefTab <- function(eqn,
                        groupVar = "thresholds",
                        coefVar = NULL, ...) {
 
-  # options(warn=2)
 
   get_model <- function(one_dat) {
     try(fun(eqn, data = one_dat, ...))
@@ -96,7 +95,6 @@ getCoefTab <- function(eqn,
     ret <- ret %>% dplyr::filter(term %in% coefVar)
   }
 
-  # options(warn=0)
 
   return(ret)
 }

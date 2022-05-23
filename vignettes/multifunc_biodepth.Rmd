@@ -22,7 +22,6 @@ opts_chunk$set(tidy=FALSE,
                warning=FALSE,
                message = FALSE)
 opts_chunk$set(comment="#")
-options(warn = -1)
 ```
 
 ```{r, eval=FALSE}
@@ -60,9 +59,10 @@ varIdx<-which(names(all_biodepth) %in% allVars)
 As we want to work with just the German data, we next subset down the data to just Germany.  We then look at the whether species were seeded or not, and determine which species were indeed seeded in Germany.  If a column of species is full of zeroes, then it was not seeded in these plots.  We will need the column indices of relevant species for later use in the overlap analyses.
 ```{r}
 #######
-#Now, specify what data we're working with - Germany
-#and the relevant variables we'll be working with
+# Now, specify what data we're working with - Germany
+# and the relevant variables we'll be working with
 #######
+
 germany<- all_biodepth %>%
   filter(location=="Germany")
 
@@ -109,18 +109,6 @@ germanyLabels <- germanyForPlotting %>%
          labels =  gsub("p = 0 ", "p < 0.001 ", labels),
          Diversity = 7, 
          value=c(2000, 1200, 1.5, 6, 20))
-#   
-# 
-# germanyFits <- dlply(germanyForPlotting, .(variable), function(x) lm(value ~ Diversity, data=x))
-# germanyLabels <- data.frame(variable = levels(germanyForPlotting$variable), 
-#                             Diversity=7, value=c(2000, 1200, 1.5, 6, 20), 
-#                             lab=paste(letters[1:5], ")", sep=""),
-#                             r2 = sapply(germanyFits, function(x) summary(x)$r.squared),
-#                             p = sapply(germanyFits, function(x) anova(x)[1,5])
-#                             )
-# 
-# germanyLabels$labels <- with(germanyLabels, paste(lab, "p =", round(p,3),expression(R^2), "=", round(r2,2),   sep=" "))
-# germanyLabels$labels <- gsub("p = 0 ", "p < 0.001 ", germanyLabels$labels)
 ```
 
 Finally, we will put it all together into a single plot.
@@ -451,7 +439,7 @@ germanSlopes + annotate(geom="text", y=c(-0.01, -0.01, -0.01, germanIDX$Rmde.lin
 
 Furthermore, we can extend this to the more of the BIODEPTH dataset to compare the strength of multifunctionality across sites.  We begin by loading in the data and calculating slopes at different thresholds.  We'll subset down to Sheffield, Portugal, and Sweden for simplicity, but this could be done for all sites quite easily.
 
-```{r}
+```{r, error=FALSE, warning=FALSE, message=FALSE}
 ####
 # Now we will look at the entire BIODEPTH dataset
 #
@@ -513,7 +501,7 @@ bdLinearSlopes<-getCoefTab(funcMaxed ~ Diversity,
 
 Great, now we can look at the indices of these three new sites. We'll add Germany in so we can compare them against the German values.
 
-```{r}
+```{r, error=FALSE, warning=FALSE, message=FALSE}
 
 indexTable <- lapply(levels(bdLinearSlopes$location), function(x){
   slopedata <- subset(bdLinearSlopes, bdLinearSlopes$location==x) 
